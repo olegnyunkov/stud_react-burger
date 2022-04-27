@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderStyles from './app-header.module.css'
 import { 
     Logo,
     BurgerIcon,
@@ -9,12 +10,21 @@ import {
 
 const AppHeader = () => {
     return(
-        <>
-            <BurgerIcon type="secondary" />
-            <ListIcon type="secondary" />
-            <ProfileIcon type="secondary" />
+        <header className={HeaderStyles.header}>
+            <div className={HeaderStyles.header__item}>
+                <BurgerIcon type="secondary" />
+                <p>Конструктор</p>
+            </div>
+            <div className={HeaderStyles.header__item}>
+                <ListIcon type="secondary" />
+                <p>Лента заказов</p>
+            </div>
             <Logo />
-        </>
+            <div className={HeaderStyles.header__item}>
+                <ProfileIcon type="secondary" />
+                <p>Личный кабинет</p>
+            </div>
+        </header>
     );
 };
 
