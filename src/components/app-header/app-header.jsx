@@ -5,24 +5,27 @@ import {
     BurgerIcon,
     ListIcon,
     ProfileIcon,
+
     } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const AppHeader = () => {
     return(
         <header className={HeaderStyles.header}>
-            <div className={HeaderStyles.header__item}>
+            <div className={`mt-4 mb-4 mr-2 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}>
                 <BurgerIcon type="secondary" />
-                <p>Конструктор</p>
+                <p className='text text_type_main-default ml-2'>Конструктор</p>
             </div>
-            <div className={HeaderStyles.header__item}>
+            <div className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}>
                 <ListIcon type="secondary" />
-                <p>Лента заказов</p>
+                <p className='text text_type_main-default ml-2'>Лента заказов</p>
             </div>
-            <Logo />
-            <div className={HeaderStyles.header__item}>
+            <div className={HeaderStyles.header__logo}>
+                <Logo />
+            </div>
+            <div className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}>
                 <ProfileIcon type="secondary" />
-                <p>Личный кабинет</p>
+                <p className='text text_type_main-default ml-2'>Личный кабинет</p>
             </div>
         </header>
     );

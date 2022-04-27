@@ -1,10 +1,14 @@
 .header {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(min-content, max-content));
     padding: 0 320px;
 }
 
 .header__item {
     display: flex;
+}
+
+.header__logo {
+    margin: 24px 287px 24px 112px;
 }
