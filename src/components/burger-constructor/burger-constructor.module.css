@@ -1,0 +1,13 @@
+.ingredients {
+    margin-left: 340px;
+}
+
+.buns {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
+.bun__price {
+    display: flex;
+}

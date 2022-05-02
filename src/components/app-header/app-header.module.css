@@ -2,11 +2,13 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(4, minmax(min-content, max-content));
-    padding: 0 320px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .header__item {
     display: flex;
+    align-items: center;
 }
 
 .header__logo {

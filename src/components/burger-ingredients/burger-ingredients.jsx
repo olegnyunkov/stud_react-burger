@@ -1,18 +1,76 @@
 import React from 'react';
-
+import Ingredients from './burger-ingredients.module.css';
 import { 
     Tab,
-    } from '@ya.praktikum/react-developer-burger-ui-components';
+    CurrencyIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
     return(
         <section>
-            <p>Соберите бургер</p>
+            <Title styles={'mt-10 mb-5 text text_type_main-large'} title='Соберите бургер' />
             <Tabs />
-            <p>Булки</p>
-            <p>Соусы</p>
-
+            <div className={Ingredients.ingredients__items}>
+                <Title styles={'mt-10 text text_type_main-medium'} title='Булки' />
+                <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+                    {props.data.map((item) => {
+                        if(item.type === 'bun') {
+                            return (
+                                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} />
+                            )
+                        }})}
+                </div>
+                <Title styles={'mb-6 text text_type_main-medium'} title='Соусы' />
+                <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+                    {props.data.map((item) => {
+                        if(item.type === 'sauce') {
+                            return (
+                                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} />
+                            )
+                        }})}
+                </div>
+                <Title styles={'mb-6 text text_type_main-medium'} title='Начинки' />
+                <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+                    {props.data.map((item) => {
+                        if(item.type === 'main') {
+                            return (
+                                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} />
+                            )
+                        }})}
+                </div>
+            </div>
         </section>
+    )
+}
+
+const Title = (props) => {
+    return(
+    <p className={props.styles}>{props.title}</p>
+    )
+}
+
+const BurgerImage = (props) => {
+    return(
+        <img src={props.src} alt={props.alt} className={props.styles} />
+    )
+}
+
+const BurgerPrice = (props) => {
+    return(
+        <div className={props.styles}>
+            <p className="text text_type_digits-default mr-2">{props.price}</p>
+            <CurrencyIcon type="primary" />
+        </div>
+    )
+}
+
+const BurgerItem = (props) => {
+    return(
+        <div key={props.key}>
+            <BurgerImage src={props.src} alt={props.name} styles={'ml-4 mr-4 mb-1'}/>
+            <BurgerPrice price={props.price} styles={`${Ingredients.bun__price} mb-1`} />
+            <p className={`${Ingredients.bun__title} text text_type_main-default`}>{props.name}</p>
+        </div>
     )
 }
 
@@ -21,16 +79,16 @@ const Tabs = () => {
     return (
       <div style={{ display: 'flex' }}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-          One
+            Булки
         </Tab>
         <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-          Two
+            Соусы
         </Tab>
         <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-          Three
+            Начинки
         </Tab>
       </div>
     )
-  }
+}
 
 export default BurgerIngredients;
