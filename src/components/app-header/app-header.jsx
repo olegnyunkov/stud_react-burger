@@ -5,9 +5,7 @@ import {
     BurgerIcon,
     ListIcon,
     ProfileIcon,
-
     } from '@ya.praktikum/react-developer-burger-ui-components';
-
 
 const AppHeader = () => {
     return(
