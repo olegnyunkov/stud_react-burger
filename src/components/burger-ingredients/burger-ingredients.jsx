@@ -1,5 +1,6 @@
 import React from 'react';
 import Ingredients from './burger-ingredients.module.css';
+import PropTypes from 'prop-types';
 import { 
     Tab,
     CurrencyIcon,
@@ -66,7 +67,7 @@ const BurgerPrice = (props) => {
 
 const BurgerItem = (props) => {
     return(
-        <div key={props.key}>
+        <div>
             <BurgerImage src={props.src} alt={props.name} styles={'ml-4 mr-4 mb-1'}/>
             <BurgerPrice price={props.price} styles={`${Ingredients.bun__price} mb-1`} />
             <p className={`${Ingredients.bun__title} text text_type_main-default`}>{props.name}</p>
@@ -89,6 +90,21 @@ const Tabs = () => {
         </Tab>
       </div>
     )
+}
+
+Title.propTypes = {
+    styles: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+}
+
+BurgerImage.propTypes = {
+    src: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired,
+    styles: PropTypes.string.isRequired
+}
+
+BurgerPrice.propTypes = {
+    styles: PropTypes.string.isRequired
 }
 
 export default BurgerIngredients;

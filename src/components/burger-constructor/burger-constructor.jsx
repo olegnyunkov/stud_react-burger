@@ -24,7 +24,7 @@ const BurgerConstructor = (props) => {
                     props.data.map((item) => {
                         if(item.type === 'main' && 'sauce') {
                             return(
-                                <div className={Constructor.constructor__element}>
+                                <div key={item._id} className={Constructor.constructor__element}>
                                     <div className='mr-2'>
                                         <DragIcon type="primary" />
                                     </div>
