@@ -1,0 +1,37 @@
+.constructor__elements {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 45vh;
+}
+
+.constructor__elements::-webkit-scrollbar {
+    width: 8px;
+}
+
+.constructor__elements::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.constructor__elements::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 292px;
+}
+
+.constructor__element {
+    display: flex;
+    align-items: center;
+}
+
+.constructor__price {
+    display: flex;
+    align-items: center;
+}
+
+.constructor__total {
+    display: flex; 
+    justify-content: flex-end;
+}

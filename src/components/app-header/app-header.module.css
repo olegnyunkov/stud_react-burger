@@ -1,0 +1,16 @@
+.header {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, minmax(min-content, max-content));
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.header__item {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    margin: 24px 287px 24px 112px;
+}
