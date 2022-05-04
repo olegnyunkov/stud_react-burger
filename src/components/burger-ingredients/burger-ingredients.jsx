@@ -78,7 +78,7 @@ const BurgerItem = (props) => {
 const Tabs = () => {
     const [current, setCurrent] = React.useState('one')
     return (
-      <div style={{ display: 'flex' }}>
+      <div className={Ingredients.ingredients__tabs}>
         <Tab value="one" active={current === 'one'} onClick={setCurrent}>
             Булки
         </Tab>
@@ -90,6 +90,10 @@ const Tabs = () => {
         </Tab>
       </div>
     )
+}
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 Title.propTypes = {
@@ -104,7 +108,8 @@ BurgerImage.propTypes = {
 }
 
 BurgerPrice.propTypes = {
-    styles: PropTypes.string.isRequired
+    styles: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
 }
 
 export default BurgerIngredients;

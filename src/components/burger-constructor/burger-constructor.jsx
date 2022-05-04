@@ -1,6 +1,7 @@
 import React from 'react';
 import Constructor from './burger-constructor.module.css';
-import {
+import PropTypes from 'prop-types';
+import { 
     CurrencyIcon,
     ConstructorElement,
     Button,
@@ -46,17 +47,21 @@ const BurgerConstructor = (props) => {
                     thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
                 />
             </div>
-            <div style={{display: 'flex', justifyContent: "flex-end"}}>
+            <div  className={`${Constructor.constructor__total} mr-4`}>
                 <div className={`${Constructor.constructor__price} mr-10`}>
                     <p className="text text_type_digits-medium mr-2">610</p>
                     <CurrencyIcon />
                 </div>
                 <Button type="primary" size="medium">
-                    Нажми на меня
+                    Оформить заказ
                 </Button>
             </div>
         </section>
     )
+}
+
+BurgerConstructor.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default BurgerConstructor;
