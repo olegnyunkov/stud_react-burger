@@ -9,10 +9,11 @@ const checkResponse = (res) => {
   }
 }
 
-export const Api = fetch(apiUrl, {
+export const api = () => {
+  return fetch(apiUrl, {
     headers: {
       'Content-Type': 'application/json'
     }
   })
     .then(checkResponse)
-
+}

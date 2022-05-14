@@ -7,6 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
+    console.log(props)
     return(
         <section>
             <Title styles={'mt-10 mb-5 text text_type_main-large'} title='Соберите бургер' />

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import main from './app.module.css';
-// import {data} from "../../utils/data";
-import {Api} from '../api/api'
+import {api} from '../../utils/api'
 
+const App = () => {
+  const [data, setData] = useState([])
 
-function App() {
-  Api.then((info) => {
-    const data = info;
-    console.log(info)
+  useEffect(() => {
+    api()
+      .then((res) => {
+        setData(res.data)
+      })
+  }, [])
+
     return (
       <>
         <AppHeader/>
@@ -21,7 +25,7 @@ function App() {
       </>
     );
   }
-  )}
 
 
-export default App;
+  export default App;
+
