@@ -2,11 +2,21 @@ import React, {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import main from './app.module.css';
-import {api} from '../../utils/api'
+import Main from './app.module.css';
+import {api} from '../../utils/api';
+import Modal from "../modal/modal";
 
 const App = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+  const [isOpened, setIsOpened] = useState(true);
+
+  const handleOpenModal = () => {
+    setIsOpened(false)
+  }
+
+  const handleCloseModal = () => {
+    setIsOpened(true)
+  }
 
   useEffect(() => {
     api()
@@ -15,17 +25,17 @@ const App = () => {
       })
   }, [])
 
-    return (
-      <>
-        <AppHeader/>
-        <div className={main.main}>
-          <BurgerIngredients data={data}/>
-          <BurgerConstructor data={data}/>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <AppHeader/>
+      <div className={Main.main}>
+        <BurgerIngredients data={data} handleOpenModal={handleOpenModal}/>
+        <BurgerConstructor data={data}/>
+      </div>
+      <Modal isOpened={isOpened} handleCloseModal={handleCloseModal}/>
+    </>
+  );
+}
 
 
-  export default App;
-
+export default App;
