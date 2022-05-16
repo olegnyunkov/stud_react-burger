@@ -9,9 +9,11 @@ import Modal from "../modal/modal";
 const App = () => {
   const [data, setData] = useState([]);
   const [isOpened, setIsOpened] = useState(true);
+  const [modalInfo, setModalInfo] = useState([])
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (info) => {
     setIsOpened(false)
+    setModalInfo(info)
   }
 
   const handleCloseModal = () => {
@@ -32,7 +34,7 @@ const App = () => {
         <BurgerIngredients data={data} handleOpenModal={handleOpenModal}/>
         <BurgerConstructor data={data}/>
       </div>
-      <Modal isOpened={isOpened} handleCloseModal={handleCloseModal}/>
+      <Modal isOpened={isOpened} handleCloseModal={handleCloseModal} data={data} modalInfo={modalInfo}/>
     </>
   );
 }

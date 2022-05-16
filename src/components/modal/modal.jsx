@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ModalStyles from './modal.module.css';
-import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {CloseIcon, CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({isOpened, handleCloseModal}) => {
+const Modal = ({isOpened, handleCloseModal, modalInfo}) => {
+  
   return ReactDOM.createPortal(
     <>
       <div className={isOpened ? ModalStyles.modal__closed : ModalStyles.modal__opened}>
@@ -15,7 +16,7 @@ const Modal = ({isOpened, handleCloseModal}) => {
             <p className="text text_type_main-large">Детали ингредиента</p>
             <CloseIcon type={"primary"} onClick={handleCloseModal}/>
           </div>
-          <IngredientDetails/>
+          <IngredientDetails modalInfo={modalInfo}/>
         </div>
         <ModalOverlay handleCloseModal={handleCloseModal}/>
       </div>
@@ -26,29 +27,28 @@ const Modal = ({isOpened, handleCloseModal}) => {
 
 export default Modal;
 
-const IngredientDetails = () => {
+const IngredientDetails = ({modalInfo}) => {
   return (
     <>
       <div className={ModalStyles.ingredient__list}>
-        <img src="https://code.s3.yandex.net/react/code/bun-02-large.png" alt="Краторная булка N-200i"/>
-        <p className={`${ModalStyles.ingredient__title} text text_type_main-medium mt-4`}>Биокотлета из марсианской
-          Магнолии</p>
+        <img src={modalInfo.image_large} alt={modalInfo.name}/>
+        <p className={`${ModalStyles.ingredient__title} text text_type_main-medium mt-4`}>{modalInfo.name}</p>
         <div className={`${ModalStyles.ingredient__description} mt-8`}>
           <div className={'mr-5'}>
             <p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
-            <p className="text text_type_digits-default text_color_inactive">244,4</p>
+            <p className="text text_type_digits-default text_color_inactive">{modalInfo.calories}</p>
           </div>
           <div className={'mr-5'}>
             <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-            <p className="text text_type_digits-default text_color_inactive">12,2</p>
+            <p className="text text_type_digits-default text_color_inactive">{modalInfo.proteins}</p>
           </div>
           <div className={'mr-5'}>
             <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-            <p className="text text_type_digits-default text_color_inactive">17,2</p>
+            <p className="text text_type_digits-default text_color_inactive">{modalInfo.fat}</p>
           </div>
           <div>
             <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-            <p className="text text_type_digits-default text_color_inactive">10,2</p>
+            <p className="text text_type_digits-default text_color_inactive">{modalInfo.carbohydrates}</p>
           </div>
         </div>
       </div>
@@ -57,5 +57,13 @@ const IngredientDetails = () => {
 };
 
 const OrderDetails = () => {
-
+  return (
+    <>
+      <p className="text text_type_digits-medium">034536</p>
+      <p className="text text_type_main-medium">идентификатор заказа</p>
+      <CheckMarkIcon type="primary" />
+      <p className="text text_type_main-default">Ваш заказ начали готовить</p>
+      <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
+    </>
+  )
 };
