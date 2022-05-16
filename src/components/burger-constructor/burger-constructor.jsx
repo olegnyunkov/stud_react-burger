@@ -54,7 +54,7 @@ const BurgerConstructor = (props) => {
           <p className="text text_type_digits-medium mr-2">610</p>
           <CurrencyIcon/>
         </div>
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={props.openOrderModal}>
           Оформить заказ
         </Button>
       </div>
