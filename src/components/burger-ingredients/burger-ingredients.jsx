@@ -17,7 +17,8 @@ const BurgerIngredients = (props) => {
           {props.data.map((item) => {
             if (item.type === 'bun') {
               return (
-                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} openIngredientsModal={() => props.openIngredientsModal(item)}/>
+                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                            openIngredientsModal={() => props.openIngredientsModal(item)}/>
               )
             }
           })}
@@ -27,7 +28,8 @@ const BurgerIngredients = (props) => {
           {props.data.map((item) => {
             if (item.type === 'sauce') {
               return (
-                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} openIngredientsModal={() => props.openIngredientsModal(item)}/>
+                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                            openIngredientsModal={() => props.openIngredientsModal(item)}/>
               )
             }
           })}
@@ -37,7 +39,8 @@ const BurgerIngredients = (props) => {
           {props.data.map((item) => {
             if (item.type === 'main') {
               return (
-                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price} openIngredientsModal={() => props.openIngredientsModal(item)}/>
+                <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                            openIngredientsModal={() => props.openIngredientsModal(item)}/>
               )
             }
           })}

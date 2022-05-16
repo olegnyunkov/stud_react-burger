@@ -6,18 +6,27 @@ import {CloseIcon, CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({isOpened, closeIngredientsModal, modalInfo}) => {
-  
+const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, modalInfo, title, ...props}) => {
+  React.useEffect(() => {
+    if(isOpened || orderIsOpened) {
+      document.addEventListener('keydown', closeEscBtn)
+    }
+    return () => {
+      document.removeEventListener('keydown', closeEscBtn)
+    }
+  })
+
   return ReactDOM.createPortal(
     <>
-      <div className={isOpened ? ModalStyles.modal__closed : ModalStyles.modal__opened}>
+      <div className={isOpened || orderIsOpened ? ModalStyles.modal__opened : ModalStyles.modal__closed}>
         <div className={`${ModalStyles.modal} pt-10 pl-10 pr-10 pb-15`}>
           <div className={ModalStyles.modal__title}>
-            <p className="text text_type_main-large">Детали ингредиента</p>
-            <CloseIcon type={"primary"} onClick={closeIngredientsModal}/>
+            <p className="text text_type_main-large">{title}</p>
+            <CloseIcon type={"primary"} onClick={closeModal}/>
           </div>
+          {props.children}
         </div>
-        <ModalOverlay closeIngredientsModal={closeIngredientsModal}/>
+        <ModalOverlay closeModal={closeModal}/>
       </div>
     </>,
     modalRoot
@@ -26,14 +35,3 @@ const Modal = ({isOpened, closeIngredientsModal, modalInfo}) => {
 
 export default Modal;
 
-const OrderDetails = () => {
-  return (
-    <>
-      <p className="text text_type_digits-medium">034536</p>
-      <p className="text text_type_main-medium">идентификатор заказа</p>
-      <CheckMarkIcon type="primary" />
-      <p className="text text_type_main-default">Ваш заказ начали готовить</p>
-      <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
-    </>
-  )
-};
