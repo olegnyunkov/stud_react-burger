@@ -11,30 +11,35 @@ const App = () => {
   const [isOpened, setIsOpened] = useState(true);
   const [modalInfo, setModalInfo] = useState([])
 
-  const handleOpenModal = (info) => {
+  const openIngredientsModal = (info) => {
     setIsOpened(false)
     setModalInfo(info)
   }
 
-  const handleCloseModal = () => {
+  const closeIngredientsModal = () => {
     setIsOpened(true)
   }
 
+  const openOrderModal = () => {
+
+  }
+
   useEffect(() => {
-    api()
-      .then((res) => {
-        setData(res.data)
-      })
+    api().then((res) => setData(res.data))
   }, [])
 
   return (
     <>
       <AppHeader/>
       <div className={Main.main}>
-        <BurgerIngredients data={data} handleOpenModal={handleOpenModal}/>
+        <BurgerIngredients data={data} openIngredientsModal={openIngredientsModal}/>
         <BurgerConstructor data={data}/>
       </div>
-      <Modal isOpened={isOpened} handleCloseModal={handleCloseModal} data={data} modalInfo={modalInfo}/>
+      <Modal isOpened={isOpened} closeIngredientsModal={closeIngredientsModal} data={data} modalInfo={modalInfo}>
+      </Modal>
+      {/* <Modal>
+
+      </Modal> */}
     </>
   );
 }

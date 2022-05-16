@@ -6,7 +6,7 @@ import {CloseIcon, CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({isOpened, handleCloseModal, modalInfo}) => {
+const Modal = ({isOpened, closeIngredientsModal, modalInfo}) => {
   
   return ReactDOM.createPortal(
     <>
@@ -14,11 +14,11 @@ const Modal = ({isOpened, handleCloseModal, modalInfo}) => {
         <div className={`${ModalStyles.modal} pt-10 pl-10 pr-10 pb-15`}>
           <div className={ModalStyles.modal__title}>
             <p className="text text_type_main-large">Детали ингредиента</p>
-            <CloseIcon type={"primary"} onClick={handleCloseModal}/>
+            <CloseIcon type={"primary"} onClick={closeIngredientsModal}/>
           </div>
           <IngredientDetails modalInfo={modalInfo}/>
         </div>
-        <ModalOverlay handleCloseModal={handleCloseModal}/>
+        <ModalOverlay closeIngredientsModal={closeIngredientsModal}/>
       </div>
     </>,
     modalRoot
@@ -28,6 +28,7 @@ const Modal = ({isOpened, handleCloseModal, modalInfo}) => {
 export default Modal;
 
 const IngredientDetails = ({modalInfo}) => {
+  
   return (
     <>
       <div className={ModalStyles.ingredient__list}>

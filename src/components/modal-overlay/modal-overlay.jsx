@@ -1,10 +1,10 @@
 import React from 'react';
 import OverlayStyles from './modal-overlay.module.css';
 
-const ModalOverlay = ({handleCloseModal}) => {
+const ModalOverlay = ({closeIngredientsModal}) => {
 
   return (
-    <div className={OverlayStyles.modal__overlay} onClick={handleCloseModal}/>
+    <div className={OverlayStyles.modal__overlay} onClick={closeIngredientsModal}/>
   )
 };
 

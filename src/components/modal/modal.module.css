@@ -13,10 +13,14 @@
 
 .modal__opened {
     visibility: visible;
+    opacity: 1;
+    transition: visibility .5s, opacity .5s ease
 }
 
 .modal__closed {
     visibility: hidden;
+    opacity: 0;
+    transition: visibility .5s, opacity .5s ease
 }
 
 .modal__title {
@@ -25,17 +29,9 @@
     align-items: center;
 }
 
-.modal__closebtn {
-
-}
-
 .ingredient__list {
     display: flex;
     flex-direction: column;
-}
-
-.ingredient__image {
-
 }
 
 .ingredient__title {
