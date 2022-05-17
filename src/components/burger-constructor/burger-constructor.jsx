@@ -8,7 +8,7 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = ({data, openOrderModal}) => {
   return (
     <section className='pt-25 pl-4'>
       <div className='pl-8 mr-4 mb-4'>
@@ -22,7 +22,7 @@ const BurgerConstructor = (props) => {
       </div>
       <div className={`${Constructor.constructor__elements} mb-4 pr-2`}>
         {
-          props.data.map((item) => {
+          data.map((item) => {
             if (item.type === 'main' && 'sauce') {
               return (
                 <div key={item._id} className={Constructor.constructor__element}>
@@ -54,7 +54,7 @@ const BurgerConstructor = (props) => {
           <p className="text text_type_digits-medium mr-2">610</p>
           <CurrencyIcon/>
         </div>
-        <Button type="primary" size="medium" onClick={props.openOrderModal}>
+        <Button type="primary" size="medium" onClick={openOrderModal}>
           Оформить заказ
         </Button>
       </div>

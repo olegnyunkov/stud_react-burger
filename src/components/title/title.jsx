@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Title = (props) => {
+const Title = ({styles, title}) => {
   return (
-    <p className={props.styles}>{props.title}</p>
+    <p className={styles}>{title}</p>
   )
 }
 

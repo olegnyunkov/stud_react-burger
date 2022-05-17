@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ModalStyles from './modal.module.css';
-import {CloseIcon, CheckMarkIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, modalInfo, title, ...props}) => {
+const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, title, children}) => {
   React.useEffect(() => {
     if(isOpened || orderIsOpened) {
       document.addEventListener('keydown', closeEscBtn)
@@ -24,7 +24,7 @@ const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, modalInfo, tit
             <p className="text text_type_main-large">{title}</p>
             <CloseIcon type={"primary"} onClick={closeModal}/>
           </div>
-          {props.children}
+          {children}
         </div>
         <ModalOverlay closeModal={closeModal}/>
       </div>

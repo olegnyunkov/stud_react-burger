@@ -4,10 +4,10 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerPrice = (props) => {
+const BurgerPrice = ({styles, price}) => {
   return (
-    <div className={props.styles}>
-      <p className="text text_type_digits-default mr-2">{props.price}</p>
+    <div className={styles}>
+      <p className="text text_type_digits-default mr-2">{price}</p>
       <CurrencyIcon type="primary"/>
     </div>
   )

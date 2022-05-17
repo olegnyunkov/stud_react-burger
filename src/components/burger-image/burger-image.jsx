@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BurgerImage = (props) => {
+const BurgerImage = ({src, alt, styles}) => {
   return (
-    <img src={props.src} alt={props.alt} className={props.styles}/>
+    <img src={src} alt={alt} className={styles}/>
   )
 }
 

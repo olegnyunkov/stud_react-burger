@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import IngredientDetailsStyles from './ingredient-details.module.css';
 
 const IngredientDetails = ({modalInfo}) => {
@@ -31,5 +32,9 @@ const IngredientDetails = ({modalInfo}) => {
     </>
   )
 };
+
+IngredientDetails.propTypes = {
+  modalInfo: PropTypes.array.isRequired,
+}
 
 export default IngredientDetails;

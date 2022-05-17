@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import OrderDetailsStyles from './order-details.module.css';
 import doneIcon from '../../images/done.png'
 
@@ -15,5 +16,9 @@ const OrderDetails = ({orderInfo}) => {
     </>
   )
 };
+
+OrderDetails.propTypes = {
+  orderInfo: PropTypes.object.isRequired,
+}
 
 export default OrderDetails;

@@ -34,7 +34,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    api().then((res) => setData(res.data))
+    api().then((res) => setData(res.data)).catch((res) => console.log(res))
   }, [])
 
   return (
