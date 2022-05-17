@@ -1,0 +1,8 @@
+.bun__price {
+    display: flex;
+    justify-content: center;
+}
+
+.bun__title {
+    text-align: center;
+}

@@ -1,0 +1,14 @@
+.ingredient__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient__title {
+    text-align: center;
+}
+
+.ingredient__description {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
