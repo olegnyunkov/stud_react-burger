@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from 'prop-types';
 import OrderDetailsStyles from './order-details.module.css';
 import doneIcon from '../../images/done.png'
+import {ConstructorContext} from "../../services/constructor-context";
 
-const OrderDetails = ({orderInfo}) => {
+const OrderDetails = () => {
+  const [, orderInfo] = useContext(ConstructorContext);
+  console.log(orderInfo)
+
   return (
     <>
       <div className={OrderDetailsStyles.order__container}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -6,7 +6,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from "../order-details/order-details";
 import Main from './app.module.css';
 import {api} from '../../utils/api';
-import {orderInfo} from '../../utils/data'
+import {ConstructorContext} from '../../services/constructor-context';
+import {orderInfo} from '../../utils/data';
 import Modal from "../modal/modal";
 
 const App = () => {
@@ -39,23 +40,26 @@ const App = () => {
 
   return (
     <>
-      <AppHeader/>
-      <div className={Main.main}>
-        <BurgerIngredients data={data} openIngredientsModal={openIngredientsModal}/>
-        <BurgerConstructor data={data} openOrderModal={openOrderModal}/>
-      </div>
-      {
-        isOpened && (
-        <Modal isOpened={isOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} modalInfo={modalInfo} title='Детали ингредиента'>
-          <IngredientDetails modalInfo={modalInfo}/>
-        </Modal>
-      )}
-      {
-        orderIsOpened && (
-        <Modal orderIsOpened={orderIsOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} title=''>
-          <OrderDetails orderInfo={orderInfo}/>
-        </Modal>
-      )}
+      <ConstructorContext.Provider value={[data, orderInfo]}>
+        <AppHeader/>
+        <div className={Main.main}>
+          <BurgerIngredients openIngredientsModal={openIngredientsModal}/>
+          <BurgerConstructor openOrderModal={openOrderModal}/>
+        </div>
+        {
+          isOpened && (
+            <Modal isOpened={isOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} modalInfo={modalInfo}
+                   title='Детали ингредиента'>
+              <IngredientDetails modalInfo={modalInfo}/>
+            </Modal>
+          )}
+        {
+          orderIsOpened && (
+            <Modal orderIsOpened={orderIsOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} title=''>
+              <OrderDetails />
+            </Modal>
+          )}
+      </ConstructorContext.Provider>
     </>
   );
 }

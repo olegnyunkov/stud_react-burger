@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Constructor from './burger-constructor.module.css';
+import {ConstructorContext} from "../../services/constructor-context";
 import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
@@ -8,7 +9,10 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = ({data, openOrderModal}) => {
+
+const BurgerConstructor = ({ openOrderModal }) => {
+  const [data] = useContext(ConstructorContext);
+
   return (
     <section className='pt-25 pl-4'>
       <div className='pl-8 mr-4 mb-4'>
@@ -62,8 +66,8 @@ const BurgerConstructor = ({data, openOrderModal}) => {
   )
 }
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired
-}
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.arrayOf(PropTypes.object).isRequired
+// }
 
 export default BurgerConstructor;

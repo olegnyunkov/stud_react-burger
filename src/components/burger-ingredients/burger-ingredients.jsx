@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import Ingredients from './burger-ingredients.module.css';
+import {ConstructorContext} from "../../services/constructor-context";
 
-const BurgerIngredients = ({data, openIngredientsModal}) => {
+const BurgerIngredients = ({ openIngredientsModal }) => {
+  const [data] = useContext(ConstructorContext);
 
   return (
     <section>
@@ -50,8 +52,8 @@ const BurgerIngredients = ({data, openIngredientsModal}) => {
   )
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired
-}
+// BurgerIngredients.propTypes = {
+//   data: PropTypes.arrayOf(PropTypes.object).isRequired
+// }
 
 export default BurgerIngredients;
