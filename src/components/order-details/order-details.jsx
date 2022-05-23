@@ -2,10 +2,10 @@ import React, {useContext} from "react";
 import PropTypes from 'prop-types';
 import OrderDetailsStyles from './order-details.module.css';
 import doneIcon from '../../images/done.png'
-import {ConstructorContext} from "../../services/constructor-context";
+import {IngredientsContext} from "../../services/ingredients-context";
 
 const OrderDetails = () => {
-  const [, orderInfo] = useContext(ConstructorContext);
+  const [, orderInfo] = useContext(IngredientsContext);
   console.log(orderInfo)
 
   return (

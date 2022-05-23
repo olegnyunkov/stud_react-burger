@@ -4,10 +4,10 @@ import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import Ingredients from './burger-ingredients.module.css';
-import {ConstructorContext} from "../../services/constructor-context";
+import {IngredientsContext} from "../../services/ingredients-context";
 
 const BurgerIngredients = ({ openIngredientsModal }) => {
-  const [data] = useContext(ConstructorContext);
+  const [data] = useContext(IngredientsContext);
 
   return (
     <section>

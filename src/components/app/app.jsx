@@ -6,7 +6,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from "../order-details/order-details";
 import Main from './app.module.css';
 import {api} from '../../utils/api';
-import {ConstructorContext} from '../../services/constructor-context';
+import {IngredientsContext} from '../../services/ingredients-context';
 import {orderInfo} from '../../utils/data';
 import Modal from "../modal/modal";
 
@@ -40,7 +40,7 @@ const App = () => {
 
   return (
     <>
-      <ConstructorContext.Provider value={[data, orderInfo]}>
+      <IngredientsContext.Provider value={[data, orderInfo]}>
         <AppHeader/>
         <div className={Main.main}>
           <BurgerIngredients openIngredientsModal={openIngredientsModal}/>
@@ -59,7 +59,7 @@ const App = () => {
               <OrderDetails />
             </Modal>
           )}
-      </ConstructorContext.Provider>
+      </IngredientsContext.Provider>
     </>
   );
 }

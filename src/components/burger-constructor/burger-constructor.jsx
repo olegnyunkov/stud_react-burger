@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import Constructor from './burger-constructor.module.css';
-import {ConstructorContext} from "../../services/constructor-context";
+import {IngredientsContext} from "../../services/ingredients-context";
 import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
@@ -11,7 +11,7 @@ import {
 
 
 const BurgerConstructor = ({ openOrderModal }) => {
-  const [data] = useContext(ConstructorContext);
+  const [data] = useContext(IngredientsContext);
 
   return (
     <section className='pt-25 pl-4'>
