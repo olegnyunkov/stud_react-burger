@@ -6,7 +6,6 @@ import {IngredientsContext} from "../../services/ingredients-context";
 
 const OrderDetails = () => {
   const [, orderInfo] = useContext(IngredientsContext);
-  console.log(orderInfo)
 
   return (
     <>

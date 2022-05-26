@@ -5,7 +5,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from "../order-details/order-details";
 import Main from './app.module.css';
-import {api} from '../../utils/api';
+import { api } from '../../utils/api';
 import {IngredientsContext} from '../../services/ingredients-context';
 import {orderInfo} from '../../utils/data';
 import Modal from "../modal/modal";
@@ -27,7 +27,7 @@ const App = () => {
   }
 
   const openOrderModal = () => {
-    setOrderIsOpened(true)
+    setOrderIsOpened(true);
   }
 
   const closeEscBtn = (evt) => {

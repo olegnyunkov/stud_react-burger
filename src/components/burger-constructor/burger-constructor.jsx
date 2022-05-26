@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Constructor from './burger-constructor.module.css';
 import {IngredientsContext} from "../../services/ingredients-context";
+import { orderApi } from '../../utils/api'
 import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
@@ -9,9 +10,9 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 const BurgerConstructor = ({ openOrderModal }) => {
   const [data] = useContext(IngredientsContext);
+  const [orderInfo, setOrderInfo] = useState([])
 
   return (
     <section className='pt-25 pl-4'>

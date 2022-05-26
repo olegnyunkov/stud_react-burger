@@ -20,12 +20,24 @@ export const api = () => {
     .then(checkResponse)
 }
 
-export const orderApi = () => {
+// return fetch(orderApiUrl, {
+//   method: 'POST',
+//   body: JSON.stringify({'ingredients': orderDataId}),
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// })
+//   .then(checkResponse)
+
+export const orderApi = (orderData) => {
+  const orderDataId = orderData.items.map(item => return item._id);
   return fetch(orderApiUrl, {
+    method: 'POST',
+    body: JSON.stringify({'ingredients': orderDataId}),
     headers: {
-      'Content-Type': 'application/json',
-      'ingredients': ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"]
+      'Content-Type': 'application/json'
     }
   })
     .then(checkResponse)
 }
+
