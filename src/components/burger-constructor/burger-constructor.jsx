@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext } from 'react';
 import Constructor from './burger-constructor.module.css';
 import {IngredientsContext} from "../../services/ingredients-context";
 import { orderApi } from '../../utils/api'
@@ -10,9 +10,15 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerConstructor = ({ openOrderModal }) => {
-  const [data] = useContext(IngredientsContext);
-  const [orderInfo, setOrderInfo] = useState([])
+const BurgerConstructor = ({ setOrderIsOpened, setOrderInfo }) => {
+  const [data] = useContext(IngredientsContext);  
+
+  const saveOrder = data.map(item => {return item._id})
+  const openOrderModal = () => {
+    setOrderIsOpened(true);
+    orderApi(saveOrder).then(res => setOrderInfo(res)).catch((res) => console.log(res))
+  }
+
 
   return (
     <section className='pt-25 pl-4'>
