@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ModalStyles from './modal.module.css';
-import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes, {func} from "prop-types";
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, title, children}) => {
+const Modal = ({ isOpened, orderIsOpened, closeModal, closeEscBtn, title, children }) => {
   React.useEffect(() => {
     if(isOpened || orderIsOpened) {
       document.addEventListener('keydown', closeEscBtn)
@@ -32,6 +33,13 @@ const Modal = ({isOpened, orderIsOpened, closeModal, closeEscBtn, title, childre
     modalRoot
   )
 };
+
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  closeEscBtn: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired
+}
 
 export default Modal;
 

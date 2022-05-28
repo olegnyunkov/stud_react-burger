@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from "../order-details/order-details";
 import Main from './app.module.css';
 import { api } from '../../utils/api';
-import {IngredientsContext} from '../../services/ingredients-context';
-import Modal from "../modal/modal";
+import { IngredientsContext } from '../../services/ingredients-context';
+
+const orderInitialState = {
+  "name": "",
+  "order": {
+    "number": ""
+  },
+  "success": false
+}
 
 const App = () => {
   const [data, setData] = useState([]);
   const [isOpened, setIsOpened] = useState(false);
   const [orderIsOpened, setOrderIsOpened] = useState(false);
-  const [modalInfo, setModalInfo] = useState([]);
-  const [orderInfo, setOrderInfo] = useState(null);
+  const [modalInfo, setModalInfo] = useState({});
+  const [orderInfo, setOrderInfo] = useState(orderInitialState);
   
   const openIngredientsModal = (info) => {
     setIsOpened(true)
@@ -34,29 +39,27 @@ const App = () => {
     api().then((res) => setData(res.data)).catch((res) => console.log(res))
   }, [])
 
-  
-
   return (
     <>
       <IngredientsContext.Provider value={[data]}>
         <AppHeader/>
         <div className={Main.main}>
-          <BurgerIngredients openIngredientsModal={openIngredientsModal}/>
-          <BurgerConstructor setOrderIsOpened={setOrderIsOpened} setOrderInfo={setOrderInfo}/>
+          <BurgerIngredients
+            openIngredientsModal={openIngredientsModal}
+            isOpened={isOpened}
+            closeModal={closeModal}
+            closeEscBtn={closeEscBtn}
+            modalInfo={modalInfo}
+          />
+          <BurgerConstructor
+            orderIsOpened={orderIsOpened}
+            setOrderIsOpened={setOrderIsOpened}
+            setOrderInfo={setOrderInfo}
+            closeModal={closeModal}
+            closeEscBtn={closeEscBtn}
+            orderInfo={orderInfo}
+          />
         </div>
-        {
-          isOpened && (
-            <Modal isOpened={isOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} modalInfo={modalInfo}
-                   title='Детали ингредиента'>
-              <IngredientDetails modalInfo={modalInfo}/>
-            </Modal>
-          )}
-        {
-          orderIsOpened && (
-            <Modal orderIsOpened={orderIsOpened} closeModal={closeModal} closeEscBtn={closeEscBtn} title=''>
-              <OrderDetails orderInfo={orderInfo}/>
-            </Modal>
-          )}
       </IngredientsContext.Provider>
     </>
   );

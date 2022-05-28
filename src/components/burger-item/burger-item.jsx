@@ -16,7 +16,10 @@ const BurgerItem = ({openIngredientsModal, src, name, price}) => {
 }
 
 BurgerItem.propTypes = {
-  onClick: PropTypes.func,
+  openIngredientsModal: PropTypes.func.isRequired,
+  src: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired
 }
 
 export default BurgerItem;

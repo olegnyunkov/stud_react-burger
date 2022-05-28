@@ -1,5 +1,3 @@
-import React from 'react';
-
 const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
 const orderApiUrl = 'https://norma.nomoreparties.space/api/orders';
 
@@ -21,7 +19,6 @@ export const api = () => {
 }
 
 export const orderApi = (orderDataId) => {
-
   return fetch(orderApiUrl, {
     method: 'POST',
     body: JSON.stringify({'ingredients': orderDataId}),
