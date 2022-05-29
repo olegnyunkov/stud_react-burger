@@ -1,7 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, {useContext, useMemo} from 'react';
 import Constructor from './burger-constructor.module.css';
-import { IngredientsContext } from "../../services/ingredients-context";
-import { orderApi } from '../../utils/api'
+import {IngredientsContext} from "../../services/ingredients-context";
+import {sendOrder} from '../../utils/api'
 import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
@@ -12,8 +12,17 @@ import {
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 
-const BurgerConstructor = ({orderIsOpened, setOrderIsOpened, orderInfo, setOrderInfo, closeModal, closeEscBtn}) => {
-  const [data] = useContext(IngredientsContext);
+const BurgerConstructor = (
+  {
+    orderIsOpened,
+    modalOpened,
+    setOrderIsOpened,
+    setModalOpened,
+    orderInfo,
+    setOrderInfo,
+    closeModal
+  }) => {
+  const data = useContext(IngredientsContext);
 
   const saveOrder = data.map(item => {
     return item._id
@@ -21,14 +30,16 @@ const BurgerConstructor = ({orderIsOpened, setOrderIsOpened, orderInfo, setOrder
 
   const openOrderModal = () => {
     setOrderIsOpened(true);
-    orderApi(saveOrder).then(res => setOrderInfo(res)).catch((res) => console.log(res))
+    setModalOpened(true);
+    sendOrder(saveOrder).then(res => setOrderInfo(res)).catch((res) => console.log(res))
   }
 
   const totalPrice = useMemo(() => {
     return (
-        (data.bun ? data.bun.price * 2 : 0) +
-        data.reduce((s, v) => s + v.price, 0)
-     )}, [data])
+      (data.bun ? data.bun.price * 2 : 0) +
+      data.reduce((s, v) => s + v.price, 0)
+    )
+  }, [data])
 
   return (
     <>
@@ -99,10 +110,9 @@ const BurgerConstructor = ({orderIsOpened, setOrderIsOpened, orderInfo, setOrder
       {
         orderIsOpened && (
           <Modal
-            orderIsOpened={orderIsOpened}
             closeModal={closeModal}
-            closeEscBtn={closeEscBtn}
             title=''
+            modalOpened={modalOpened}
           >
             <OrderDetails orderInfo={orderInfo}/>
           </Modal>
@@ -112,12 +122,13 @@ const BurgerConstructor = ({orderIsOpened, setOrderIsOpened, orderInfo, setOrder
 }
 
 BurgerConstructor.propTypes = {
+  modalOpened: PropTypes.bool.isRequired,
+  setModalOpened: PropTypes.func.isRequired,
   orderIsOpened: PropTypes.bool.isRequired,
   setOrderIsOpened: PropTypes.func.isRequired,
   orderInfo: PropTypes.object.isRequired,
   setOrderInfo: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  closeEscBtn: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

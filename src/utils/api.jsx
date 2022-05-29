@@ -1,5 +1,4 @@
-const apiUrl = 'https://norma.nomoreparties.space/api/ingredients';
-const orderApiUrl = 'https://norma.nomoreparties.space/api/orders';
+const baseUrl = 'https://norma.nomoreparties.space/api';
 
 const checkResponse = (res) => {
   if (res.ok) {
@@ -9,8 +8,8 @@ const checkResponse = (res) => {
   }
 }
 
-export const api = () => {
-  return fetch(apiUrl, {
+export const getIngredients = () => {
+  return fetch(baseUrl + '/ingredients', {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -18,8 +17,8 @@ export const api = () => {
     .then(checkResponse)
 }
 
-export const orderApi = (orderDataId) => {
-  return fetch(orderApiUrl, {
+export const sendOrder = (orderDataId) => {
+  return fetch(baseUrl + '/orders', {
     method: 'POST',
     body: JSON.stringify({'ingredients': orderDataId}),
     headers: {
