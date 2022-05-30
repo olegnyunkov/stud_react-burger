@@ -34,7 +34,7 @@ const IngredientDetails = ({modalInfo}) => {
 };
 
 IngredientDetails.propTypes = {
-  modalInfo: PropTypes.array.isRequired,
+  modalInfo: PropTypes.object.isRequired,
 }
 
 export default IngredientDetails;
