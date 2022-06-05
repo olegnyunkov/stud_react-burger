@@ -15,7 +15,7 @@ const orderInitialState = {
 }
 
 const App = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [ingredientsIsOpened, setIngredientsIsOpened] = useState(false);
   const [orderIsOpened, setOrderIsOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false)
@@ -27,14 +27,14 @@ const App = () => {
     setOrderIsOpened(false)
   }
 
-  useEffect(() => {
-    getIngredients().then((res) => setData(res.data)).catch((res) => console.log(res))
-  }, [])
+  // useEffect(() => {
+  //   getIngredients().then((res) => setData(res.data)).catch((res) => console.log(res))
+  // }, [])
 
 
   return (
     <>
-      <IngredientsContext.Provider value={data}>
+      {/*<IngredientsContext.Provider value={data}>*/}
         <AppHeader/>
         <div className={Main.main}>
           <BurgerIngredients
@@ -57,7 +57,7 @@ const App = () => {
             setModalOpened={setModalOpened}
           />
         </div>
-      </IngredientsContext.Provider>
+      {/*</IngredientsContext.Provider>*/}
     </>
   );
 }
