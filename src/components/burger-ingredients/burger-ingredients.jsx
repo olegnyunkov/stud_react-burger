@@ -9,8 +9,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getIngredients } from "../../utils/api";
 
-const BurgerIngredients = (
-  {
+const BurgerIngredients = ({
     ingredientsIsOpened,
     modalOpened,
     setIngredientsIsOpened,
