@@ -3,8 +3,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
-  GET_DETAILS_REQUEST,
-  GET_DETAILS_SUCCESS,
+  GET_DETAILS,
   ADD_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
   RESET_CONSTRUCTOR_ITEM,
@@ -21,8 +20,7 @@ const ingredientsInitialState = {
 
 const ingredientDetailsInitialState = {
   ingredient: {},
-  isLoading: false,
-  errorLoading: false
+  isLoading: false
 };
 
 const constructorInitialState = {
@@ -70,16 +68,10 @@ const ingredientsReducer = (state = ingredientsInitialState, action) => {
 
 const ingredientDetailsReducer = (state = ingredientDetailsInitialState, action) => {
   switch (action.type) {
-    case GET_DETAILS_REQUEST: {
+    case GET_DETAILS: {
       return {
         ...state,
-        isLoading: true
-      }
-    }
-    case GET_DETAILS_SUCCESS: {
-      return {
-        ...state,
-        ingredients: {}
+        ingredient: action.ingredient
       }
     }
     default: {

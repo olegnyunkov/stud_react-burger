@@ -8,15 +8,14 @@ import Ingredients from './burger-ingredients.module.css';
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getIngredients } from "../../utils/api";
+import {getDetails} from "../../services/actions/actions";
 
 const BurgerIngredients = ({
     ingredientsIsOpened,
     modalOpened,
     setIngredientsIsOpened,
     setModalOpened,
-    closeModal,
-    modalInfo,
-    setModalInfo
+    closeModal
   }) => {
 
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ const BurgerIngredients = ({
   const openIngredientsModal = (info) => {
     setIngredientsIsOpened(true);
     setModalOpened(true);
-    setModalInfo(info)
+    dispatch(getDetails(info))
   }
 
   if (errorLoading) {
@@ -82,11 +81,10 @@ const BurgerIngredients = ({
           ingredientsIsOpened && (
             <Modal
               closeModal={closeModal}
-              modalInfo={modalInfo}
               title='Детали ингредиента'
               modalOpened={modalOpened}
-              setModalOpened={setModalOpened}>
-              <IngredientDetails modalInfo={modalInfo}/>
+            >
+              <IngredientDetails />
             </Modal>
           )}
       </>
@@ -99,9 +97,7 @@ BurgerIngredients.propTypes = {
   setIngredientsIsOpened: PropTypes.func.isRequired,
   modalOpened: PropTypes.bool.isRequired,
   setModalOpened: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired,
-  modalInfo: PropTypes.object.isRequired,
-  setModalInfo: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

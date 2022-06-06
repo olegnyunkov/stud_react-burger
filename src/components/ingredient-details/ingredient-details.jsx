@@ -1,40 +1,38 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import IngredientDetailsStyles from './ingredient-details.module.css';
+import {useSelector} from "react-redux";
 
-const IngredientDetails = ({modalInfo}) => {
+const IngredientDetails = () => {
 
-  return (
-    <>
-      <div className={IngredientDetailsStyles.ingredient__list}>
-        <img src={modalInfo.image_large} alt={modalInfo.name}/>
-        <p
-          className={`${IngredientDetailsStyles.ingredient__title} text text_type_main-medium mt-4`}>{modalInfo.name}</p>
-        <div className={`${IngredientDetailsStyles.ingredient__description} mt-8`}>
-          <div className={'mr-5'}>
-            <p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
-            <p className="text text_type_digits-default text_color_inactive">{modalInfo.calories}</p>
-          </div>
-          <div className={'mr-5'}>
-            <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-            <p className="text text_type_digits-default text_color_inactive">{modalInfo.proteins}</p>
-          </div>
-          <div className={'mr-5'}>
-            <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-            <p className="text text_type_digits-default text_color_inactive">{modalInfo.fat}</p>
-          </div>
-          <div>
-            <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-            <p className="text text_type_digits-default text_color_inactive">{modalInfo.carbohydrates}</p>
+    const {ingredient} = useSelector(state => state.details);
+
+    return (
+      <>
+        <div className={IngredientDetailsStyles.ingredient__list}>
+          <img src={ingredient.image_large} alt={ingredient.name}/>
+          <p
+            className={`${IngredientDetailsStyles.ingredient__title} text text_type_main-medium mt-4`}>{ingredient.name}</p>
+          <div className={`${IngredientDetailsStyles.ingredient__description} mt-8`}>
+            <div className={'mr-5'}>
+              <p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
+              <p className="text text_type_digits-default text_color_inactive">{ingredient.calories}</p>
+            </div>
+            <div className={'mr-5'}>
+              <p className="text text_type_main-default text_color_inactive">Белки, г</p>
+              <p className="text text_type_digits-default text_color_inactive">{ingredient.proteins}</p>
+            </div>
+            <div className={'mr-5'}>
+              <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
+              <p className="text text_type_digits-default text_color_inactive">{ingredient.fat}</p>
+            </div>
+            <div>
+              <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
+              <p className="text text_type_digits-default text_color_inactive">{ingredient.carbohydrates}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </>
-  )
-};
-
-IngredientDetails.propTypes = {
-  modalInfo: PropTypes.object.isRequired,
-}
+      </>
+    )
+  };
 
 export default IngredientDetails;
