@@ -3,6 +3,7 @@ export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 
 export const GET_DETAILS = 'GET_DETAILS';
+export const REMOVE_DETAILS = 'REMOVE_DETAILS';
 
 export const ADD_CONSTRUCTOR_ITEM = 'ADD_CONSTRUCTOR_ITEM';
 export const DELETE_CONSTRUCTOR_ITEM = 'DELETE_CONSTRUCTOR_ITEM';
@@ -13,8 +14,24 @@ export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 
 //action creators
-export const getDetails = (info) => {
-  return { type: GET_DETAILS, ingredient: info }
+export const getIngredientsRequest = () => {
+  return { type: GET_INGREDIENTS_REQUEST }
+};
+
+export const getIngredientsSuccess = (data) => {
+  return { type: GET_INGREDIENTS_SUCCESS, payload: data }
+};
+
+export const getIngredientsFailed = () => {
+  return { type: GET_INGREDIENTS_FAILED }
+};
+
+export const getDetails = (data) => {
+  return { type: GET_DETAILS, payload: data }
+};
+
+export const removeDetails = (data) => {
+  return { type: REMOVE_DETAILS, payload: data }
 };
 
 export const addConstructorItem = () => {

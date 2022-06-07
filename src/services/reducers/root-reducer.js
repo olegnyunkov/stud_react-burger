@@ -4,6 +4,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
   GET_DETAILS,
+  REMOVE_DETAILS,
   ADD_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
   RESET_CONSTRUCTOR_ITEM,
@@ -19,8 +20,7 @@ const ingredientsInitialState = {
 };
 
 const ingredientDetailsInitialState = {
-  ingredient: {},
-  isLoading: false
+  ingredient: {}
 };
 
 const constructorInitialState = {
@@ -48,7 +48,7 @@ const ingredientsReducer = (state = ingredientsInitialState, action) => {
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        ingredients: action.ingredients,
+        ingredients: action.payload,
         errorLoading: false,
         isLoading: false
       }
@@ -71,7 +71,13 @@ const ingredientDetailsReducer = (state = ingredientDetailsInitialState, action)
     case GET_DETAILS: {
       return {
         ...state,
-        ingredient: action.ingredient
+        ingredient: action.payload
+      }
+    }
+    case REMOVE_DETAILS: {
+      return {
+        ...state,
+        ingredient: {}
       }
     }
     default: {

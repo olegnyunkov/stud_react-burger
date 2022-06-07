@@ -1,4 +1,8 @@
-import {GET_INGREDIENTS_FAILED, GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS} from "../services/actions/actions";
+import {
+  getIngredientsFailed,
+  getIngredientsRequest,
+  getIngredientsSuccess
+} from "../services/actions/actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -24,7 +28,7 @@ export const sendOrder = (orderDataId) => {
 export const getIngredients = () => {
 
   return function (dispatch) {
-    dispatch({type: GET_INGREDIENTS_REQUEST});
+    dispatch(getIngredientsRequest());
 
     fetch(baseUrl + '/ingredients', {
       headers: {
@@ -32,19 +36,12 @@ export const getIngredients = () => {
       }
     }).then(checkResponse).then(res => {
       if (res.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          ingredients: res.data
-        })
+        dispatch(getIngredientsSuccess(res.data))
       } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        })
+        dispatch(getIngredientsFailed())
       }
     }).catch(err => {
-      dispatch({
-        type: GET_INGREDIENTS_FAILED
-      })
+      dispatch(getIngredientsFailed())
       console.log(err)
     })
   }

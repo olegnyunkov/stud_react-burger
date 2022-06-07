@@ -3,6 +3,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import Main from './app.module.css';
+import {removeDetails} from "../../services/actions/actions";
+import {useDispatch} from "react-redux";
 
 const orderInitialState = {
   "name": "",
@@ -13,6 +15,7 @@ const orderInitialState = {
 }
 
 const App = () => {
+  const dispatch = useDispatch();
   const [ingredientsIsOpened, setIngredientsIsOpened] = useState(false);
   const [orderIsOpened, setOrderIsOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false)
@@ -21,6 +24,7 @@ const App = () => {
   const closeModal = () => {
     setIngredientsIsOpened(false)
     setOrderIsOpened(false)
+    dispatch(removeDetails())
   }
 
   return (
