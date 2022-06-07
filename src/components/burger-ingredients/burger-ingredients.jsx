@@ -43,7 +43,7 @@ const BurgerIngredients = ({
           <Tabs/>
           <div className={Ingredients.ingredients__items}>
             <Title styles={'mt-10 text text_type_main-medium'} title='Булки'/>
-            <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div id='one' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'bun') {
                   return (
@@ -54,7 +54,7 @@ const BurgerIngredients = ({
               })}
             </div>
             <Title styles={'mb-6 text text_type_main-medium'} title='Соусы'/>
-            <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div id='two' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'sauce') {
                   return (
@@ -65,7 +65,7 @@ const BurgerIngredients = ({
               })}
             </div>
             <Title styles={'mb-6 text text_type_main-medium'} title='Начинки'/>
-            <div className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div id='three' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'main') {
                   return (

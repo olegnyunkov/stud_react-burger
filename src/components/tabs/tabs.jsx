@@ -6,15 +6,22 @@ import {
 
 const Tabs = () => {
   const [current, setCurrent] = React.useState('one')
+
+  const onTabClick = (tab) => {
+    setCurrent(tab);
+    const element = document.getElementById(tab);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className={TabsStyles.ingredients__tabs}>
-      <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+      <Tab value="one" active={current === 'one'} onClick={onTabClick}>
         Булки
       </Tab>
-      <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+      <Tab value="two" active={current === 'two'} onClick={onTabClick}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+      <Tab value="three" active={current === 'three'} onClick={onTabClick}>
         Начинки
       </Tab>
     </div>
