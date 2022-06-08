@@ -4,7 +4,7 @@ import BurgerImage from '../burger-image/burger-image';
 import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
 
-const BurgerItem = ({openIngredientsModal, src, name, price}) => {
+const BurgerItem = ({ openIngredientsModal, src, name, price }) => {
 
   return (
     <div onClick={openIngredientsModal}>

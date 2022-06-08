@@ -1,4 +1,5 @@
 import React, {useContext, useMemo} from 'react';
+import { useDrop } from "react-dnd";
 import Constructor from './burger-constructor.module.css';
 import {IngredientsContext} from "../../services/ingredients-context";
 import {sendOrder} from '../../utils/api'
@@ -23,6 +24,12 @@ const BurgerConstructor = (
     closeModal
   }) => {
   const data = useContext(IngredientsContext);
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(itemId) {
+      // onDropHandler(itemId);
+    },
+  });
 
   const saveOrder = data.map(item => {
     return item._id
@@ -48,7 +55,7 @@ const BurgerConstructor = (
           data.map((item) => {
             if (item.name === 'Краторная булка N-200i') {
               return (
-                <div key={item._id} className='pl-8 mr-4 mb-4'>
+                <div ref={dropTarget} key={item._id} className='pl-8 mr-4 mb-4'>
                   <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -85,7 +92,7 @@ const BurgerConstructor = (
           data.map((item) => {
             if (item.name === 'Краторная булка N-200i') {
               return (
-                <div key={item._id} className='pl-8 mr-4 mb-4'>
+                <div ref={dropTarget} key={item._id} className='pl-8 mr-4 mb-4'>
                   <ConstructorElement
                     type="bottom"
                     isLocked={true}
