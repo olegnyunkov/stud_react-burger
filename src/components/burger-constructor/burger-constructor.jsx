@@ -1,17 +1,19 @@
-import React, {useContext, useMemo} from 'react';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
-import Constructor from './burger-constructor.module.css';
-import {IngredientsContext} from "../../services/ingredients-context";
-import {sendOrder} from '../../utils/api'
 import PropTypes from 'prop-types';
+import Constructor from './burger-constructor.module.css';
+import { IngredientsContext } from "../../services/ingredients-context";
+import { sendOrder, getOrder } from '../../utils/api';
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 import {
   CurrencyIcon,
   ConstructorElement,
   Button,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
+
 
 const BurgerConstructor = (
   {
@@ -23,39 +25,35 @@ const BurgerConstructor = (
     setOrderInfo,
     closeModal
   }) => {
-  const data = useContext(IngredientsContext);
-  const [, dropTarget] = useDrop({
-    accept: "ingredient",
-    drop(itemId) {
-      // onDropHandler(itemId);
-    },
-  });
+  const dispatch = useDispatch();
+  const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
+  // dispatch(addConstructorItem(data))
 
-  const saveOrder = data.map(item => {
+  const saveOrder = ingredients.map(item => {
     return item._id
   })
 
   const openOrderModal = () => {
     setOrderIsOpened(true);
     setModalOpened(true);
-    sendOrder(saveOrder).then(res => setOrderInfo(res)).catch((res) => console.log(res))
+    dispatch(getOrder(saveOrder))
   }
 
   const totalPrice = useMemo(() => {
     return (
-      (data.bun ? data.bun.price * 2 : 0) +
-      data.reduce((s, v) => s + v.price, 0)
+      (ingredients.bun ? ingredients.bun.price * 2 : 0) +
+      ingredients.reduce((s, v) => s + v.price, 0)
     )
-  }, [data])
+  }, [ingredients])
 
   return (
     <>
       <section className='pt-25 pl-4'>
         {
-          data.map((item) => {
+          ingredients.map((item) => {
             if (item.name === 'Краторная булка N-200i') {
               return (
-                <div ref={dropTarget} key={item._id} className='pl-8 mr-4 mb-4'>
+                <div key={item._id} className='pl-8 mr-4 mb-4'>
                   <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -70,7 +68,7 @@ const BurgerConstructor = (
         }
         <div className={`${Constructor.constructor__elements} mb-4 pr-2`}>
           {
-            data.map((item) => {
+            ingredients.map((item) => {
               if (item.type === 'main' && 'sauce') {
                 return (
                   <div key={item._id} className={Constructor.constructor__element}>
@@ -89,10 +87,10 @@ const BurgerConstructor = (
           }
         </div>
         {
-          data.map((item) => {
+          ingredients.map((item) => {
             if (item.name === 'Краторная булка N-200i') {
               return (
-                <div ref={dropTarget} key={item._id} className='pl-8 mr-4 mb-4'>
+                <div key={item._id} className='pl-8 mr-4 mb-4'>
                   <ConstructorElement
                     type="bottom"
                     isLocked={true}

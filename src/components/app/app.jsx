@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import Main from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Main from './app.module.css';
-import {removeDetails} from "../../services/actions/actions";
-
+import { removeDetails } from "../../services/actions/actions";
 
 const orderInitialState = {
   "name": "",

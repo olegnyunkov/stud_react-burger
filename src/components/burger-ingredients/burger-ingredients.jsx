@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
+import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
-import Ingredients from './burger-ingredients.module.css';
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getIngredients } from "../../utils/api";
-import {getDetails} from "../../services/actions/actions";
+import { getDetails } from "../../services/actions/actions";
 
 const BurgerIngredients = ({
     ingredientsIsOpened,
@@ -21,6 +21,7 @@ const BurgerIngredients = ({
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
+  
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: {}
@@ -52,7 +53,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'bun') {
                   return (
-                    <BurgerItem ref={dragRef} key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -63,7 +64,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'sauce') {
                   return (
-                    <BurgerItem ref={dragRef} key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -74,7 +75,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'main') {
                   return (
-                    <BurgerItem ref={dragRef} key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }

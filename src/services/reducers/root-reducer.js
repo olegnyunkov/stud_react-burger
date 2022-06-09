@@ -9,7 +9,8 @@ import {
   DELETE_CONSTRUCTOR_ITEM,
   RESET_CONSTRUCTOR_ITEM,
   GET_ORDER_REQUEST,
-  GET_ORDER_SUCCESS
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED
 } from '../actions/actions';
 
 // начальные состояния
@@ -30,7 +31,13 @@ const constructorInitialState = {
 };
 
 const orderInitialState = {
-  order: {},
+  order: {
+    "name": "",
+    "order": {
+      "number": ""
+    },
+    "success": false
+  },
   isLoading: false,
   errorLoading: false
 };
@@ -91,7 +98,7 @@ const constructorReducer = (state = constructorInitialState, action) => {
     case ADD_CONSTRUCTOR_ITEM: {
       return {
         ...state,
-        ingredients: []
+        ingredients: action.payload
       }
     }
     case DELETE_CONSTRUCTOR_ITEM: {
@@ -117,13 +124,23 @@ const orderReducer = (state = orderInitialState, action) => {
     case GET_ORDER_REQUEST: {
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        errorLoading: false
       }
     }
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
-        order: {}
+        order: action.payload,
+        isLoading: false,
+        errorLoading: false
+      }
+    }
+    case GET_ORDER_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
+        errorLoading: true
       }
     }
     default: {

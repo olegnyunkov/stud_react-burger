@@ -34,8 +34,8 @@ export const removeDetails = (data) => {
   return { type: REMOVE_DETAILS, payload: data }
 };
 
-export const addConstructorItem = () => {
-  return { type: ADD_CONSTRUCTOR_ITEM }
+export const addConstructorItem = (data) => {
+  return { type: ADD_CONSTRUCTOR_ITEM, payload: data }
 };
 
 export const deleteConstructorItem = () => {
@@ -50,6 +50,10 @@ export const getOrderRequest = () => {
   return { type: GET_ORDER_REQUEST }
 };
 
-export const getOrderSuccess = () => {
-  return { type: GET_ORDER_SUCCESS }
+export const getOrderSuccess = (data) => {
+  return { type: GET_ORDER_SUCCESS, payload: data }
+};
+
+export const getOrderFailed = () => {
+  return { type: GET_ORDER_FAILED }
 };
