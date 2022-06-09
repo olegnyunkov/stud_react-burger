@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
 import Constructor from './burger-constructor.module.css';
-import { IngredientsContext } from "../../services/ingredients-context";
-import { sendOrder, getOrder } from '../../utils/api';
+import { getOrder } from '../../utils/api';
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {
@@ -22,12 +21,10 @@ const BurgerConstructor = (
     setOrderIsOpened,
     setModalOpened,
     orderInfo,
-    setOrderInfo,
     closeModal
   }) => {
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
-  // dispatch(addConstructorItem(data))
 
   const saveOrder = ingredients.map(item => {
     return item._id

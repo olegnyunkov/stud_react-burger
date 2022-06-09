@@ -21,11 +21,6 @@ const BurgerIngredients = ({
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
-  
-  const [, dragRef] = useDrag({
-    type: "ingredient",
-    item: {}
-  });
 
   useEffect(() => {
     dispatch(getIngredients())

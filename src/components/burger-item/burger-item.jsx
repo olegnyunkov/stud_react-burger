@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import BurgerImage from '../burger-image/burger-image';
 import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
+import {useDrag} from "react-dnd";
 
 const BurgerItem = ({ openIngredientsModal, src, name, price }) => {
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: {}
+  });
 
   return (
     <div onClick={openIngredientsModal}>

@@ -25,9 +25,7 @@ const ingredientDetailsInitialState = {
 };
 
 const constructorInitialState = {
-  ingredients: [],
-  isLoading: false,
-  errorLoading: false
+  ingredients: []
 };
 
 const orderInitialState = {
