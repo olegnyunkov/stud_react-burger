@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
+import { useInView } from 'react-hook-inview';
 import PropTypes from 'prop-types';
 import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
@@ -21,6 +22,9 @@ const BurgerIngredients = ({
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
+  const [bunsRef, inViewBuns] = useInView({ threshold: 0 });
+  const [saucesRef, inViewSauces] = useInView({ threshold: 0 });
+  const [fillingRef, inViewFilling] = useInView({ threshold: 0 });
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -30,7 +34,7 @@ const BurgerIngredients = ({
     setIngredientsIsOpened(true);
     setModalOpened(true);
     dispatch(getDetails(info))
-  }
+  }  
 
   if (errorLoading) {
     return <p>Произошла ошибка при получении данных</p>
@@ -41,10 +45,10 @@ const BurgerIngredients = ({
       <>
         <section>
           <Title styles={'mt-10 mb-5 text text_type_main-large'} title='Соберите бургер'/>
-          <Tabs/>
+          <Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewFilling={inViewFilling} />
           <div className={Ingredients.ingredients__items}>
             <Title styles={'mt-10 text text_type_main-medium'} title='Булки'/>
-            <div id='one' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div ref={bunsRef} id='buns' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'bun') {
                   return (
@@ -55,7 +59,7 @@ const BurgerIngredients = ({
               })}
             </div>
             <Title styles={'mb-6 text text_type_main-medium'} title='Соусы'/>
-            <div id='two' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div ref={saucesRef} id='sauces' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'sauce') {
                   return (
@@ -66,7 +70,7 @@ const BurgerIngredients = ({
               })}
             </div>
             <Title styles={'mb-6 text text_type_main-medium'} title='Начинки'/>
-            <div id='three' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
+            <div ref={fillingRef} id='mains' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
               {ingredients.map((item) => {
                 if (item.type === 'main') {
                   return (

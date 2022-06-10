@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TabsStyles from './tabs.module.css';
 import {
   Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Tabs = () => {
+const Tabs = ({ inViewBuns, inViewSauces, inViewFilling }) => {
   const [current, setCurrent] = React.useState('one')
 
   const onTabClick = (tab) => {
@@ -13,15 +13,25 @@ const Tabs = () => {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    if (inViewBuns) {
+      setCurrent("buns");
+    } else if (inViewSauces) {
+      setCurrent("sauces");
+    } else if (inViewFilling) {
+      setCurrent("mains");
+    }
+  }, [inViewBuns, inViewFilling, inViewSauces]);
+
   return (
     <div className={TabsStyles.ingredients__tabs}>
-      <Tab value="one" active={current === 'one'} onClick={onTabClick}>
+      <Tab value="buns" active={current === 'buns'} onClick={onTabClick}>
         Булки
       </Tab>
-      <Tab value="two" active={current === 'two'} onClick={onTabClick}>
+      <Tab value="sauces" active={current === 'sauces'} onClick={onTabClick}>
         Соусы
       </Tab>
-      <Tab value="three" active={current === 'three'} onClick={onTabClick}>
+      <Tab value="mains" active={current === 'mains'} onClick={onTabClick}>
         Начинки
       </Tab>
     </div>
