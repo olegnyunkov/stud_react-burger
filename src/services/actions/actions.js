@@ -38,8 +38,8 @@ export const addConstructorItem = (data) => {
   return { type: ADD_CONSTRUCTOR_ITEM, payload: data }
 };
 
-export const deleteConstructorItem = () => {
-  return { type: DELETE_CONSTRUCTOR_ITEM }
+export const deleteConstructorItem = (data) => {
+  return { type: DELETE_CONSTRUCTOR_ITEM, payload: data }
 };
 
 export const resetConstructorItem = () => {

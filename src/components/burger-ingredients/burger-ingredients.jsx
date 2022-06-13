@@ -11,6 +11,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getIngredients } from "../../utils/api";
 import { getDetails } from "../../services/actions/actions";
+import {nanoid} from "nanoid";
 
 const BurgerIngredients = ({
     ingredientsIsOpened,
@@ -52,7 +53,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'bun') {
                   return (
-                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -63,7 +64,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'sauce') {
                   return (
-                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -74,7 +75,7 @@ const BurgerIngredients = ({
               {ingredients.map((item) => {
                 if (item.type === 'main') {
                   return (
-                    <BurgerItem key={item._id} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }

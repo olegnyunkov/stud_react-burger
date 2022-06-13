@@ -35,3 +35,22 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.constructor__element_empty {
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    border-radius: 40px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+}
+
+.constructor__elements_empty {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 16px;
+}
+
+.constructor__element_drop {
+    border: 1px solid green;
+}

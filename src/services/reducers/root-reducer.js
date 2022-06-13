@@ -25,7 +25,8 @@ const ingredientDetailsInitialState = {
 };
 
 const constructorInitialState = {
-  ingredients: []
+  bun: null,
+  filling: []
 };
 
 const orderInitialState = {
@@ -96,19 +97,26 @@ const constructorReducer = (state = constructorInitialState, action) => {
     case ADD_CONSTRUCTOR_ITEM: {
       return {
         ...state,
-        ingredients: action.payload
+        bun: action.payload.item.type === 'bun' ? action.payload.item : state.bun,
+        filling: action.payload.item.type !== 'bun' ? [...state.filling, action.payload.item] : [...state.filling]
       }
     }
     case DELETE_CONSTRUCTOR_ITEM: {
+      const deleteItem = () => {
+        state.filling.splice(action.payload, 1)
+        return state.filling
+      }
       return {
         ...state,
-        ingredients: []
+        bun: state.bun,
+        filling: deleteItem()
       }
     }
     case RESET_CONSTRUCTOR_ITEM: {
       return {
         ...state,
-        ingredients: []
+        bun: null,
+        filling: []
       }
     }
     default: {
@@ -151,6 +159,6 @@ const orderReducer = (state = orderInitialState, action) => {
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   details: ingredientDetailsReducer,
-  constructor: constructorReducer,
+  construct: constructorReducer,
   order: orderReducer
 })
