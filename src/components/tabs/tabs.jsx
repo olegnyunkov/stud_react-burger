@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import TabsStyles from './tabs.module.css';
 import {
   Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Tabs = ({ inViewBuns, inViewSauces, inViewFilling }) => {
+const Tabs = ({inViewBuns, inViewSauces, inViewFilling}) => {
   const [current, setCurrent] = React.useState('one')
 
   const onTabClick = (tab) => {
     setCurrent(tab);
     const element = document.getElementById(tab);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    if (element) element.scrollIntoView({behavior: "smooth"});
   };
 
   useEffect(() => {
@@ -36,6 +37,12 @@ const Tabs = ({ inViewBuns, inViewSauces, inViewFilling }) => {
       </Tab>
     </div>
   )
+}
+
+Tabs.propTypes = {
+  inViewBuns: PropTypes.bool.isRequired,
+  inViewSauces: PropTypes.bool.isRequired,
+  inViewFilling: PropTypes.bool.isRequired,
 }
 
 export default Tabs;

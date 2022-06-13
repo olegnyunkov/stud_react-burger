@@ -1,31 +1,32 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useDrag } from "react-dnd";
-import { useInView } from 'react-hook-inview';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useInView} from 'react-hook-inview';
 import PropTypes from 'prop-types';
+import {nanoid} from "nanoid";
 import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { getIngredients } from "../../utils/api";
-import { getDetails } from "../../services/actions/actions";
-import {nanoid} from "nanoid";
+import {getIngredients} from "../../utils/api";
+import {getDetails} from "../../services/actions/actions";
 
-const BurgerIngredients = ({
+const BurgerIngredients = (
+  {
     ingredientsIsOpened,
     modalOpened,
     setIngredientsIsOpened,
     setModalOpened,
     closeModal
-  }) => {
+  }
+) => {
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
-  const [bunsRef, inViewBuns] = useInView({ threshold: 0 });
-  const [saucesRef, inViewSauces] = useInView({ threshold: 0 });
-  const [fillingRef, inViewFilling] = useInView({ threshold: 0 });
+  const [bunsRef, inViewBuns] = useInView({threshold: 0});
+  const [saucesRef, inViewSauces] = useInView({threshold: 0});
+  const [fillingRef, inViewFilling] = useInView({threshold: 0});
 
   useEffect(() => {
     dispatch(getIngredients())
@@ -35,7 +36,7 @@ const BurgerIngredients = ({
     setIngredientsIsOpened(true);
     setModalOpened(true);
     dispatch(getDetails(info))
-  }  
+  }
 
   if (errorLoading) {
     return <p>Произошла ошибка при получении данных</p>
@@ -46,7 +47,7 @@ const BurgerIngredients = ({
       <>
         <section>
           <Title styles={'mt-10 mb-5 text text_type_main-large'} title='Соберите бургер'/>
-          <Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewFilling={inViewFilling} />
+          <Tabs inViewBuns={inViewBuns} inViewSauces={inViewSauces} inViewFilling={inViewFilling}/>
           <div className={Ingredients.ingredients__items}>
             <Title styles={'mt-10 text text_type_main-medium'} title='Булки'/>
             <div ref={bunsRef} id='buns' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
@@ -90,7 +91,7 @@ const BurgerIngredients = ({
               title='Детали ингредиента'
               modalOpened={modalOpened}
             >
-              <IngredientDetails />
+              <IngredientDetails/>
             </Modal>
           )}
       </>

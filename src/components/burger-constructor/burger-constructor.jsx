@@ -1,20 +1,19 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag, useDrop} from "react-dnd";
 import PropTypes from 'prop-types';
+import {nanoid} from "nanoid";
 import Constructor from './burger-constructor.module.css';
 import {getOrder} from '../../utils/api';
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import {addConstructorItem, deleteConstructorItem, resetConstructorItem} from "../../services/actions/actions";
 import {
   CurrencyIcon,
   ConstructorElement,
   Button,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {addConstructorItem, deleteConstructorItem, resetConstructorItem} from "../../services/actions/actions";
-import {nanoid} from "nanoid";
-
 
 const BurgerConstructor = (
   {
@@ -22,7 +21,6 @@ const BurgerConstructor = (
     modalOpened,
     setOrderIsOpened,
     setModalOpened,
-    orderInfo,
     closeModal
   }) => {
   const dispatch = useDispatch();
@@ -70,11 +68,13 @@ const BurgerConstructor = (
                 thumbnail={bun.image}
               />
             </div>
-            : <div className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
+            : <div
+              className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
               булку</div>
         }
 
-        <div className={filling.length ? `${Constructor.constructor__elements} mb-4 pr-2` : `${Constructor.constructor__elements_empty}`}>
+        <div
+          className={filling.length ? `${Constructor.constructor__elements} mb-4 pr-2` : `${Constructor.constructor__elements_empty}`}>
           {
             filling.length ? filling.map((fill, index) => {
                 return (
@@ -93,7 +93,8 @@ const BurgerConstructor = (
                   </div>
                 )
               })
-              : <div className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
+              : <div
+                className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
                 начинку</div>
           }
         </div>
@@ -107,7 +108,8 @@ const BurgerConstructor = (
                 thumbnail={bun.image}
               />
             </div>
-            : <div className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
+            : <div
+              className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
               булку</div>
         }
         <div className={`${Constructor.constructor__total} mr-4`}>
@@ -127,7 +129,7 @@ const BurgerConstructor = (
             title=''
             modalOpened={modalOpened}
           >
-            <OrderDetails orderInfo={orderInfo}/>
+            <OrderDetails/>
           </Modal>
         )}
     </>
@@ -139,8 +141,6 @@ BurgerConstructor.propTypes = {
   setModalOpened: PropTypes.func.isRequired,
   orderIsOpened: PropTypes.bool.isRequired,
   setOrderIsOpened: PropTypes.func.isRequired,
-  orderInfo: PropTypes.object.isRequired,
-  setOrderInfo: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired
 }
 

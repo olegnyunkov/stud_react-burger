@@ -1,12 +1,11 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import {useDrag} from "react-dnd";
 import PropTypes from 'prop-types';
 import BurgerImage from '../burger-image/burger-image';
 import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
-import {useDrag} from "react-dnd";
 import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector} from "react-redux";
-
 
 const BurgerItem = ({openIngredientsModal, src, name, price, item}) => {
 
@@ -51,7 +50,8 @@ BurgerItem.propTypes = {
   openIngredientsModal: PropTypes.func.isRequired,
   src: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
+  price: PropTypes.number.isRequired,
+  item: PropTypes.object.isRequired
 }
 
 export default BurgerItem;
