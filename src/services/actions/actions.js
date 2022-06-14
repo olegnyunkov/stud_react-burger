@@ -8,6 +8,7 @@ export const REMOVE_DETAILS = 'REMOVE_DETAILS';
 export const ADD_CONSTRUCTOR_ITEM = 'ADD_CONSTRUCTOR_ITEM';
 export const DELETE_CONSTRUCTOR_ITEM = 'DELETE_CONSTRUCTOR_ITEM';
 export const RESET_CONSTRUCTOR_ITEM = 'RESET_CONSTRUCTOR_ITEM';
+export const MOVE_CONSTRUCTOR_ITEM = 'MOVE_CONSTRUCTOR_ITEM';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -44,6 +45,10 @@ export const deleteConstructorItem = (data) => {
 
 export const resetConstructorItem = () => {
   return { type: RESET_CONSTRUCTOR_ITEM }
+};
+
+export const moveConstructorItem = (drag, hover) => {
+  return { type: MOVE_CONSTRUCTOR_ITEM, dragIndex: drag, hoverIndex: hover }
 };
 
 export const getOrderRequest = () => {

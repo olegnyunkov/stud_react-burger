@@ -8,10 +8,12 @@ import {
   ADD_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
   RESET_CONSTRUCTOR_ITEM,
+  MOVE_CONSTRUCTOR_ITEM,
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED
 } from '../actions/actions';
+import {useCallback} from "react";
 
 // начальные состояния
 const ingredientsInitialState = {
@@ -117,6 +119,21 @@ const constructorReducer = (state = constructorInitialState, action) => {
         ...state,
         bun: null,
         filling: []
+      }
+    }
+    case MOVE_CONSTRUCTOR_ITEM: {
+      const moveItems = (dragIndex, hoverIndex) => {
+        const dragItem = state.filling[dragIndex]
+        const hoverItem = state.filling[hoverIndex]
+        const updatedItems = [...state.filling]
+        updatedItems[dragIndex] = hoverItem
+        updatedItems[hoverIndex] = dragItem
+        return updatedItems
+      }
+      return {
+        ...state,
+        bun: state.bun,
+        filling: moveItems(action.dragIndex, action.hoverIndex)
       }
     }
     default: {

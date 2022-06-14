@@ -12,7 +12,7 @@ import OrderDetails from "../order-details/order-details";
 import {
   addConstructorItem,
   deleteConstructorItem,
-  resetConstructorItem,
+  moveConstructorItem,
 } from "../../services/actions/actions";
 import {
   CurrencyIcon,
@@ -21,24 +21,14 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructorFilling = ({ filling, fill, index }) => {
-  const [cards, setCards] = useState(filling)
+const BurgerConstructorFilling = ({ filling, fill, index, id }) => {
+
   const dispatch = useDispatch();
   const ref = useRef(null);
-  const id = fill._id
 
-  const moveIngredients = useCallback((dragIndex, hoverIndex) => {
-    setCards((prevCards) =>
-      update(prevCards, {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, prevCards[dragIndex]],
-        ],
-      }),
-    )
-  }, [])
 
-  const [{ handlerId }, dropTarget] = useDrop({
+
+  const [{ handlerId }, dropRef] = useDrop({
     accept: "ingr",
     collect(monitor) {
       return {
@@ -64,12 +54,14 @@ const BurgerConstructorFilling = ({ filling, fill, index }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      moveIngredients(dragIndex, hoverIndex)
+
+      dispatch(moveConstructorItem(dragIndex, hoverIndex))
+
       item.index = hoverIndex
     },
-    drop(item) {
-      dispatch(addConstructorItem(item));
-    },
+    // drop(item) {
+    //   dispatch(addConstructorItem(item));
+    // },
   });
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -82,11 +74,10 @@ const BurgerConstructorFilling = ({ filling, fill, index }) => {
     }),
   });
 
-  const opacity = isDragging ? 0 : 1
-  dragRef(dropTarget(ref))
+  const dragDropRef = dragRef(dropRef(ref))
 
   return (    
-    <div id={fill._id} ref={ref} className={Constructor.constructor__element} data-handler-id={handlerId}>
+    <div id={fill._id} ref={dragDropRef} className={Constructor.constructor__element}>
       <div className="mr-2">
         <DragIcon type="primary" />
       </div>

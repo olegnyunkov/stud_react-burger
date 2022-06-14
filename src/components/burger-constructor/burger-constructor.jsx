@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag, useDrop} from "react-dnd";
 import PropTypes from 'prop-types';
@@ -28,6 +28,7 @@ const BurgerConstructor = (
   }) => {
   const dispatch = useDispatch();
   const {bun, filling} = useSelector(state => state.construct);
+  // const [items, setItems] = useState(filling)
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
@@ -36,10 +37,20 @@ const BurgerConstructor = (
     }
   })
 
-  const [, dragRef] = useDrag({
-    type: "ingredient",
-    item: {}
-  });
+  // const moveItems = useCallback(
+  //   (dragIndex, hoverIndex) => {
+  //     const dragItem = items[dragIndex]
+  //     const hoverItem = items[hoverIndex]
+  //
+  //     setItems(items => {
+  //       const updatedItems = [...items]
+  //       updatedItems[dragIndex] = hoverItem
+  //       updatedItems[hoverIndex] = dragItem
+  //       return updatedItems
+  //     })
+  //   },
+  //   [items],
+  // )
 
   const saveOrder = (bread, meat) => {
     const fillingId = meat.map(item => item._id)
@@ -72,9 +83,9 @@ const BurgerConstructor = (
         <div
           className={filling.length ? `${Constructor.constructor__elements} mb-4 pr-2` : `${Constructor.constructor__elements_empty}`}>
           {
-            filling.length 
+            filling.length
             ? filling.map((fill, index) => {
-                return <BurgerConstructorFilling key={nanoid()} filling={filling} fill={fill} index={index} />
+                return <BurgerConstructorFilling key={nanoid()}  filling={filling} fill={fill} id={fill._id} index={index} />
               })
             : <BurgerConstructorEmpty text={'Перетащите начинку'} />
           }
