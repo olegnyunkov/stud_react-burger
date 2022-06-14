@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDrag, useDrop} from "react-dnd";
 import PropTypes from 'prop-types';
@@ -7,6 +7,9 @@ import Constructor from './burger-constructor.module.css';
 import {getOrder} from '../../utils/api';
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import BurgerConstructorBun from './burger-constructor-bun';
+import BurgerConstructorFilling from './burger-constructor-filling';
+import BurgerConstructorEmpty from './burger-constructor-empty';
 import {addConstructorItem, deleteConstructorItem, resetConstructorItem} from "../../services/actions/actions";
 import {
   CurrencyIcon,
@@ -25,14 +28,15 @@ const BurgerConstructor = (
   }) => {
   const dispatch = useDispatch();
   const {bun, filling} = useSelector(state => state.construct);
-  const [{isHover}, dropTarget] = useDrop({
+
+  const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
       dispatch(addConstructorItem(item));
     }
   })
 
-  const [{isDrag}, dragRef] = useDrag({
+  const [, dragRef] = useDrag({
     type: "ingredient",
     item: {}
   });
@@ -58,60 +62,30 @@ const BurgerConstructor = (
   return (
     <>
       <section ref={dropTarget} className='pt-25 pl-4'>
+
         {
-          bun ? <div key={nanoid()} className='pl-8 mr-4 mb-4'>
-              <ConstructorElement
-                type="top"
-                isLocked={true}
-                text={`${bun.name} ${'(верх)'}`}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-            : <div
-              className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
-              булку</div>
+          bun 
+          ? <BurgerConstructorBun text={'(верх)'} bun={bun} type={'top'} />
+          : <BurgerConstructorEmpty text={'Перетащите булку'}/>
         }
 
         <div
           className={filling.length ? `${Constructor.constructor__elements} mb-4 pr-2` : `${Constructor.constructor__elements_empty}`}>
           {
-            filling.length ? filling.map((fill, index) => {
-                return (
-                  <div key={nanoid()} id={fill._id} ref={dragRef} className={Constructor.constructor__element}>
-                    <div className='mr-2'>
-                      <DragIcon type="primary"/>
-                    </div>
-                    <ConstructorElement
-                      text={fill.name}
-                      price={fill.price}
-                      thumbnail={fill.image}
-                      handleClose={() => {
-                        dispatch(deleteConstructorItem(index))
-                      }}
-                    />
-                  </div>
-                )
+            filling.length 
+            ? filling.map((fill, index) => {
+                return <BurgerConstructorFilling key={nanoid()} filling={filling} fill={fill} index={index} />
               })
-              : <div
-                className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
-                начинку</div>
+            : <BurgerConstructorEmpty text={'Перетащите начинку'} />
           }
         </div>
+
         {
-          bun ? <div key={nanoid()} className='pl-8 mr-4 mb-4'>
-              <ConstructorElement
-                type="bottom"
-                isLocked={true}
-                text={`${bun.name} ${'(низ)'}`}
-                price={bun.price}
-                thumbnail={bun.image}
-              />
-            </div>
-            : <div
-              className={`${Constructor.constructor__element_empty} pl-8 mr-4 mb-4 text text_type_main-default`}>Перетащите
-              булку</div>
+          bun 
+          ? <BurgerConstructorBun text={'(низ)'} bun={bun} type={'bottom'} />
+          : <BurgerConstructorEmpty text={'Перетащите булку'}/>
         }
+
         <div className={`${Constructor.constructor__total} mr-4`}>
           <div className={`${Constructor.constructor__price} mr-10`}>
             <p className="text text_type_digits-medium mr-2">{totalPrice()}</p>
