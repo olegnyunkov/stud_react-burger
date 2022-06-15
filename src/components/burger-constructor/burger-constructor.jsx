@@ -47,8 +47,10 @@ const BurgerConstructor = ({
   const openOrderModal = () => {
     setOrderIsOpened(true);
     setModalOpened(true);
-    dispatch(getOrder(saveOrder(bun, filling)));
-    dispatch(resetConstructorItem());
+    if(bun && filling.length) {
+      dispatch(getOrder(saveOrder(bun, filling)));
+      dispatch(resetConstructorItem());
+    }
   };
 
   //общая стоимость заказа
@@ -57,7 +59,7 @@ const BurgerConstructor = ({
     const fillCost = filling.reduce((s, v) => s + v.price, 0);
     return fillCost + bunCost;
   };
-
+console.log(bun && filling.length ? 'yes' : 'no')
   return (
     <>
       <section ref={dropTarget} className="pt-25 pl-4">
@@ -107,11 +109,12 @@ const BurgerConstructor = ({
           </Button>
         </div>
       </section>
-      { orderIsOpened && (
-        <Modal closeModal={closeModal} title="" modalOpened={modalOpened}>
-          <OrderDetails />
+       {
+        orderIsOpened &&
+        <Modal closeModal={closeModal} title="" modalOpened={modalOpened} >
+          <OrderDetails/>
         </Modal>
-      )}
+      }
     </>
   );
 };
