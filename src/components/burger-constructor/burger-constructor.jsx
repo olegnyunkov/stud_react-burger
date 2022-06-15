@@ -107,7 +107,7 @@ const BurgerConstructor = ({
           </Button>
         </div>
       </section>
-      {orderIsOpened && (
+      { orderIsOpened && (
         <Modal closeModal={closeModal} title="" modalOpened={modalOpened}>
           <OrderDetails />
         </Modal>

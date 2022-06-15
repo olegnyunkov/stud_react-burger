@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-hook-inview';
 import PropTypes from 'prop-types';
-import {nanoid} from "nanoid";
 import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
@@ -56,7 +55,7 @@ const BurgerIngredients = (
               {ingredients.map((item) => {
                 if (item.type === 'bun') {
                   return (
-                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -67,7 +66,7 @@ const BurgerIngredients = (
               {ingredients.map((item) => {
                 if (item.type === 'sauce') {
                   return (
-                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
@@ -78,7 +77,7 @@ const BurgerIngredients = (
               {ingredients.map((item) => {
                 if (item.type === 'main') {
                   return (
-                    <BurgerItem key={nanoid()} item={item} src={item.image} name={item.name} price={item.price}
+                    <BurgerItem key={item._id} item={item} src={item.image} name={item.name} price={item.price}
                                 openIngredientsModal={() => openIngredientsModal(item)}/>
                   )
                 }
