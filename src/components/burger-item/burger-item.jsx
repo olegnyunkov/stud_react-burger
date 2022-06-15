@@ -11,11 +11,13 @@ const BurgerItem = ({openIngredientsModal, src, name, price, item}) => {
 
   const {bun, filling} = useSelector(state => state.construct);
 
+  //хук для перемещения элемента в конструктор
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: {item}
   });
 
+  //счетчик количества ингредиентов в конструкторе
   const counter = () => {
     const fillId = filling.map((fill) => {
       return fill._id

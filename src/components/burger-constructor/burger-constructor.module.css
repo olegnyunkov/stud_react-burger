@@ -43,14 +43,3 @@
     text-align: center;
     line-height: 70px;
 }
-
-.constructor__elements_empty {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    gap: 16px;
-}
-
-.constructor__element_drop {
-    border: 1px solid green;
-}

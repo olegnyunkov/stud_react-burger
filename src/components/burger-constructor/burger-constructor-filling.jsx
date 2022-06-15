@@ -1,40 +1,25 @@
-import React, { useRef, useCallback, useState } from "react";
-import update from 'immutability-helper';
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef} from "react";
+import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
 import Constructor from "./burger-constructor.module.css";
-import { getOrder } from "../../utils/api";
-import Modal from "../modal/modal";
-import BurgerConstructorBun from "./burger-constructor-bun";
-import OrderDetails from "../order-details/order-details";
-import {
-  addConstructorItem,
+import {  
   deleteConstructorItem,
   moveConstructorItem,
 } from "../../services/actions/actions";
-import {
-  CurrencyIcon,
-  ConstructorElement,
-  Button,
+import {  
+  ConstructorElement,  
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructorFilling = ({ filling, fill, index, id }) => {
+const BurgerConstructorFilling = ({ fill, index, id }) => {
 
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-
-
-  const [{ handlerId }, dropRef] = useDrop({
+  //хук для сортировки элекентов внутри конструктора
+  const [, dropRef] = useDrop({
     accept: "ingr",
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      }
-    },
     hover(item, monitor) {
       if (!ref.current) {
         return
@@ -59,12 +44,10 @@ const BurgerConstructorFilling = ({ filling, fill, index, id }) => {
 
       item.index = hoverIndex
     },
-    // drop(item) {
-    //   dispatch(addConstructorItem(item));
-    // },
   });
 
-  const [{ isDragging }, dragRef] = useDrag({
+  //хук для сортировки элекентов внутри конструктора
+  const [, dragRef] = useDrag({
     type: "ingr",
     item: () => {
       return { id, index }

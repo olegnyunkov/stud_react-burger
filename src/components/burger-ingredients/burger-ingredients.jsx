@@ -28,10 +28,12 @@ const BurgerIngredients = (
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
 
+  //загрузка ингредиентов при старте страницы
   useEffect(() => {
     dispatch(getIngredients())
   }, []);
 
+  //открытие модалки описания и загрузка описания
   const openIngredientsModal = (info) => {
     setIngredientsIsOpened(true);
     setModalOpened(true);
