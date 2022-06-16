@@ -7,7 +7,8 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({modalOpened, closeModal, title, children}) => {
+const Modal = (props) => {
+  const {modalOpened, closeModal, title, children} = props;
 
   useEffect(() => {
     const closeEscBtn = (evt) => {

@@ -7,7 +7,8 @@ import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
 import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerItem = ({openIngredientsModal, src, name, price, item}) => {
+const BurgerItem = (props) => {
+  const {openIngredientsModal, src, name, price, item} = props;
 
   const {bun, filling} = useSelector(state => state.construct);
 

@@ -2,7 +2,7 @@ import React, { useRef} from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import PropTypes from "prop-types";
-import Constructor from "./burger-constructor.module.css";
+import ConstructorFillingStyles from "./burger-constructor-filling.module.css";
 import {  
   deleteConstructorItem,
   moveConstructorItem,
@@ -12,14 +12,20 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructorFilling = ({ fill, index, id }) => {
+const BurgerConstructorFilling = (props) => {
+  const { fill, index, id } = props;
 
   const dispatch = useDispatch();
   const ref = useRef(null);
 
   //хук для сортировки элекентов внутри конструктора
-  const [, dropRef] = useDrop({
-    accept: "ingr",
+  const [{handlerId}, dropRef] = useDrop({
+    accept: "fill",
+    collect: (monitor) => {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
     hover(item, monitor) {
       if (!ref.current) {
         return
@@ -29,7 +35,7 @@ const BurgerConstructorFilling = ({ fill, index, id }) => {
       if (dragIndex === hoverIndex) {
         return
       }
-      const hoverBoundingRect = ref.current?.getBoundingClientRect()
+      const hoverBoundingRect = ref.current.getBoundingClientRect()
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
@@ -43,14 +49,14 @@ const BurgerConstructorFilling = ({ fill, index, id }) => {
       dispatch(moveConstructorItem(dragIndex, hoverIndex))
 
       item.index = hoverIndex
-    },
+    },    
   });
 
   //хук для сортировки элекентов внутри конструктора
-  const [, dragRef] = useDrag({
-    type: "ingr",
+  const [{isDragging}, dragRef] = useDrag({
+    type: "fill",
     item: () => {
-      return { id, index }
+      return { id, index };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -59,8 +65,10 @@ const BurgerConstructorFilling = ({ fill, index, id }) => {
 
   const dragDropRef = dragRef(dropRef(ref))
 
-  return (    
-    <div id={fill._id} ref={dragDropRef} className={Constructor.constructor__element}>
+   
+  return (
+       
+    <div ref={dragDropRef} data-handler-id={handlerId} className={ConstructorFillingStyles.constructor__element}>
       <div className="mr-2">
         <DragIcon type="primary" />
       </div>
@@ -72,8 +80,15 @@ const BurgerConstructorFilling = ({ fill, index, id }) => {
           dispatch(deleteConstructorItem(index));
         }}
       />
-    </div>  
+    </div>
+    
   );
+};
+
+BurgerConstructorFilling.propTypes = {
+  fill: PropTypes.object.isRequired,
+  index: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default BurgerConstructorFilling;

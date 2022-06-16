@@ -5,7 +5,8 @@ import {
   Tab,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Tabs = ({inViewBuns, inViewSauces, inViewFilling}) => {
+const Tabs = (props) => {
+  const {inViewBuns, inViewSauces, inViewFilling} = props;
   const [current, setCurrent] = React.useState('one')
 
   const onTabClick = (tab) => {

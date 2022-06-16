@@ -1,4 +1,5 @@
 import {combineReducers} from "redux";
+import update from 'immutability-helper';
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -122,18 +123,12 @@ const constructorReducer = (state = constructorInitialState, action) => {
       }
     }
     case MOVE_CONSTRUCTOR_ITEM: {
-      const moveItems = (dragIndex, hoverIndex) => {
-        const dragItem = state.filling[dragIndex]
-        const hoverItem = state.filling[hoverIndex]
-        const updatedItems = [...state.filling]
-        updatedItems[dragIndex] = hoverItem
-        updatedItems[hoverIndex] = dragItem
-        return updatedItems
-      }
       return {
         ...state,
         bun: state.bun,
-        filling: moveItems(action.dragIndex, action.hoverIndex)
+        filling: update(state.filling, {
+          $splice: [[action.dragIndex, 1], [action.hoverIndex, 0, state.filling[action.dragIndex]]],
+        }),
       }
     }
     default: {

@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import ConstructorElementEmpty from './burger-constructor.module.css';
 
-const BurgerConstructorEmpty = ({ text }) => {
+const BurgerConstructorEmpty = (props) => {
+  const { text } = props;
 
   return (
     <div
@@ -10,6 +12,10 @@ const BurgerConstructorEmpty = ({ text }) => {
       {text}
     </div>
   );
+};
+
+BurgerConstructorEmpty.propTypes = {
+  text: PropTypes.string.isRequired
 };
 
 export default BurgerConstructorEmpty;

@@ -11,15 +11,14 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {getIngredients} from "../../utils/api";
 import {getDetails} from "../../services/actions/actions";
 
-const BurgerIngredients = (
-  {
+const BurgerIngredients = (props) => {
+  const {
     ingredientsIsOpened,
     modalOpened,
     setIngredientsIsOpened,
     setModalOpened,
     closeModal
-  }
-) => {
+  } = props;
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);

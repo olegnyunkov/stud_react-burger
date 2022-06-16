@@ -19,13 +19,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructor = ({
-  orderIsOpened,
-  modalOpened,
-  setOrderIsOpened,
-  setModalOpened,
-  closeModal,
-}) => {
+const BurgerConstructor = (props) => {
+  const {
+    orderIsOpened,
+    modalOpened,
+    setOrderIsOpened,
+    setModalOpened,
+    closeModal,
+  } = props;
   const dispatch = useDispatch();
   const { bun, filling } = useSelector((state) => state.construct);
 
@@ -59,7 +60,7 @@ const BurgerConstructor = ({
     const fillCost = filling.reduce((s, v) => s + v.price, 0);
     return fillCost + bunCost;
   };
-console.log(bun && filling.length ? 'yes' : 'no')
+
   return (
     <>
       <section ref={dropTarget} className="pt-25 pl-4">
@@ -83,7 +84,7 @@ console.log(bun && filling.length ? 'yes' : 'no')
                   key={nanoid()}
                   filling={filling}
                   fill={fill}
-                  id={fill._id}
+                  id={nanoid()}
                   index={index}
                 />
               );
@@ -110,6 +111,7 @@ console.log(bun && filling.length ? 'yes' : 'no')
         </div>
       </section>
        {
+        
         orderIsOpened &&
         <Modal closeModal={closeModal} title="" modalOpened={modalOpened} >
           <OrderDetails/>

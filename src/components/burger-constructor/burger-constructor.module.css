@@ -21,11 +21,6 @@
     height: 292px;
 }
 
-.constructor__element {
-    display: flex;
-    align-items: center;
-}
-
 .constructor__price {
     display: flex;
     align-items: center;
