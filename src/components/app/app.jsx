@@ -22,9 +22,9 @@ const App = () => {
 
   return (
     <>
-      <AppHeader/>
-      <div className={Main.main}>
-        <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={HTML5Backend}>
+        <AppHeader/>
+        <div className={Main.main}>
           <BurgerIngredients
             setIngredientsIsOpened={setIngredientsIsOpened}
             ingredientsIsOpened={ingredientsIsOpened}
@@ -39,8 +39,8 @@ const App = () => {
             modalOpened={modalOpened}
             setModalOpened={setModalOpened}
           />
-        </DndProvider>
-      </div>
+        </div>
+      </DndProvider>
     </>
   );
 }

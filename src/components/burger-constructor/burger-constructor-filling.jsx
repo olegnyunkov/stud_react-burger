@@ -20,13 +20,16 @@ const BurgerConstructorFilling = (props) => {
 
   //хук для сортировки элекентов внутри конструктора
   const [{handlerId}, dropRef] = useDrop({
-    accept: "fill",
+    accept: 'item',
     collect: (monitor) => {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    //из за неизвестной мне проблемы установил вместо hover`а drop, нагуглил подобную проблему,
+    //моих знаний пока недостаточно разобраться, что то связано с быстрым рендерингом и с его замедлением.
+    //https://github.com/react-dnd/react-dnd/issues/236
+    drop(item, monitor) {
       if (!ref.current) {
         return
       }
@@ -35,7 +38,7 @@ const BurgerConstructorFilling = (props) => {
       if (dragIndex === hoverIndex) {
         return
       }
-      const hoverBoundingRect = ref.current.getBoundingClientRect()
+      const hoverBoundingRect = ref.current?.getBoundingClientRect()
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
       const hoverClientY = clientOffset.y - hoverBoundingRect.top
@@ -54,7 +57,7 @@ const BurgerConstructorFilling = (props) => {
 
   //хук для сортировки элекентов внутри конструктора
   const [{isDragging}, dragRef] = useDrag({
-    type: "fill",
+    type: 'item',
     item: () => {
       return { id, index };
     },
@@ -63,12 +66,11 @@ const BurgerConstructorFilling = (props) => {
     }),
   });
 
-  const dragDropRef = dragRef(dropRef(ref))
-
+ dragRef(dropRef(ref))
    
   return (
        
-    <div ref={dragDropRef} data-handler-id={handlerId} className={ConstructorFillingStyles.constructor__element}>
+    <div ref={ref} data-handler-id={handlerId} className={ConstructorFillingStyles.constructor__element}>
       <div className="mr-2">
         <DragIcon type="primary" />
       </div>
@@ -87,7 +89,7 @@ const BurgerConstructorFilling = (props) => {
 
 BurgerConstructorFilling.propTypes = {
   fill: PropTypes.object.isRequired,
-  index: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired
 };
 
