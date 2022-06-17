@@ -26,10 +26,7 @@ const BurgerConstructorFilling = (props) => {
         handlerId: monitor.getHandlerId(),
       };
     },
-    //из за неизвестной мне проблемы установил вместо hover`а drop, нагуглил подобную проблему,
-    //моих знаний пока недостаточно разобраться, что то связано с быстрым рендерингом и с его замедлением.
-    //https://github.com/react-dnd/react-dnd/issues/236
-    drop(item, monitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return
       }

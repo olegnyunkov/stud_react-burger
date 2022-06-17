@@ -1,4 +1,5 @@
 import {combineReducers} from "redux";
+import { nanoid } from "nanoid";
 import update from 'immutability-helper';
 import {
   GET_INGREDIENTS_REQUEST,
@@ -98,10 +99,12 @@ const ingredientDetailsReducer = (state = ingredientDetailsInitialState, action)
 const constructorReducer = (state = constructorInitialState, action) => {
   switch (action.type) {
     case ADD_CONSTRUCTOR_ITEM: {
+      const fillingItem = action.payload.item
+      const uId = nanoid()
       return {
         ...state,
         bun: action.payload.item.type === 'bun' ? action.payload.item : state.bun,
-        filling: action.payload.item.type !== 'bun' ? [...state.filling, action.payload.item] : [...state.filling]
+        filling: action.payload.item.type !== 'bun' ? [...state.filling, {...fillingItem, uId}] : [...state.filling]
       }
     }
     case DELETE_CONSTRUCTOR_ITEM: {

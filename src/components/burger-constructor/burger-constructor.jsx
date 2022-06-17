@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
-import { nanoid } from "nanoid";
 import Constructor from "./burger-constructor.module.css";
 import { getOrder } from "../../utils/api";
 import Modal from "../modal/modal";
@@ -81,10 +80,10 @@ const BurgerConstructor = (props) => {
             filling.map((fill, index) => {
               return (
                 <BurgerConstructorFilling
-                  key={nanoid()}
+                  key={fill.uId}
                   filling={filling}
                   fill={fill}
-                  id={nanoid()}
+                  id={fill.uId}
                   index={index}
                 />
               );
