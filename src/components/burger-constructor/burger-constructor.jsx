@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
+import {nanoid} from "nanoid";
 import Constructor from "./burger-constructor.module.css";
 import { getOrder } from "../../utils/api";
 import Modal from "../modal/modal";
@@ -18,6 +19,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 const BurgerConstructor = (props) => {
   const {
     orderIsOpened,
@@ -28,12 +30,13 @@ const BurgerConstructor = (props) => {
   } = props;
   const dispatch = useDispatch();
   const { bun, filling } = useSelector((state) => state.construct);
+  const uId = nanoid()
 
   //хук для перемещения элемента из ингредиентов в конструктор
   const [, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch(addConstructorItem(item));
+      dispatch(addConstructorItem(item, uId));
     },
   });
 

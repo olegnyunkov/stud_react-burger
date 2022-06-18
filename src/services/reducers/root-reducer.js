@@ -1,5 +1,4 @@
-import {combineReducers} from "redux";
-import { nanoid } from "nanoid";
+import { combineReducers } from "redux";
 import update from 'immutability-helper';
 import {
   GET_INGREDIENTS_REQUEST,
@@ -15,7 +14,6 @@ import {
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED
 } from '../actions/actions';
-import {useCallback} from "react";
 
 // начальные состояния
 const ingredientsInitialState = {
@@ -100,7 +98,7 @@ const constructorReducer = (state = constructorInitialState, action) => {
   switch (action.type) {
     case ADD_CONSTRUCTOR_ITEM: {
       const fillingItem = action.payload.item
-      const uId = nanoid()
+      const uId = action.uId
       return {
         ...state,
         bun: action.payload.item.type === 'bun' ? action.payload.item : state.bun,

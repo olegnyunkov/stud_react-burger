@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -37,8 +35,8 @@ export const removeDetails = (data) => {
   return { type: REMOVE_DETAILS, payload: data }
 };
 
-export const addConstructorItem = (data) => {
-  return { type: ADD_CONSTRUCTOR_ITEM, payload: data }
+export const addConstructorItem = (data, uId) => {
+  return { type: ADD_CONSTRUCTOR_ITEM, payload: data, uId: uId }
 };
 
 export const deleteConstructorItem = (data) => {
