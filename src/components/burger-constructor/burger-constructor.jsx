@@ -36,6 +36,7 @@ const BurgerConstructor = (props) => {
   const [, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
+      const uId = nanoid()
       dispatch(addConstructorItem(item, uId));
     },
   });
