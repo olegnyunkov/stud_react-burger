@@ -21,11 +21,6 @@
     height: 292px;
 }
 
-.constructor__element {
-    display: flex;
-    align-items: center;
-}
-
 .constructor__price {
     display: flex;
     align-items: center;
@@ -34,4 +29,12 @@
 .constructor__total {
     display: flex;
     justify-content: flex-end;
+}
+
+.constructor__element_empty {
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    border-radius: 40px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
 }

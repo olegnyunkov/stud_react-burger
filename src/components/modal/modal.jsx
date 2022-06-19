@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import ModalStyles from './modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById('modals');
 
-const Modal = ({ modalOpened, closeModal, title, children }) => {
+const Modal = (props) => {
+  const {modalOpened, closeModal, title, children} = props;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const closeEscBtn = (evt) => {
       evt.key === 'Escape' && closeModal()
     }
 
-    if(modalOpened) {
+    if (modalOpened) {
       document.addEventListener('keydown', closeEscBtn)
     }
     return () => {
