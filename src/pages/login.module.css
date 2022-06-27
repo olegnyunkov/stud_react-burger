@@ -1,0 +1,10 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 180px auto;
+}
+
+.login__links {
+    display: flex;
+}
