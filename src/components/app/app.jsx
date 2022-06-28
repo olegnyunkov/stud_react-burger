@@ -9,6 +9,10 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {removeDetails} from "../../services/actions/actions";
 import {LoginPage} from './../../pages/login';
+import {RegisterPage} from './../../pages/register';
+import {ForgotPasswordPage} from './../../pages/forgot-password';
+import {ResetPasswordPage} from './../../pages/reset-password';
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -50,6 +54,18 @@ const App = () => {
 
             <Route path='/login' exact={true}>
               <LoginPage/>
+            </Route>
+
+            <Route path='/register' exact={true}>
+              <RegisterPage/>
+            </Route>
+
+            <Route path='/forgot-password' exact={true}>
+              <ForgotPasswordPage/>
+            </Route>
+
+            <Route path='/reset-password' exact={true}>
+              <ResetPasswordPage/>
             </Route>
 
           </Switch>

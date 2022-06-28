@@ -8,10 +8,10 @@ export const LoginPage = () => {
   return (
     <div className={LoginPageStyles.login}>
       <h2 className="text text_type_main-medium">Вход</h2>
-      <div className='mt-6'>
+      <div className={`${LoginPageStyles.login__inputs} mt-6`}>
         <EmailInput />
       </div>
-      <div className='mt-6'>
+      <div className={`${LoginPageStyles.login__inputs} mt-6`}>
         <PasswordInput/>
       </div>
       <div className='mt-6'>
@@ -19,11 +19,11 @@ export const LoginPage = () => {
       </div>
       <div className={`${LoginPageStyles.login__links} mt-20`}>
         <p className='text text_type_main-default mr-2'>Вы — новый пользователь?</p>
-        <Link className="text text_type_main-default">Зарегистрироваться</Link>
+        <Link to={{pathname: '/register'}} className="text text_type_main-default">Зарегистрироваться</Link>
       </div>
       <div className={`${LoginPageStyles.login__links} mt-4`}>
         <p className='text text_type_main-default mr-2'>Забыли пароль?</p>
-        <Link className="text text_type_main-default">Восстановить пароль</Link>
+        <Link to={{pathname: '/forgot-password'}} className="text text_type_main-default">Восстановить пароль</Link>
       </div>
     </div>
   )
