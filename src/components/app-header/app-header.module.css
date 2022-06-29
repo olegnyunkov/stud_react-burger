@@ -1,16 +1,22 @@
 .header {
+    border: 1px red solid;
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(4, minmax(min-content, max-content));
     margin: 0 auto;
     justify-content: center;
-}
-
-.header__item {
-    display: flex;
     align-items: center;
 }
 
+.header__item {
+    border: 1px green solid;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
 .header__logo {
+    border: 1px white solid;
     margin: 24px 287px 24px 112px;
 }

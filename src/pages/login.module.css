@@ -21,3 +21,9 @@
 .login__links {
     display: flex;
 }
+
+.profile {
+    border: 1px green solid;
+    display: flex;
+    margin: 120px auto auto 340px;
+}
