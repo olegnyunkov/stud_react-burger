@@ -46,3 +46,45 @@ export const getOrder = (orderDataId) => {
     })
   }
 }
+
+//регистрация нового пользователя
+export const userRegistration = () => {
+
+  return fetch(baseUrl + '/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({
+      'email': 'nvo84@yandex.ru',
+      'password': 'qwerty',
+      'name': 'Oleg'
+    }),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse).then(res => {
+    console.log(res)
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+//запрос на восстановление пароля
+export const sendResetPasswordRequest = (userEmail) => {
+
+  return fetch(baseUrl + '/password-reset', {
+    method: 'POST',
+    body: JSON.stringify({'email': userEmail}),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse)
+}
+
+//сохранение нового пароля
+export const setNewPassword = () => {
+
+  return fetch(baseUrl + '/password-reset/reset', {
+    method: 'POST',
+    body: JSON.stringify({'password': '', 'token': ''}),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse).then(res => {
+    console.log(res)
+  }).catch(err => {
+    console.log(err)
+  })
+}
