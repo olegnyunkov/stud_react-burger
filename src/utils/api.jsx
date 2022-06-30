@@ -48,21 +48,17 @@ export const getOrder = (orderDataId) => {
 }
 
 //регистрация нового пользователя
-export const userRegistration = () => {
+export const sendUserRegistrationInfo = (name, email, password) => {
 
   return fetch(baseUrl + '/auth/register', {
     method: 'POST',
     body: JSON.stringify({
-      'email': 'nvo84@yandex.ru',
-      'password': 'qwerty',
-      'name': 'Oleg'
+      'email': email,
+      'password': password,
+      'name': name
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse).then(res => {
-    console.log(res)
-  }).catch(err => {
-    console.log(err)
-  })
+  }).then(checkResponse)
 }
 
 //запрос на восстановление пароля
@@ -76,15 +72,11 @@ export const sendResetPasswordRequest = (userEmail) => {
 }
 
 //сохранение нового пароля
-export const setNewPassword = () => {
+export const setNewPassword = (newPass, token) => {
 
   return fetch(baseUrl + '/password-reset/reset', {
     method: 'POST',
-    body: JSON.stringify({'password': '', 'token': ''}),
+    body: JSON.stringify({'password': newPass, 'token': token}),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse).then(res => {
-    console.log(res)
-  }).catch(err => {
-    console.log(err)
-  })
+  }).then(checkResponse)
 }

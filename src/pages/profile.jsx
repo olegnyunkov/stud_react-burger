@@ -11,17 +11,17 @@ import LoginPageStyles from "./login.module.css";
 export const ProfilePage = () => {
   return (
     <div className={LoginPageStyles.profile}>
-      <div>
-        <Link>
-          <p className="text text_type_main-medium">Профиль</p>
+      <div className='mr-15'>
+        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
+          <p>Профиль</p>
         </Link>
-        <Link>
-          <p className="text text_type_main-medium">История заказов</p>
+        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
+          <p>История заказов</p>
         </Link>
-        <Link>
-          <p className="text text_type_main-medium">Выход</p>
+        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
+          <p>Выход</p>
         </Link>
-        <p className="text text_type_main-default">
+        <p className={`${LoginPageStyles.profile__text} text text_type_main-default mt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
@@ -36,7 +36,7 @@ export const ProfilePage = () => {
           <PasswordInput />
         </div>
         <div className="mt-6">
-          <p>Отмена</p>
+          <Button type="secondary">Отмена</Button>
           <Button type="primary" size="medium">
             Восстановить
           </Button>

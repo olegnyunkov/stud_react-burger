@@ -25,5 +25,17 @@
 .profile {
     border: 1px green solid;
     display: flex;
-    margin: 120px auto auto 340px;
+    margin: 120px auto auto;
+}
+
+.profile__links {
+    text-decoration: none;
+    width: 320px;
+    border: 1px green solid;
+}
+
+.profile__text {
+    border: 1px green solid;
+    width: 320px;
+    color: #8585AD;
 }
