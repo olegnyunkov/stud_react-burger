@@ -3,36 +3,42 @@ import {Link} from 'react-router-dom'
 import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
 import {sendUserRegistrationInfo} from '../utils/api';
+import {useDispatch, useSelector} from "react-redux";
+import {
+  registrationEmail,
+  registrationName,
+  registrationPassword,
+  registrationSuccess
+} from "../services/actions/registration-actions";
 
 export const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const {email, password, name} = useSelector(state => state.registration);
   const onChangeName = e => {
-    setName(e.target.value)
+    dispatch(registrationName(e.target.value))
   }
   const onChangeEmail = e => {
-    setEmail(e.target.value)
+    dispatch(registrationEmail(e.target.value))
   }
   const onChangePassword = e => {
-    setPassword(e.target.value)
+    dispatch(registrationPassword(e.target.value))
   }
   const userRegistration = (e) => {
     e.preventDefault();
-    sendUserRegistrationInfo(name, email, password).then(res => console.log(res)).catch(err => console.log(err))
+    sendUserRegistrationInfo(email, password, name).then(res => console.log(res)).catch(err => console.log(err))
   }
 
   return (
     <div className={LoginPageStyles.login}>
       <h2 className="text text_type_main-medium">Регистрация</h2>
       <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-        <Input onChange={onChangeName} placeholder="Имя" />
+        <Input onChange={onChangeName} placeholder="Имя" value={name} />
       </div>
       <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-        <EmailInput onChange={onChangeEmail} />
+        <EmailInput onChange={onChangeEmail} value={email} />
       </div>
       <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-        <PasswordInput onChange={onChangePassword} />
+        <PasswordInput onChange={onChangePassword} value={password} />
       </div>
       <div className='mt-6'>
         <Button onClick={userRegistration} type="primary" size="medium">Зарегистрироваться</Button>

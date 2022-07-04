@@ -18,9 +18,7 @@ export const ProfilePage = () => {
         <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
           <p>История заказов</p>
         </Link>
-        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
-          <p>Выход</p>
-        </Link>
+        <Button type={"secondary"}>Выход</Button>
         <p className={`${LoginPageStyles.profile__text} text text_type_main-default mt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>

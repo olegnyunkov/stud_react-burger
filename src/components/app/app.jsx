@@ -7,12 +7,12 @@ import Main from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {removeDetails} from "../../services/actions/actions";
-import {LoginPage} from './../../pages/login';
-import {RegisterPage} from './../../pages/register';
-import {ForgotPasswordPage} from './../../pages/forgot-password';
-import {ResetPasswordPage} from './../../pages/reset-password';
-import {ProfilePage} from './../../pages/profile';
+import {removeDetails} from "../../services/actions/ingredient-details-actions";
+import {LoginPage} from '../../pages/login';
+import {RegisterPage} from '../../pages/register';
+import {ForgotPasswordPage} from '../../pages/forgot-password';
+import {ResetPasswordPage} from '../../pages/reset-password';
+import {ProfilePage} from '../../pages/profile';
 
 const App = () => {
   const dispatch = useDispatch();

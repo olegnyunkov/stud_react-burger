@@ -9,7 +9,7 @@ import Tabs from '../tabs/tabs';
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {getIngredients} from "../../utils/api";
-import {getDetails} from "../../services/actions/actions";
+import {getDetails} from "../../services/actions/ingredient-details-actions";
 
 const BurgerIngredients = (props) => {
   const {

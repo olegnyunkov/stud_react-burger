@@ -6,7 +6,7 @@ import ConstructorFillingStyles from "./burger-constructor-filling.module.css";
 import {  
   deleteConstructorItem,
   moveConstructorItem,
-} from "../../services/actions/actions";
+} from "../../services/actions/constructor-actions";
 import {  
   ConstructorElement,  
   DragIcon,

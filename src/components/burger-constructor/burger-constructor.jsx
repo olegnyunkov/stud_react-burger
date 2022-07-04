@@ -13,7 +13,7 @@ import BurgerConstructorEmpty from "./burger-constructor-empty";
 import {
   addConstructorItem,
   resetConstructorItem,
-} from "../../services/actions/actions";
+} from "../../services/actions/constructor-actions";
 import {
   CurrencyIcon,
   Button,

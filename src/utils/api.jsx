@@ -1,11 +1,15 @@
 import {
-  getIngredientsFailed,
-  getIngredientsRequest,
-  getIngredientsSuccess,
   getOrderRequest,
   getOrderSuccess,
   getOrderFailed
-} from "../services/actions/actions";
+} from "../services/actions/order-actions";
+
+import {
+  getIngredientsFailed,
+  getIngredientsRequest,
+  getIngredientsSuccess,
+} from '../services/actions/ingredients-actions';
+import {registrationRequest} from "../services/actions/registration-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -48,17 +52,17 @@ export const getOrder = (orderDataId) => {
 }
 
 //регистрация нового пользователя
-export const sendUserRegistrationInfo = (name, email, password) => {
+export const sendUserRegistrationInfo = (email, password, name) => {
 
   return fetch(baseUrl + '/auth/register', {
-    method: 'POST',
-    body: JSON.stringify({
-      'email': email,
-      'password': password,
-      'name': name
-    }),
-    headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+      method: 'POST',
+      body: JSON.stringify({
+        'email': email,
+        'password': password,
+        'name': name
+      }),
+      headers: {'Content-Type': 'application/json'}
+    }).then(checkResponse)
 }
 
 //запрос на восстановление пароля
@@ -77,6 +81,19 @@ export const setNewPassword = (newPass, token) => {
   return fetch(baseUrl + '/password-reset/reset', {
     method: 'POST',
     body: JSON.stringify({'password': newPass, 'token': token}),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse)
+}
+
+//авторизация пользователя
+export const sendUserLoginInfo = (email, password) => {
+
+  return fetch(baseUrl + '/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({
+      'email': email,
+      'password': password
+    }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse)
 }
