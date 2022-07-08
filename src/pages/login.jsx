@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom'
 import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {registrationEmail, registrationName} from "../services/actions/registration-actions";
 import {loginEmail, loginPassword} from "../services/actions/login-actions";
 import {sendUserLoginInfo} from "../utils/api";
+import { addUser } from "../services/actions/user-actions";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const LoginPage = () => {
     dispatch(loginPassword(e.target.value))
   }
   const userLogin = () => {
-    sendUserLoginInfo(email, password).then(res => console.log(res)).catch(err => console.log(err))
+    sendUserLoginInfo(email, password).then(res => dispatch(addUser(res))).catch(err => console.log(err))
   }
 
   return (
