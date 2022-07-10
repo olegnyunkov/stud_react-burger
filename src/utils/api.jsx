@@ -9,7 +9,7 @@ import {
   getIngredientsRequest,
   getIngredientsSuccess,
 } from '../services/actions/ingredients-actions';
-import {registrationRequest} from "../services/actions/registration-actions";
+import {getCookie} from "./cookie";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -18,8 +18,7 @@ const checkResponse = (res) => {
 }
 
 //запрос ингрединтов на сервер
-export const getIngredients = () => {
-  return function (dispatch) {
+export const getIngredients = () => (dispatch) => {
     dispatch(getIngredientsRequest());
 
     fetch(baseUrl + '/ingredients', {
@@ -30,12 +29,10 @@ export const getIngredients = () => {
       dispatch(getIngredientsFailed())
       console.log(err)
     })
-  }
 }
 
 //запрос номера заказа на сервер
-export const getOrder = (orderDataId) => {
-  return function (dispatch) {
+export const getOrder = (orderDataId) => (dispatch) => {
     dispatch(getOrderRequest());
 
     fetch(baseUrl + '/orders', {
@@ -48,7 +45,6 @@ export const getOrder = (orderDataId) => {
       dispatch(getOrderFailed())
       console.log(err)
     })
-  }
 }
 
 //регистрация нового пользователя
@@ -57,30 +53,35 @@ export const sendUserRegistrationInfo = (email, password, name) => {
   return fetch(baseUrl + '/auth/register', {
       method: 'POST',
       body: JSON.stringify({
-        'email': email,
-        'password': password,
-        'name': name
+        email,
+        password,
+        name
       }),
       headers: {'Content-Type': 'application/json'}
     }).then(checkResponse)
 }
 
 //запрос на восстановление пароля
-export const sendResetPasswordRequest = (userEmail) => {
+export const sendResetPasswordRequest = (email) => {
 
   return fetch(baseUrl + '/password-reset', {
     method: 'POST',
-    body: JSON.stringify({'email': userEmail}),
+    body: JSON.stringify({
+      email
+    }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse)
 }
 
 //сохранение нового пароля
-export const setNewPassword = (newPass, token) => {
+export const setNewPassword = (password, token) => {
 
   return fetch(baseUrl + '/password-reset/reset', {
     method: 'POST',
-    body: JSON.stringify({'password': newPass, 'token': token}),
+    body: JSON.stringify({
+      password,
+      token
+    }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse)
 }
@@ -91,9 +92,62 @@ export const sendUserLoginInfo = (email, password) => {
   return fetch(baseUrl + '/auth/login', {
     method: 'POST',
     body: JSON.stringify({
-      'email': email,
-      'password': password
+      email,
+      password
     }),
     headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse)
+}
+
+//выход пользователя
+export const sendUserLogoutInfo = (token) => {
+
+  return fetch(baseUrl + '/auth/logout', {
+    method: 'POST',
+    body: JSON.stringify({
+      token
+    }),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse)
+}
+
+//обновление токена
+export const sendRefreshTokenInfo = (token) => {
+
+  return fetch(baseUrl + '/auth/token', {
+    method: 'POST',
+    body: JSON.stringify({
+      token
+    }),
+    headers: {'Content-Type': 'application/json'}
+  }).then(checkResponse)
+}
+
+//получение данных о пользователе
+export const getUserInfo = (token) => {
+
+  return fetch(baseUrl + '/auth/user', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + getCookie('accessToken')
+    }
+  }).then(checkResponse)
+}
+
+//обновление данных о пользователе
+export const refreshUserInfo = (token, email, name, password) => {
+
+  return fetch(baseUrl + '/auth/user', {
+    method: 'PATCH',
+    body: JSON.stringify({
+      email,
+      name,
+      password
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + getCookie('accessToken')
+    }
   }).then(checkResponse)
 }

@@ -27,13 +27,13 @@ export const userReducer = (state = userInitialState, action) => {
     case REMOVE_USER: {
         return {
           ...state,
-          success: true,
+          success: false,
           user: {
-            email: action.user.email,
-            name: action.user.name,
+            email: '',
+            name: '',
           },
-          accessToken: action.accessToken,
-          refreshToken: action.refreshToken,
+          accessToken: '',
+          refreshToken: '',
         };
       }
       default: {
