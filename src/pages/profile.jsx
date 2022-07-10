@@ -10,18 +10,22 @@ import LoginPageStyles from "./login.module.css";
 import {sendUserLogoutInfo} from '../utils/api';
 import {removeUser} from "../services/actions/user-actions";
 import {useDispatch, useSelector} from "react-redux";
+import {deleteCookie} from "../utils/cookie";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
+  const {authorized} = useSelector(state => state.user)
   const userLogout = () => {
     sendUserLogoutInfo(localStorage.getItem('refreshToken'))
       .then(res => {
         dispatch(removeUser())
-        if(res.success) {
-          return <Redirect to='/login' />
-        }
+        deleteCookie('accessToken')
       })
       .catch(err => console.log(err))
+  }
+
+  if (!authorized) {
+    return <Redirect to='/login'/>
   }
 
   return (
@@ -40,13 +44,13 @@ export const ProfilePage = () => {
       </div>
       <div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <Input placeholder="Имя" />
+          <Input placeholder="Имя"/>
         </div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <EmailInput />
+          <EmailInput/>
         </div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <PasswordInput />
+          <PasswordInput/>
         </div>
         <div className="mt-6">
           <Button type="secondary">Отмена</Button>

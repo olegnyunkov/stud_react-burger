@@ -2,12 +2,9 @@ import {ADD_USER, REMOVE_USER} from '../actions/user-actions'
 
 const userInitialState = {
   success: false,
-  user: {
-    email: "",
-    name: "",
-  },
-  accessToken: "",
-  refreshToken: "",
+  authorized: false,
+  email: "",
+  name: "",
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -16,28 +13,22 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         success: true,
-        user: {
-          email: action.payload.user.email,
-          name: action.payload.user.name,
-        },
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        authorized: true,
+        email: action.payload.user.email,
+        name: action.payload.user.name,
       };
     }
     case REMOVE_USER: {
-        return {
-          ...state,
-          success: false,
-          user: {
-            email: '',
-            name: '',
-          },
-          accessToken: '',
-          refreshToken: '',
-        };
-      }
-      default: {
-        return state
-      }
+      return {
+        ...state,
+        success: false,
+        authorized: false,
+        email: '',
+        name: '',
+      };
+    }
+    default: {
+      return state
+    }
   }
 };

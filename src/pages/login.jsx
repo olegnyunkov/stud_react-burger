@@ -24,7 +24,6 @@ export const LoginPage = () => {
         dispatch(addUser(res))
         setCookie('accessToken', res.accessToken.split('Bearer ')[1])
         localStorage.setItem('refreshToken', res.refreshToken)
-        console.log(document.cookie)
       })
       .catch(err => console.log(err))
   }
