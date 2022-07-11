@@ -9,7 +9,15 @@ import {
   getIngredientsRequest,
   getIngredientsSuccess,
 } from '../services/actions/ingredients-actions';
-import {getCookie} from "./cookie";
+import {deleteCookie, getCookie, setCookie} from "./cookie";
+import {
+  addUser,
+  loginFailed,
+  loginRequest,
+  logoutFailed,
+  logoutRequest,
+  removeUser
+} from "../services/actions/user-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -24,7 +32,9 @@ export const getIngredients = () => (dispatch) => {
     fetch(baseUrl + '/ingredients', {
       headers: {'Content-Type': 'application/json'}
     }).then(checkResponse).then(res => {
-      res.success ? dispatch(getIngredientsSuccess(res.data)) : dispatch(getIngredientsFailed())
+      res.success
+        ? dispatch(getIngredientsSuccess(res.data))
+        : dispatch(getIngredientsFailed())
     }).catch(err => {
       dispatch(getIngredientsFailed())
       console.log(err)
@@ -40,7 +50,9 @@ export const getOrder = (orderDataId) => (dispatch) => {
       body: JSON.stringify({'ingredients': orderDataId}),
       headers: {'Content-Type': 'application/json'}
     }).then(checkResponse).then(res => {
-      res.success ? dispatch(getOrderSuccess(res)) : dispatch(getOrderFailed())
+      res.success
+        ? dispatch(getOrderSuccess(res))
+        : dispatch(getOrderFailed())
     }).catch(err => {
       dispatch(getOrderFailed())
       console.log(err)
@@ -87,28 +99,42 @@ export const setNewPassword = (password, token) => {
 }
 
 //авторизация пользователя
-export const sendUserLoginInfo = (email, password) => {
+export const sendUserLoginInfo = (email, password) => (dispatch) => {
+  dispatch(loginRequest())
 
-  return fetch(baseUrl + '/auth/login', {
+  fetch(baseUrl + '/auth/login', {
     method: 'POST',
     body: JSON.stringify({
       email,
       password
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+  }).then(checkResponse).then(res => {
+    res.success
+      ? dispatch(addUser(res))
+      && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
+      && localStorage.setItem('refreshToken', res.refreshToken)
+      : dispatch(loginFailed())
+  }).catch(err => console.log(err))
 }
 
 //выход пользователя
-export const sendUserLogoutInfo = (token) => {
+export const sendUserLogoutInfo = (token) => (dispatch) => {
+  dispatch(logoutRequest())
 
-  return fetch(baseUrl + '/auth/logout', {
+  fetch(baseUrl + '/auth/logout', {
     method: 'POST',
     body: JSON.stringify({
       token
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+  }).then(checkResponse).then(res => {
+    res.success
+      ? dispatch(removeUser())
+      && deleteCookie('accessToken')
+      : dispatch(logoutFailed())
+  })
+    .catch(err => console.log(err))
 }
 
 //обновление токена

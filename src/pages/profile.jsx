@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import {
   Input,
@@ -8,20 +8,25 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from "./login.module.css";
 import {sendUserLogoutInfo} from '../utils/api';
-import {removeUser} from "../services/actions/user-actions";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteCookie} from "../utils/cookie";
 
 export const ProfilePage = () => {
   const dispatch = useDispatch();
-  const {authorized} = useSelector(state => state.user)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const {authorized} = useSelector(state => state.user);
+  const onChangeName = (e) => {
+    setName(e.target.value)
+  };
+  const onChangeEmail = e => {
+    setEmail(e.target.value)
+  };
+  const onChangePassword = e => {
+    setPassword(e.target.value)
+  };
   const userLogout = () => {
-    sendUserLogoutInfo(localStorage.getItem('refreshToken'))
-      .then(res => {
-        dispatch(removeUser())
-        deleteCookie('accessToken')
-      })
-      .catch(err => console.log(err))
+    dispatch(sendUserLogoutInfo(localStorage.getItem('refreshToken')))
   }
 
   if (!authorized) {
@@ -31,30 +36,45 @@ export const ProfilePage = () => {
   return (
     <div className={LoginPageStyles.profile}>
       <div className='mr-15'>
-        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
+        <Link
+          to='/profile'
+          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
           <p>Профиль</p>
         </Link>
-        <Link className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
+        <Link
+          to='/profile'
+          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
           <p>История заказов</p>
         </Link>
-        <Button type={"secondary"} onClick={userLogout}>Выход</Button>
+        <Button
+          type={"secondary"}
+          onClick={userLogout}>Выход</Button>
         <p className={`${LoginPageStyles.profile__text} text text_type_main-default mt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
       <div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <Input placeholder="Имя"/>
+          <Input
+            placeholder="Имя"
+            onChange={onChangeName}
+            value={name}/>
         </div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <EmailInput/>
+          <EmailInput
+            onChange={onChangeEmail}
+            value={email}/>
         </div>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-          <PasswordInput/>
+          <PasswordInput
+            onChange={onChangePassword}
+            value={password}/>
         </div>
         <div className="mt-6">
-          <Button type="secondary">Отмена</Button>
-          <Button type="primary" size="medium">
+          <Button
+            type="secondary">Отмена</Button>
+          <Button
+            type="primary" size="medium">
             Восстановить
           </Button>
         </div>
