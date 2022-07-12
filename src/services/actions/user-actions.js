@@ -6,6 +6,18 @@ export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST';
 export const REGISTRATION_FAILED = 'REGISTRATION_FAILED';
 export const ADD_USER = 'ADD_USER';
 export const REMOVE_USER = 'REMOVE_USER';
+export const FORGOT_PASS_REQUEST = 'FORGOT_PASS_REQUEST';
+export const FORGOT_PASS_FAILED = 'FORGOT_PASS_FAILED';
+export const FORGOT_PASS_SUCCESS = 'FORGOT_PASS_SUCCESS';
+export const NEW_PASS_REQUEST = 'NEW_PASS_REQUEST';
+export const NEW_PASS_FAILED = 'NEW_PASS_FAILED';
+export const NEW_PASS_SUCCESS = 'NEW_PASS_SUCCESS';
+export const CHECK_AUTH_REQUEST = 'CHECK_AUTH_REQUEST';
+export const CHECK_AUTH_SUCCESS = 'CHECK_AUTH_SUCCESS';
+export const CHECK_AUTH_FAILED = 'CHECK_AUTH_FAILED';
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 
 export const loginRequest = () => {
     return {type: LOGIN_REQUEST}
@@ -37,4 +49,52 @@ export const addUser = (data) => {
 
 export const removeUser = () => {
     return {type: REMOVE_USER}
+}
+
+export const forgotPassRequest = () => {
+    return {type: FORGOT_PASS_REQUEST}
+}
+
+export const forgotPassFailed = () => {
+    return {type: FORGOT_PASS_FAILED}
+}
+
+export const forgotPassSuccess = () => {
+    return {type: FORGOT_PASS_SUCCESS}
+}
+
+export const newPassRequest = () => {
+    return {type: NEW_PASS_REQUEST}
+}
+
+export const newPassFailed = () => {
+    return {type: NEW_PASS_FAILED}
+}
+
+export const newPassSuccess = () => {
+    return {type: NEW_PASS_SUCCESS}
+}
+
+export const checkAuthRequest = () => {
+    return {type: CHECK_AUTH_REQUEST}
+}
+
+export const checkAuthSuccess = () => {
+    return {type: CHECK_AUTH_SUCCESS}
+}
+
+export const checkAuthFailed = () => {
+    return {type: CHECK_AUTH_FAILED}
+}
+
+export const updateUserRequest = () => {
+    return {type: UPDATE_USER_REQUEST}
+}
+
+export const updateUserFailed = () => {
+    return {type: UPDATE_USER_FAILED}
+}
+
+export const updateUserSuccess = () => {
+    return {type: UPDATE_USER_SUCCESS}
 }

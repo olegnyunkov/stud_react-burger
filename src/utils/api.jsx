@@ -18,7 +18,19 @@ import {
   logoutRequest,
   removeUser,
   registrationRequest,
-  registrationFailed
+  registrationFailed,
+  forgotPassRequest,
+  forgotPassSuccess,
+  forgotPassFailed,
+  newPassRequest,
+  newPassSuccess,
+  newPassFailed,
+  checkAuthRequest,
+  checkAuthSuccess,
+  checkAuthFailed,
+  updateUserRequest,
+  updateUserFailed,
+  updateUserSuccess
 } from "../services/actions/user-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
@@ -84,28 +96,38 @@ export const sendUserRegistrationInfo = (email, password, name) => (dispatch) =>
 }
 
 //запрос на восстановление пароля
-export const sendResetPasswordRequest = (email) => {
+export const sendResetPasswordRequest = (email) => (dispatch) => {
+  dispatch(forgotPassRequest())
 
-  return fetch(baseUrl + '/password-reset', {
+  fetch(baseUrl + '/password-reset', {
     method: 'POST',
     body: JSON.stringify({
       email
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+  }).then(checkResponse).then(res => {
+    res.success
+      ? dispatch(forgotPassSuccess())
+      : dispatch(forgotPassFailed())
+  }).catch((err) => console.log(err))
 }
 
 //сохранение нового пароля
-export const setNewPassword = (password, token) => {
+export const setNewPassword = (password, token) => (dispatch) => {
+  dispatch(newPassRequest())
 
-  return fetch(baseUrl + '/password-reset/reset', {
+  fetch(baseUrl + '/password-reset/reset', {
     method: 'POST',
     body: JSON.stringify({
       password,
       token
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+  }).then(checkResponse).then(res => {
+    res.success
+      ? dispatch(newPassSuccess())
+      : dispatch(newPassFailed())
+  }).catch(err => console.log(err))
 }
 
 //авторизация пользователя
@@ -160,21 +182,32 @@ export const sendRefreshTokenInfo = (token) => {
 }
 
 //получение данных о пользователе
-export const getUserInfo = (token) => {
+export const getUserInfo = () => (dispatch) => {
+  dispatch(checkAuthRequest())
 
-  return fetch(baseUrl + '/auth/user', {
+  fetch(baseUrl + '/auth/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'authorization': 'Bearer ' + getCookie('accessToken')
     }
-  }).then(checkResponse)
+  })
+    .then(checkResponse)
+    .then(res => {
+      console.log(res)
+      res.success
+        ? dispatch(checkAuthSuccess())
+        && dispatch(addUser(res))
+        : dispatch(checkAuthFailed())
+    })
+    .catch(err => console.log(err))
 }
 
 //обновление данных о пользователе
-export const refreshUserInfo = (token, email, name, password) => {
+export const refreshUserInfo = (email, name, password) => (dispatch) => {
+  dispatch(updateUserRequest())
 
-  return fetch(baseUrl + '/auth/user', {
+  fetch(baseUrl + '/auth/user', {
     method: 'PATCH',
     body: JSON.stringify({
       email,
@@ -186,4 +219,11 @@ export const refreshUserInfo = (token, email, name, password) => {
       'authorization': 'Bearer ' + getCookie('accessToken')
     }
   }).then(checkResponse)
+    .then(res => {
+      res.success
+        ? dispatch(addUser(res))
+        && dispatch(updateUserSuccess())
+        : dispatch(updateUserFailed())
+    })
+    .catch(err => console.log(err))
 }

@@ -1,12 +1,15 @@
-import React from "react";
-import {Link} from 'react-router-dom'
+import React, {useState} from "react";
+import {Link, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
 import {PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
 import {setNewPassword} from '../utils/api'
 
 export const ResetPasswordPage = () => {
-  const [value, setValue] = React.useState('');
-  const [tokenValue, setTokenValue] = React.useState('')
+  const dispatch = useDispatch()
+  const [value, setValue] = useState('');
+  const [tokenValue, setTokenValue] = useState('');
+  const {newPassSuccess, newPassRequest, newPassFailed} = useSelector(state => state.user);
   const onChange = e => {
     setValue(e.target.value)
   }
@@ -15,35 +18,45 @@ export const ResetPasswordPage = () => {
   }
   const newPassword = (e) => {
     e.preventDefault();
-    setNewPassword(value, tokenValue).then(res => console.log(res)).catch(err => console.log(err))
+    dispatch(setNewPassword(value, tokenValue))
   }
 
-  return (
-    <form className={LoginPageStyles.login}>
-      <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-      <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-        <PasswordInput
-          onChange={onChange}
-          value={value}
-          name={'password'} />
-      </div>
-      <div className={`${LoginPageStyles.login__inputs} mt-6`}>
-        <Input
-          onChange={onChangeToken}
-          placeholder='Введите код из письма' />
-      </div>
-      <div className='mt-6'>
-        <Button
-          type="primary"
-          size="medium"
-          onClick={newPassword}>Сохранить</Button>
-      </div>
-      <div className={`${LoginPageStyles.login__links} mt-20`}>
-        <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>
-        <Link
-          to={{pathname: '/login'}}
-          className="text text_type_main-default">Войти</Link>
-      </div>
-    </form>
-  )
+  if (newPassSuccess) {
+    return <Redirect to='/'/>
+  }
+
+  if (newPassFailed) {
+    return <p>Произошла ошибка при получении данных</p>
+  } else if (newPassRequest) {
+    return <p>Загрузка...</p>
+  } else {
+    return (
+      <form className={LoginPageStyles.login}>
+        <h2 className="text text_type_main-medium">Восстановление пароля</h2>
+        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+          <PasswordInput
+            onChange={onChange}
+            value={value}
+            name={'password'}/>
+        </div>
+        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+          <Input
+            onChange={onChangeToken}
+            placeholder='Введите код из письма'/>
+        </div>
+        <div className='mt-6'>
+          <Button
+            type="primary"
+            size="medium"
+            onClick={newPassword}>Сохранить</Button>
+        </div>
+        <div className={`${LoginPageStyles.login__links} mt-20`}>
+          <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>
+          <Link
+            to={{pathname: '/login'}}
+            className="text text_type_main-default">Войти</Link>
+        </div>
+      </form>
+    )
+  }
 }

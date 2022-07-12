@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -13,18 +13,23 @@ import {RegisterPage} from '../../pages/register';
 import {ForgotPasswordPage} from '../../pages/forgot-password';
 import {ResetPasswordPage} from '../../pages/reset-password';
 import {ProfilePage} from '../../pages/profile';
+import {getUserInfo} from "../../utils/api";
 
 const App = () => {
   const dispatch = useDispatch();
   const [ingredientsIsOpened, setIngredientsIsOpened] = useState(false);
   const [orderIsOpened, setOrderIsOpened] = useState(false);
-  const [modalOpened, setModalOpened] = useState(false)
+  const [modalOpened, setModalOpened] = useState(false);
 
   const closeModal = () => {
     setIngredientsIsOpened(false)
     setOrderIsOpened(false)
     dispatch(removeDetails())
   }
+
+  useEffect(() => {
+    dispatch(getUserInfo())
+  }, [])
 
   return (
     <>

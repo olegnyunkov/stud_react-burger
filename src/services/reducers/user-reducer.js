@@ -6,17 +6,46 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_FAILED,
   REGISTRATION_REQUEST,
-  REGISTRATION_FAILED
+  REGISTRATION_FAILED,
+  FORGOT_PASS_REQUEST,
+  FORGOT_PASS_FAILED,
+  FORGOT_PASS_SUCCESS,
+  NEW_PASS_REQUEST,
+  NEW_PASS_FAILED,
+  NEW_PASS_SUCCESS,
+  CHECK_AUTH_REQUEST,
+  CHECK_AUTH_SUCCESS,
+  CHECK_AUTH_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_FAILED,
+  UPDATE_USER_SUCCESS
 } from '../actions/user-actions';
 
 const userInitialState = {
-  name: "",
+  name: '',
   email: '',
   password: '',
-  isLoading: false,
-  errorLoading: false,
-  success: false,
-  authorized: false
+  loginRequest: false,
+  loginError: false,
+  logoutRequest: false,
+  logoutError: false,
+  registrationRequest: false,
+  registrationFailed: false,
+  forgotPassRequest: false,
+  forgotPassFailed: false,
+  forgotPassSuccess: false,
+  newPassRequest: false,
+  newPassFailed: false,
+  newPassSuccess: false,
+  authorized: false,
+  updateUserRequest: false,
+  updateUserFailed: false,
+  updateUserSuccess: false,
+
+  // isLoading: false,
+  // errorLoading: false,
+  // success: false,
+  // authorized: false
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -24,49 +53,48 @@ export const userReducer = (state = userInitialState, action) => {
     case LOGIN_REQUEST: {
       return {
         ...state,
-        isLoading: true,
-        errorLoading: false
+        loginRequest: true,
+        loginError: false
       }
     }
     case LOGIN_FAILED: {
       return {
         ...state,
-        errorLoading: true,
-        isLoading: false
+        loginRequest: false,
+        loginError: true
       }
     }
     case LOGOUT_REQUEST: {
       return {
         ...state,
-        isLoading: true,
-        errorLoading: false
+        logoutRequest: true,
+        logoutError: false
       }
     }
     case LOGOUT_FAILED: {
       return {
         ...state,
-        isLoading: false,
-        errorLoading: true
+        logoutRequest: false,
+        logoutError: true
       }
     }
     case REGISTRATION_REQUEST: {
       return {
         ...state,
-        isLoading: true,
-        errorLoading: false
+        registrationRequest: true,
+        registrationFailed: false
       }
     }
     case REGISTRATION_FAILED: {
       return {
         ...state,
-        isLoading: false,
-        errorLoading: true
+        registrationRequest: false,
+        registrationFailed: true
       }
     }
     case ADD_USER: {
       return {
         ...state,
-        success: true,
         authorized: true,
         email: action.payload.user.email,
         name: action.payload.user.name,
@@ -75,13 +103,100 @@ export const userReducer = (state = userInitialState, action) => {
     case REMOVE_USER: {
       return {
         ...state,
-        isLoading: false,
-        errorLoading: false,
-        success: false,
         authorized: false,
         email: '',
         name: '',
       };
+    }
+    case FORGOT_PASS_REQUEST: {
+      return {
+        ...state,
+        forgotPassRequest: true,
+        forgotPassFailed: false,
+        forgotPassSuccess: false
+      }
+    }
+    case FORGOT_PASS_FAILED: {
+      return {
+        ...state,
+        forgotPassRequest: false,
+        forgotPassFailed: true,
+        forgotPassSuccess: false
+      }
+    }
+    case FORGOT_PASS_SUCCESS: {
+      return {
+        ...state,
+        forgotPassRequest: false,
+        forgotPassFailed: false,
+        forgotPassSuccess: true
+      }
+    }
+    case NEW_PASS_REQUEST: {
+      return {
+        ...state,
+        newPassRequest: true,
+        newPassFailed: false,
+        newPassSuccess: false
+      }
+    }
+    case NEW_PASS_FAILED: {
+      return {
+        ...state,
+        newPassRequest: false,
+        newPassFailed: true,
+        newPassSuccess: false
+      }
+    }
+    case NEW_PASS_SUCCESS: {
+      return {
+        ...state,
+        newPassRequest: false,
+        newPassFailed: false,
+        newPassSuccess: true
+      }
+    }
+    case CHECK_AUTH_REQUEST: {
+      return {
+        ...state,
+        authorized: false,
+      }
+    }
+    case CHECK_AUTH_SUCCESS: {
+      return {
+        ...state,
+        authorized: true,
+      }
+    }
+    case CHECK_AUTH_FAILED: {
+      return {
+        ...state,
+        authorized: false,
+      }
+    }
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        updateUserRequest: true,
+        updateUserFailed: false,
+        updateUserSuccess: false,
+      }
+    }
+    case UPDATE_USER_FAILED: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserFailed: true,
+        updateUserSuccess: false,
+      }
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserFailed: false,
+        updateUserSuccess: true,
+      }
     }
     default: {
       return state

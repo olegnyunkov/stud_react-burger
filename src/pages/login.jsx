@@ -9,7 +9,7 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {success, isLoading, errorLoading} = useSelector(state => state.user);
+  const {authorized, loginRequest, loginError} = useSelector(state => state.user);
   const onChangeEmail = e => {
     setEmail(e.target.value)
   };
@@ -20,13 +20,13 @@ export const LoginPage = () => {
     dispatch(sendUserLoginInfo(email, password))
   };
 
-  if (success) {
+  if (authorized) {
     return <Redirect to='/'/>
   }
 
-  if (errorLoading) {
+  if (loginError) {
     return <p>Произошла ошибка при получении данных</p>
-  } else if (isLoading) {
+  } else if (loginRequest) {
     return <p>Загрузка...</p>
   } else {
     return (

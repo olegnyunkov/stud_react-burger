@@ -10,7 +10,7 @@ export const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {success, errorLoading, isLoading} = useSelector(state => state.user);
+  const {authorized, registrationFailed, registrationRequest} = useSelector(state => state.user);
   const onChangeName = e => {
     setName(e.target.value)
   }
@@ -25,13 +25,13 @@ export const RegisterPage = () => {
     dispatch(sendUserRegistrationInfo(email, password, name))
   }
 
-  if (success) {
+  if (authorized) {
     return <Redirect to='/'/>
   }
 
-  if (errorLoading) {
+  if (registrationFailed) {
     return <p>Произошла ошибка при получении данных</p>
-  } else if (isLoading) {
+  } else if (registrationRequest) {
     return <p>Загрузка...</p>
   } else {
   return (

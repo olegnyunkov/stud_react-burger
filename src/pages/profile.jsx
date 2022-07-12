@@ -7,7 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from "./login.module.css";
-import {sendUserLogoutInfo} from '../utils/api';
+import {refreshUserInfo, sendUserLogoutInfo} from '../utils/api';
 import {useDispatch, useSelector} from "react-redux";
 
 export const ProfilePage = () => {
@@ -27,6 +27,9 @@ export const ProfilePage = () => {
   };
   const userLogout = () => {
     dispatch(sendUserLogoutInfo(localStorage.getItem('refreshToken')))
+  }
+  const updateUserInfo = () => {
+    dispatch(refreshUserInfo(email, name, password))
   }
 
   if (!authorized) {
@@ -74,7 +77,9 @@ export const ProfilePage = () => {
           <Button
             type="secondary">Отмена</Button>
           <Button
-            type="primary" size="medium">
+            type="primary"
+            size="medium"
+            onClick={updateUserInfo}>
             Восстановить
           </Button>
         </div>
