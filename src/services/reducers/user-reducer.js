@@ -5,6 +5,8 @@ import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
   LOGOUT_FAILED,
+  REGISTRATION_REQUEST,
+  REGISTRATION_FAILED
 } from '../actions/user-actions';
 
 const userInitialState = {
@@ -41,6 +43,20 @@ export const userReducer = (state = userInitialState, action) => {
       }
     }
     case LOGOUT_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
+        errorLoading: true
+      }
+    }
+    case REGISTRATION_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        errorLoading: false
+      }
+    }
+    case REGISTRATION_FAILED: {
       return {
         ...state,
         isLoading: false,

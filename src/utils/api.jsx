@@ -16,7 +16,9 @@ import {
   loginRequest,
   logoutFailed,
   logoutRequest,
-  removeUser
+  removeUser,
+  registrationRequest,
+  registrationFailed
 } from "../services/actions/user-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
@@ -60,9 +62,10 @@ export const getOrder = (orderDataId) => (dispatch) => {
 }
 
 //регистрация нового пользователя
-export const sendUserRegistrationInfo = (email, password, name) => {
+export const sendUserRegistrationInfo = (email, password, name) => (dispatch) => {
+  dispatch(registrationRequest())
 
-  return fetch(baseUrl + '/auth/register', {
+  fetch(baseUrl + '/auth/register', {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -70,7 +73,14 @@ export const sendUserRegistrationInfo = (email, password, name) => {
         name
       }),
       headers: {'Content-Type': 'application/json'}
-    }).then(checkResponse)
+    }).then(checkResponse).then(res => {
+      res.success
+        ? dispatch(addUser(res))
+        && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
+        && localStorage.setItem('refreshToken', res.refreshToken)
+        : dispatch(registrationFailed())
+    })
+    .catch(err => console.log(err))
 }
 
 //запрос на восстановление пароля
