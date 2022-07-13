@@ -32,7 +32,6 @@ const BurgerConstructor = (props) => {
   const dispatch = useDispatch();
   const { bun, filling } = useSelector((state) => state.construct);
   const {authorized} = useSelector(state => state.user);
-  const uId = nanoid()
 
   //хук для перемещения элемента из ингредиентов в конструктор
   const [, dropTarget] = useDrop({

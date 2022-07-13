@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, useLocation} from "react-router-dom";
 import Main from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -15,6 +15,9 @@ import {ResetPasswordPage} from '../../pages/reset-password';
 import {ProfilePage} from '../../pages/profile';
 import {getUserInfo} from "../../utils/api";
 import { getCookie } from '../../utils/cookie';
+import {ProtectedRoute} from "../protected-route/protected-route";
+import {NotFoundPage} from "../../pages/not-found";
+import {IngredientDetailsPage} from "../../pages/ingredient";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,7 +35,7 @@ const App = () => {
     if(getCookie('accessToken')) {
       dispatch(getUserInfo())
   }
-  }, [])
+  }, [dispatch])
 
   return (
     <>
@@ -60,24 +63,30 @@ const App = () => {
               </div>
             </Route>
 
-            <Route path='/login' exact={true}>
+            <Route path='/login' exact>
               <LoginPage/>
             </Route>
 
-            <Route path='/register' exact={true}>
+            <Route path='/register' exact>
               <RegisterPage/>
             </Route>
 
-            <Route path='/forgot-password' exact={true}>
+            <Route path='/forgot-password' exact>
               <ForgotPasswordPage/>
             </Route>
 
-            <Route path='/reset-password' exact={true}>
+            <Route path='/reset-password' exact>
               <ResetPasswordPage/>
             </Route>
 
-            <Route path='/profile' exact={true}>
-              <ProfilePage/>
+            <Route path='/ingredients/:id' exact>
+              <IngredientDetailsPage/>
+            </Route>
+
+            <ProtectedRoute path='/profile' children={<ProfilePage/>} />
+
+            <Route>
+              <NotFoundPage/>
             </Route>
 
           </Switch>

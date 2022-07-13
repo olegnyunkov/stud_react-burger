@@ -22,6 +22,9 @@ export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const RESET_ERROR = 'RESET_ERROR';
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 
 export const loginRequest = () => {
     return {type: LOGIN_REQUEST}
@@ -117,4 +120,16 @@ export const updateUserSuccess = () => {
 
 export const resetError = () => {
     return {type: RESET_ERROR}
+}
+
+export const refreshTokenRequest = () => {
+    return {type: REFRESH_TOKEN_REQUEST}
+}
+
+export const refreshTokenFailed = () => {
+    return {type: REFRESH_TOKEN_FAILED}
+}
+
+export const refreshTokenSuccess = () => {
+    return {type: REFRESH_TOKEN_SUCCESS}
 }

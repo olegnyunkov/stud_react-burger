@@ -22,7 +22,10 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_FAILED,
   UPDATE_USER_SUCCESS,
-  RESET_ERROR
+  RESET_ERROR,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_FAILED,
+  REFRESH_TOKEN_SUCCESS
 } from '../actions/user-actions';
 
 const userInitialState = {
@@ -45,6 +48,9 @@ const userInitialState = {
   updateUserRequest: false,
   updateUserFailed: false,
   updateUserSuccess: false,
+  refreshTokenRequest: false,
+  refreshTokenFailed: false,
+  refreshTokenSuccess: false
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -218,6 +224,30 @@ export const userReducer = (state = userInitialState, action) => {
         updateUserSuccess: true,
       }
     }
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequest: true,
+        refreshTokenFailed: false,
+        refreshTokenSuccess: false
+      }
+    }
+    case REFRESH_TOKEN_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenFailed: true,
+        refreshTokenSuccess: false
+      }
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenFailed: false,
+        refreshTokenSuccess: true
+      }
+    }
     case RESET_ERROR: {
       return {
         name: '',
@@ -239,6 +269,9 @@ export const userReducer = (state = userInitialState, action) => {
         updateUserRequest: false,
         updateUserFailed: false,
         updateUserSuccess: false,
+        refreshTokenRequest: false,
+        refreshTokenFailed: false,
+        refreshTokenSuccess: false
       }
     }
     default: {

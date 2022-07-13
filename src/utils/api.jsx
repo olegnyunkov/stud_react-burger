@@ -34,6 +34,9 @@ import {
   updateUserFailed,
   updateUserSuccess,
   registrationSuccess,
+  refreshTokenRequest,
+  refreshTokenFailed,
+  refreshTokenSuccess
 } from "../services/actions/user-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
@@ -189,7 +192,8 @@ export const sendUserLogoutInfo = (token) => (dispatch) => {
 }
 
 //обновление токена
-export const sendRefreshTokenInfo = (token) => {
+export const sendRefreshTokenInfo = (token) => (dispatch) => {
+  dispatch(refreshTokenRequest())
 
   return fetch(baseUrl + '/auth/token', {
     method: 'POST',
@@ -197,7 +201,15 @@ export const sendRefreshTokenInfo = (token) => {
       token
     }),
     headers: {'Content-Type': 'application/json'}
-  }).then(checkResponse)
+  }).then(checkResponse).then(res => {
+    res.success
+      ? dispatch(refreshTokenSuccess())
+      && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
+      : dispatch(refreshTokenFailed())
+  }).catch(err => {
+    dispatch(refreshTokenFailed())
+    console.log(err)
+  })
 }
 
 //получение данных о пользователе
@@ -219,7 +231,12 @@ export const getUserInfo = () => (dispatch) => {
         && dispatch(addUser(res))
         : dispatch(checkAuthFailed())
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      if(err.message === 'jwt expired') {
+        dispatch(sendRefreshTokenInfo(localStorage.getItem('refreshToken')))
+      }
+    })
 }
 
 //обновление данных о пользователе

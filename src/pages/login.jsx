@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
@@ -17,6 +17,9 @@ export const LoginPage = () => {
   const onChangePassword = e => {
     setPassword(e.target.value)
   };
+  const location = useLocation()
+
+  console.log(location.pathname === '/')
   const userLogin = () => {
     dispatch(sendUserLoginInfo(email, password))
   };
