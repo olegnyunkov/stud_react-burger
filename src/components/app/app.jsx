@@ -14,6 +14,7 @@ import {ForgotPasswordPage} from '../../pages/forgot-password';
 import {ResetPasswordPage} from '../../pages/reset-password';
 import {ProfilePage} from '../../pages/profile';
 import {getUserInfo} from "../../utils/api";
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ const App = () => {
   }
 
   useEffect(() => {
-    dispatch(getUserInfo())
+    if(getCookie('accessToken')) {
+      dispatch(getUserInfo())
+  }
   }, [])
 
   return (

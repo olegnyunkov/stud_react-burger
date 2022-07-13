@@ -3,7 +3,8 @@ import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
-import {setNewPassword} from '../utils/api'
+import {setNewPassword} from '../utils/api';
+import { resetError } from "../services/actions/user-actions";
 
 export const ResetPasswordPage = () => {
   const dispatch = useDispatch()
@@ -21,14 +22,19 @@ export const ResetPasswordPage = () => {
     dispatch(setNewPassword(value, tokenValue))
   }
 
+  const resetErrors = () => {
+    dispatch(resetError())
+  }
+
   if (newPassSuccess) {
     return <Redirect to='/'/>
   }
 
   if (newPassFailed) {
-    return <p>Произошла ошибка при получении данных</p>
+    setTimeout(resetErrors, 2000)
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
   } else if (newPassRequest) {
-    return <p>Загрузка...</p>
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
       <form className={LoginPageStyles.login}>

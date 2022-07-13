@@ -3,10 +3,13 @@ import {
   REMOVE_USER,
   LOGIN_FAILED,
   LOGIN_REQUEST,
+  LOGIN_SUCCESS,
   LOGOUT_REQUEST,
   LOGOUT_FAILED,
+  LOGOUT_SUCCESS,
   REGISTRATION_REQUEST,
   REGISTRATION_FAILED,
+  REGISTRATION_SUCCESS,
   FORGOT_PASS_REQUEST,
   FORGOT_PASS_FAILED,
   FORGOT_PASS_SUCCESS,
@@ -18,7 +21,8 @@ import {
   CHECK_AUTH_FAILED,
   UPDATE_USER_REQUEST,
   UPDATE_USER_FAILED,
-  UPDATE_USER_SUCCESS
+  UPDATE_USER_SUCCESS,
+  RESET_ERROR
 } from '../actions/user-actions';
 
 const userInitialState = {
@@ -41,11 +45,6 @@ const userInitialState = {
   updateUserRequest: false,
   updateUserFailed: false,
   updateUserSuccess: false,
-
-  // isLoading: false,
-  // errorLoading: false,
-  // success: false,
-  // authorized: false
 };
 
 export const userReducer = (state = userInitialState, action) => {
@@ -64,6 +63,13 @@ export const userReducer = (state = userInitialState, action) => {
         loginError: true
       }
     }
+    case LOGIN_SUCCESS: {
+      return {
+        ...state,
+        loginRequest: false,
+        loginError: false
+      }
+    }
     case LOGOUT_REQUEST: {
       return {
         ...state,
@@ -78,6 +84,13 @@ export const userReducer = (state = userInitialState, action) => {
         logoutError: true
       }
     }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutError: false
+      }
+    }
     case REGISTRATION_REQUEST: {
       return {
         ...state,
@@ -90,6 +103,13 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         registrationRequest: false,
         registrationFailed: true
+      }
+    }
+    case REGISTRATION_SUCCESS: {
+      return {
+        ...state,
+        registrationRequest: false,
+        registrationFailed: false
       }
     }
     case ADD_USER: {
@@ -196,6 +216,29 @@ export const userReducer = (state = userInitialState, action) => {
         updateUserRequest: false,
         updateUserFailed: false,
         updateUserSuccess: true,
+      }
+    }
+    case RESET_ERROR: {
+      return {
+        name: '',
+        email: '',
+        password: '',
+        loginRequest: false,
+        loginError: false,
+        logoutRequest: false,
+        logoutError: false,
+        registrationRequest: false,
+        registrationFailed: false,
+        forgotPassRequest: false,
+        forgotPassFailed: false,
+        forgotPassSuccess: false,
+        newPassRequest: false,
+        newPassFailed: false,
+        newPassSuccess: false,
+        authorized: false,
+        updateUserRequest: false,
+        updateUserFailed: false,
+        updateUserSuccess: false,
       }
     }
     default: {

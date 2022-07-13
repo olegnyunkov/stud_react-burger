@@ -1,9 +1,12 @@
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST';
 export const REGISTRATION_FAILED = 'REGISTRATION_FAILED';
+export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
 export const ADD_USER = 'ADD_USER';
 export const REMOVE_USER = 'REMOVE_USER';
 export const FORGOT_PASS_REQUEST = 'FORGOT_PASS_REQUEST';
@@ -18,6 +21,7 @@ export const CHECK_AUTH_FAILED = 'CHECK_AUTH_FAILED';
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const RESET_ERROR = 'RESET_ERROR';
 
 export const loginRequest = () => {
     return {type: LOGIN_REQUEST}
@@ -25,6 +29,10 @@ export const loginRequest = () => {
 
 export const loginFailed = () => {
     return {type: LOGIN_FAILED}
+}
+
+export const loginSuccess = () => {
+    return {type: LOGIN_SUCCESS}
 }
 
 export const logoutRequest = () => {
@@ -35,12 +43,20 @@ export const logoutFailed = () => {
     return {type: LOGOUT_FAILED}
 }
 
+export const logoutSuccess = () => {
+    return {type: LOGOUT_SUCCESS}
+}
+
 export const registrationRequest = () => {
     return {type: REGISTRATION_REQUEST}
 }
 
 export const registrationFailed = () => {
     return {type: REGISTRATION_FAILED}
+}
+
+export const registrationSuccess = () => {
+    return {type: REGISTRATION_SUCCESS}
 }
 
 export const addUser = (data) => {
@@ -97,4 +113,8 @@ export const updateUserFailed = () => {
 
 export const updateUserSuccess = () => {
     return {type: UPDATE_USER_SUCCESS}
+}
+
+export const resetError = () => {
+    return {type: RESET_ERROR}
 }

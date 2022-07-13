@@ -39,3 +39,9 @@
     width: 320px;
     color: #8585AD;
 }
+
+.loading__screen {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}

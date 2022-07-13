@@ -14,8 +14,10 @@ import {
   addUser,
   loginFailed,
   loginRequest,
+  loginSuccess,
   logoutFailed,
   logoutRequest,
+  logoutSuccess,
   removeUser,
   registrationRequest,
   registrationFailed,
@@ -30,7 +32,8 @@ import {
   checkAuthFailed,
   updateUserRequest,
   updateUserFailed,
-  updateUserSuccess
+  updateUserSuccess,
+  registrationSuccess,
 } from "../services/actions/user-actions";
 
 const baseUrl = 'https://norma.nomoreparties.space/api';
@@ -88,11 +91,14 @@ export const sendUserRegistrationInfo = (email, password, name) => (dispatch) =>
     }).then(checkResponse).then(res => {
       res.success
         ? dispatch(addUser(res))
+        && dispatch(registrationSuccess())
         && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
         && localStorage.setItem('refreshToken', res.refreshToken)
         : dispatch(registrationFailed())
+    }).catch(err => {
+      dispatch(registrationFailed())
+      console.log(err)
     })
-    .catch(err => console.log(err))
 }
 
 //запрос на восстановление пароля
@@ -106,10 +112,14 @@ export const sendResetPasswordRequest = (email) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
+    console.log('resetpass', res)
     res.success
       ? dispatch(forgotPassSuccess())
       : dispatch(forgotPassFailed())
-  }).catch((err) => console.log(err))
+  }).catch((err) => {
+    dispatch(forgotPassFailed())
+    console.log(err)
+  })
 }
 
 //сохранение нового пароля
@@ -124,10 +134,14 @@ export const setNewPassword = (password, token) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
+    console.log('newpass', res)
     res.success
       ? dispatch(newPassSuccess())
       : dispatch(newPassFailed())
-  }).catch(err => console.log(err))
+  }).catch(err => {
+    dispatch(newPassFailed())
+    console.log(err)
+  })
 }
 
 //авторизация пользователя
@@ -144,10 +158,14 @@ export const sendUserLoginInfo = (email, password) => (dispatch) => {
   }).then(checkResponse).then(res => {
     res.success
       ? dispatch(addUser(res))
+      && dispatch(loginSuccess())
       && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
       && localStorage.setItem('refreshToken', res.refreshToken)
       : dispatch(loginFailed())
-  }).catch(err => console.log(err))
+  }).catch(err => {
+    dispatch(loginFailed())
+    console.log(err)
+  })
 }
 
 //выход пользователя
@@ -163,6 +181,7 @@ export const sendUserLogoutInfo = (token) => (dispatch) => {
   }).then(checkResponse).then(res => {
     res.success
       ? dispatch(removeUser())
+      && dispatch(logoutSuccess())
       && deleteCookie('accessToken')
       : dispatch(logoutFailed())
   })

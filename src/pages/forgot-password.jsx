@@ -4,17 +4,23 @@ import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-b
 import LoginPageStyles from './login.module.css';
 import {sendResetPasswordRequest} from "../utils/api";
 import {useDispatch, useSelector} from "react-redux";
+import { resetError } from "../services/actions/user-actions";
 
 export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
+  const [email, setEmail] = useState('');
   const {forgotPassSuccess, forgotPassRequest, forgotPassFailed} = useSelector(state => state.user);
+  
   const onChange = e => {
-    setValue(e.target.value)
+    setEmail(e.target.value)
   }
   const resetPassword = (e) => {
     e.preventDefault();
-    dispatch(sendResetPasswordRequest(value))
+    dispatch(sendResetPasswordRequest(email))
+  }
+
+  const resetErrors = () => {
+    dispatch(resetError())
   }
 
   if (forgotPassSuccess) {
@@ -22,9 +28,10 @@ export const ForgotPasswordPage = () => {
   }
 
   if (forgotPassFailed) {
-    return <p>Произошла ошибка при получении данных</p>
+    setTimeout(resetErrors, 2000)
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
   } else if (forgotPassRequest) {
-    return <p>Загрузка...</p>
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
       <form className={LoginPageStyles.login}>
@@ -32,7 +39,7 @@ export const ForgotPasswordPage = () => {
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
           <EmailInput
             onChange={onChange}
-            value={value}
+            value={email}
             name='Укажите e-mail'/>
         </div>
         <div className='mt-6'>

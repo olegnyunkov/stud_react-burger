@@ -4,6 +4,7 @@ import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-deve
 import LoginPageStyles from './login.module.css';
 import {sendUserRegistrationInfo} from '../utils/api';
 import {useDispatch, useSelector} from "react-redux";
+import { resetError } from "../services/actions/user-actions";
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -24,15 +25,19 @@ export const RegisterPage = () => {
     e.preventDefault();
     dispatch(sendUserRegistrationInfo(email, password, name))
   }
+  const resetErrors = () => {
+    dispatch(resetError())
+  }
 
   if (authorized) {
     return <Redirect to='/'/>
   }
 
   if (registrationFailed) {
-    return <p>Произошла ошибка при получении данных</p>
+    setTimeout(resetErrors, 2000)
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
   } else if (registrationRequest) {
-    return <p>Загрузка...</p>
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
   return (
     <div className={LoginPageStyles.login}>

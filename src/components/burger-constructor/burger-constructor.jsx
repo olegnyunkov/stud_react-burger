@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {Redirect} from 'react-router-dom';
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 import {nanoid} from "nanoid";
@@ -30,6 +31,7 @@ const BurgerConstructor = (props) => {
   } = props;
   const dispatch = useDispatch();
   const { bun, filling } = useSelector((state) => state.construct);
+  const {authorized} = useSelector(state => state.user);
   const uId = nanoid()
 
   //хук для перемещения элемента из ингредиентов в конструктор
@@ -49,11 +51,14 @@ const BurgerConstructor = (props) => {
 
   //открытие модалки заказа, получение номера заказа, сброс заказа
   const openOrderModal = () => {
+    if(authorized) {
     setOrderIsOpened(true);
     setModalOpened(true);
     if(bun && filling.length) {
       dispatch(getOrder(saveOrder(bun, filling)));
       dispatch(resetConstructorItem());
+    }} else {
+      return <Redirect to='/login'/>
     }
   };
 

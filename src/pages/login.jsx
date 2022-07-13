@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
 import {sendUserLoginInfo} from "../utils/api";
+import { resetError } from "../services/actions/user-actions";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -19,15 +20,19 @@ export const LoginPage = () => {
   const userLogin = () => {
     dispatch(sendUserLoginInfo(email, password))
   };
+  const resetErrors = () => {
+    dispatch(resetError())
+  }
 
   if (authorized) {
     return <Redirect to='/'/>
   }
 
   if (loginError) {
-    return <p>Произошла ошибка при получении данных</p>
+    setTimeout(resetErrors, 2000)
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
   } else if (loginRequest) {
-    return <p>Загрузка...</p>
+    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
       <div className={LoginPageStyles.login}>
