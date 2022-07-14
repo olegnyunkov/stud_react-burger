@@ -6,10 +6,11 @@ import BurgerImage from '../burger-image/burger-image';
 import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
 import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useLocation, Link} from "react-router-dom";
 
 const BurgerItem = (props) => {
   const {openIngredientsModal, src, name, price, item} = props;
-
+  const location = useLocation();
   const {bun, filling} = useSelector(state => state.construct);
 
   //хук для перемещения элемента в конструктор
@@ -38,6 +39,12 @@ const BurgerItem = (props) => {
   }
 
   return (
+    <Link
+      to={{
+        pathname: `/ingredients/${item._id}`,
+        state: { background: location },
+      }}
+      className={`${BurgerItemStyles.bun__title} text text_type_main-default`}>
     <div ref={dragRef} onClick={openIngredientsModal} className={BurgerItemStyles.burger__element}>
       <div>
         {counter() !== 0 && <Counter count={counter()} size="default"/>}
@@ -46,6 +53,7 @@ const BurgerItem = (props) => {
       <BurgerPrice price={price} styles={`${BurgerItemStyles.bun__price} mb-1`}/>
       <p className={`${BurgerItemStyles.bun__title} text text_type_main-default`}>{name}</p>
     </div>
+    </Link>
   )
 }
 

@@ -12,21 +12,32 @@ const AppHeader = () => {
   
   return (
     <header className={HeaderStyles.header}>
-      <NavLink to='/' className={`mt-4 mb-4 mr-2 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}>
+      <NavLink
+        exact
+        to='/'
+        className={`mt-4 mb-4 mr-2 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}
+        activeClassName={HeaderStyles.header__active}>
         <BurgerIcon type="secondary"/>
-        <p className='text text_type_main-default ml-2 text_color_inactive'>Конструктор</p>
+        <p className='text text_type_main-default ml-2'>Конструктор</p>
       </NavLink>
-      <NavLink to='/login' className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item} ${({isActive}) => isActive ? HeaderStyles.header__active : 'text_color_inactive'}`}>
+      <NavLink
+        exact
+        to='/feed'
+        className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}
+        activeClassName={HeaderStyles.header__active}>
         <ListIcon type="secondary"/>
         <p className={`text text_type_main-default ml-2`}>Лента заказов</p>
       </NavLink>
       <div className={HeaderStyles.header__logo}>
         <Logo/>
       </div>
-      <Link to='/profile' className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}>
+      <NavLink
+        to='/profile'
+        className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}
+        activeClassName={HeaderStyles.header__active}>
         <ProfileIcon type="secondary"/>
-        <p className='text text_type_main-default ml-2 text_color_inactive'>Личный кабинет</p>
-      </Link>
+        <p className='text text_type_main-default ml-2'>Личный кабинет</p>
+      </NavLink>
     </header>
   );
 };

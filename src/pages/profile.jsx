@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Redirect} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {
   Input,
   EmailInput,
@@ -39,19 +39,23 @@ export const ProfilePage = () => {
   return (
     <div className={LoginPageStyles.profile}>
       <div className='mr-15'>
-        <Link
+        <NavLink
+          exact
           to='/profile'
-          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
-          <p>Профиль</p>
-        </Link>
-        <Link
-          to='/profile'
-          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}>
-          <p>История заказов</p>
-        </Link>
-        <Button
-          type={"secondary"}
-          onClick={userLogout}>Выход</Button>
+          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}
+          activeClassName={LoginPageStyles.profile__links_active}>
+          Профиль
+        </NavLink>
+        <NavLink
+          exact
+          to='/profile/orders'
+          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}
+          activeClassName={LoginPageStyles.profile__links_active}>
+          История заказов
+        </NavLink>
+          <button
+            className={`${LoginPageStyles.profile__button} text text_type_main-medium text_color_inactive pt-4 pb-4`}
+            onClick={userLogout}>Выход</button>
         <p className={`${LoginPageStyles.profile__text} text text_type_main-default mt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>

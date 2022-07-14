@@ -34,6 +34,18 @@
     border: 1px green solid;
 }
 
+.profile__links_active {
+    color: white;
+}
+
+.profile__button {
+    border: none;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    border: 1px green solid;
+}
+
 .profile__text {
     border: 1px green solid;
     width: 320px;
