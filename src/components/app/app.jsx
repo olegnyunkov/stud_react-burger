@@ -43,8 +43,7 @@ const App = () => {
         <DndProvider backend={HTML5Backend}>
           <AppHeader/>
           <Switch>
-
-            <Route path='/' exact={true}>
+            <Route exact path='/'>
               <div className={Main.main}>
                 <BurgerIngredients
                   setIngredientsIsOpened={setIngredientsIsOpened}
@@ -62,33 +61,13 @@ const App = () => {
                 />
               </div>
             </Route>
-
-            <Route path='/login' exact>
-              <LoginPage/>
-            </Route>
-
-            <Route path='/register' exact>
-              <RegisterPage/>
-            </Route>
-
-            <Route path='/forgot-password' exact>
-              <ForgotPasswordPage/>
-            </Route>
-
-            <Route path='/reset-password' exact>
-              <ResetPasswordPage/>
-            </Route>
-
-            <Route path='/ingredients/:id' exact>
-              <IngredientDetailsPage/>
-            </Route>
-
+            <Route exact path='/login' component={LoginPage} />
+            <Route exact path='/register' component={RegisterPage} /> 
+            <Route exact path='/forgot-password' component={ForgotPasswordPage} />
+            <Route exact path='/reset-password' component={ResetPasswordPage} />
+            <Route exact path='/ingredients/:id' component={IngredientDetailsPage} />
             <ProtectedRoute path='/profile' children={<ProfilePage/>} />
-
-            <Route>
-              <NotFoundPage/>
-            </Route>
-
+            <Route component={NotFoundPage} />
           </Switch>
         </DndProvider>
       </BrowserRouter>

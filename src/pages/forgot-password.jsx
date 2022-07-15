@@ -9,7 +9,7 @@ import { resetError } from "../services/actions/user-actions";
 export const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
-  const {forgotPassSuccess, forgotPassRequest, forgotPassFailed} = useSelector(state => state.user);
+  const {forgotPassSuccess, forgotPassRequest, forgotPassFailed, authorized} = useSelector(state => state.user);
   
   const onChange = e => {
     setEmail(e.target.value)
@@ -25,6 +25,10 @@ export const ForgotPasswordPage = () => {
 
   if (forgotPassSuccess) {
     return <Redirect to='/reset-password'/>
+  }
+
+  if (authorized) {
+    return <Redirect to='/'/>
   }
 
   if (forgotPassFailed) {

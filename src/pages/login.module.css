@@ -23,31 +23,41 @@
 }
 
 .profile {
-    border: 1px green solid;
     display: flex;
     margin: 120px auto auto;
+}
+
+.profile__nav {
+    margin-left: 380px;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile__links {
     text-decoration: none;
     width: 320px;
-    border: 1px green solid;
+    margin: 40px 0 0;
+    
 }
 
 .profile__links_active {
     color: white;
 }
 
+.profile__buttons {
+    display: flex;
+    justify-content: right;
+}
+
 .profile__button {
     border: none;
-    margin: 0;
+    margin: 24px 0 0;
     background: transparent;
     cursor: pointer;
-    border: 1px green solid;
+    text-align: left;
 }
 
 .profile__text {
-    border: 1px green solid;
     width: 320px;
     color: #8585AD;
 }

@@ -38,7 +38,7 @@ export const ProfilePage = () => {
 
   return (
     <div className={LoginPageStyles.profile}>
-      <div className='mr-15'>
+      <div className={`${LoginPageStyles.profile__nav} mr-15`}>
         <NavLink
           exact
           to='/profile'
@@ -77,14 +77,14 @@ export const ProfilePage = () => {
             onChange={onChangePassword}
             value={password}/>
         </div>
-        <div className="mt-6">
+        <div className={`${LoginPageStyles.profile__buttons} mt-6`}>
           <Button
             type="secondary">Отмена</Button>
           <Button
             type="primary"
             size="medium"
             onClick={updateUserInfo}>
-            Восстановить
+            Сохранить
           </Button>
         </div>
       </div>

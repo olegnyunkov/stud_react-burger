@@ -19,7 +19,6 @@ export const LoginPage = () => {
   };
   const location = useLocation()
 
-  console.log(location.pathname === '/')
   const userLogin = () => {
     dispatch(sendUserLoginInfo(email, password))
   };

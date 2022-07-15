@@ -10,7 +10,7 @@ export const ResetPasswordPage = () => {
   const dispatch = useDispatch()
   const [value, setValue] = useState('');
   const [tokenValue, setTokenValue] = useState('');
-  const {newPassSuccess, newPassRequest, newPassFailed} = useSelector(state => state.user);
+  const {newPassSuccess, newPassRequest, newPassFailed, authorized} = useSelector(state => state.user);
   const onChange = e => {
     setValue(e.target.value)
   }
@@ -27,6 +27,10 @@ export const ResetPasswordPage = () => {
   }
 
   if (newPassSuccess) {
+    return <Redirect to='/'/>
+  }
+
+  if (authorized) {
     return <Redirect to='/'/>
   }
 

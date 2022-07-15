@@ -115,7 +115,6 @@ export const sendResetPasswordRequest = (email) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
-    console.log('resetpass', res)
     res.success
       ? dispatch(forgotPassSuccess())
       : dispatch(forgotPassFailed())
@@ -137,7 +136,6 @@ export const setNewPassword = (password, token) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
-    console.log('newpass', res)
     res.success
       ? dispatch(newPassSuccess())
       : dispatch(newPassFailed())
@@ -188,7 +186,10 @@ export const sendUserLogoutInfo = (token) => (dispatch) => {
       && deleteCookie('accessToken')
       : dispatch(logoutFailed())
   })
-    .catch(err => console.log(err))
+    .catch(err => {
+      dispatch(logoutFailed())
+      console.log(err)
+    })
 }
 
 //обновление токена
@@ -225,7 +226,6 @@ export const getUserInfo = () => (dispatch) => {
   })
     .then(checkResponse)
     .then(res => {
-      console.log(res)
       res.success
         ? dispatch(checkAuthSuccess())
         && dispatch(addUser(res))
@@ -261,5 +261,8 @@ export const refreshUserInfo = (email, name, password) => (dispatch) => {
         && dispatch(updateUserSuccess())
         : dispatch(updateUserFailed())
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      dispatch(updateUserFailed())
+      console.log(err)
+    })
 }

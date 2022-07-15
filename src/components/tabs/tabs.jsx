@@ -27,13 +27,22 @@ const Tabs = (props) => {
 
   return (
     <div className={TabsStyles.ingredients__tabs}>
-      <Tab value="buns" active={current === 'buns'} onClick={onTabClick}>
+      <Tab 
+        value="buns" 
+        active={current === 'buns'} 
+        onClick={onTabClick}>
         Булки
       </Tab>
-      <Tab value="sauces" active={current === 'sauces'} onClick={onTabClick}>
+      <Tab 
+        value="sauces" 
+        active={current === 'sauces'} 
+        onClick={onTabClick}>
         Соусы
       </Tab>
-      <Tab value="mains" active={current === 'mains'} onClick={onTabClick}>
+      <Tab 
+        value="mains" 
+        active={current === 'mains'} 
+        onClick={onTabClick}>
         Начинки
       </Tab>
     </div>
