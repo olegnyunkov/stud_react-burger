@@ -1,48 +1,37 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-hook-inview';
-import {useLocation} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import {getIngredients} from "../../utils/api";
 import {getDetails} from "../../services/actions/ingredient-details-actions";
-import {IngredientDetailsPage} from '../../pages/ingredient'
+
 
 const BurgerIngredients = (props) => {
   const {
-    ingredientsIsOpened,
-    modalOpened,
     setIngredientsIsOpened,
     setModalOpened,
-    closeModal
   } = props;
 
   const dispatch = useDispatch();
-  const location = useLocation()
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
   const [bunsRef, inViewBuns] = useInView({threshold: 0});
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
 
   //загрузка ингредиентов при старте страницы
-  useEffect(() => {
-    dispatch(getIngredients())
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getIngredients())
+  // }, [dispatch]);
 
   //открытие модалки описания и загрузка описания  
   const openIngredientsModal = (info) => {
     setIngredientsIsOpened(true);
     setModalOpened(true);
     dispatch(getDetails(info))
-  }
-
-  if(!location.pathname === '/') {
-    return <IngredientDetailsPage />
   }
 
   if (errorLoading) {
@@ -117,16 +106,16 @@ const BurgerIngredients = (props) => {
             </div>
           </div>
         </section>
-        {
-          ingredientsIsOpened && (
-            <Modal
-              closeModal={closeModal}
-              title='Детали ингредиента'
-              modalOpened={modalOpened}
-            >
-              <IngredientDetails/>
-            </Modal>
-          )}
+        {/*{*/}
+        {/*  ingredientsIsOpened && (*/}
+        {/*    <Modal*/}
+        {/*      closeModal={closeModal}*/}
+        {/*      title='Детали ингредиента'*/}
+        {/*      modalOpened={modalOpened}*/}
+        {/*    >*/}
+        {/*      <IngredientDetails/>*/}
+        {/*    </Modal>*/}
+        {/*  )}*/}
       </>
     )
   }
