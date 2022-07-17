@@ -28,8 +28,14 @@ export const ProfilePage = () => {
   const userLogout = () => {
     dispatch(sendUserLogoutInfo(localStorage.getItem('refreshToken')))
   }
-  const updateUserInfo = () => {
+  const updateUserInfo = (e) => {
+    e.preventDefault();
     dispatch(refreshUserInfo(email, name, password))
+  }
+  const resetUserInfo = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
   }
 
   if (!authorized) {
@@ -60,7 +66,7 @@ export const ProfilePage = () => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <div>
+      <form onSubmit={updateUserInfo}>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
           <Input
             placeholder="Имя"
@@ -79,15 +85,15 @@ export const ProfilePage = () => {
         </div>
         <div className={`${LoginPageStyles.profile__buttons} mt-6`}>
           <Button
-            type="secondary">Отмена</Button>
+            type="secondary"
+            onClick={resetUserInfo}>Отмена</Button>
           <Button
             type="primary"
-            size="medium"
-            onClick={updateUserInfo}>
+            size="medium">
             Сохранить
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

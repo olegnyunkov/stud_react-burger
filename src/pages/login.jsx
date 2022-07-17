@@ -8,6 +8,7 @@ import { resetError } from "../services/actions/user-actions";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {authorized, loginRequest, loginError} = useSelector(state => state.user);
@@ -17,9 +18,8 @@ export const LoginPage = () => {
   const onChangePassword = e => {
     setPassword(e.target.value)
   };
-  const location = useLocation()
-
-  const userLogin = () => {
+  const userLogin = (e) => {
+    e.preventDefault();
     dispatch(sendUserLoginInfo(email, password))
   };
   const resetErrors = () => {
@@ -27,7 +27,7 @@ export const LoginPage = () => {
   }
 
   if (authorized) {
-    return <Redirect to='/'/>
+    return <Redirect to={location?.state?.from || '/'}/>
   }
 
   if (loginError) {
@@ -37,7 +37,7 @@ export const LoginPage = () => {
     return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
-      <div className={LoginPageStyles.login}>
+      <form className={LoginPageStyles.login} onSubmit={userLogin}>
         <h2 className="text text_type_main-medium">Вход</h2>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
           <EmailInput
@@ -51,7 +51,6 @@ export const LoginPage = () => {
         </div>
         <div className='mt-6'>
           <Button
-            onClick={userLogin}
             type="primary"
             size="medium">Войти</Button>
         </div>
@@ -67,7 +66,7 @@ export const LoginPage = () => {
             to={{pathname: '/forgot-password'}}
             className="text text_type_main-default">Восстановить пароль</Link>
         </div>
-      </div>
+      </form>
     )
   }
 }

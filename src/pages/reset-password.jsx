@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
@@ -7,7 +7,8 @@ import {setNewPassword} from '../utils/api';
 import { resetError } from "../services/actions/user-actions";
 
 export const ResetPasswordPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const location = useLocation();
   const [value, setValue] = useState('');
   const [tokenValue, setTokenValue] = useState('');
   const {newPassSuccess, newPassRequest, newPassFailed, authorized} = useSelector(state => state.user);
@@ -31,7 +32,7 @@ export const ResetPasswordPage = () => {
   }
 
   if (authorized) {
-    return <Redirect to='/'/>
+    return <Redirect to={location?.state?.from || '/'}/>
   }
 
   if (newPassFailed) {
@@ -41,7 +42,7 @@ export const ResetPasswordPage = () => {
     return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
-      <form className={LoginPageStyles.login}>
+      <form className={LoginPageStyles.login} onSubmit={newPassword}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <div className={`${LoginPageStyles.login__inputs} mt-6`}>
           <PasswordInput
@@ -57,8 +58,7 @@ export const ResetPasswordPage = () => {
         <div className='mt-6'>
           <Button
             type="primary"
-            size="medium"
-            onClick={newPassword}>Сохранить</Button>
+            size="medium">Сохранить</Button>
         </div>
         <div className={`${LoginPageStyles.login__links} mt-20`}>
           <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>

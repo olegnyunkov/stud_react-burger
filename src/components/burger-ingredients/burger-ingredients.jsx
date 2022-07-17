@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-hook-inview';
 import PropTypes from 'prop-types';
@@ -6,7 +6,6 @@ import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
-import {getIngredients} from "../../utils/api";
 import {getDetails} from "../../services/actions/ingredient-details-actions";
 
 
@@ -22,10 +21,6 @@ const BurgerIngredients = (props) => {
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
 
-  //загрузка ингредиентов при старте страницы
-  // useEffect(() => {
-  //   dispatch(getIngredients())
-  // }, [dispatch]);
 
   //открытие модалки описания и загрузка описания  
   const openIngredientsModal = (info) => {
@@ -106,16 +101,6 @@ const BurgerIngredients = (props) => {
             </div>
           </div>
         </section>
-        {/*{*/}
-        {/*  ingredientsIsOpened && (*/}
-        {/*    <Modal*/}
-        {/*      closeModal={closeModal}*/}
-        {/*      title='Детали ингредиента'*/}
-        {/*      modalOpened={modalOpened}*/}
-        {/*    >*/}
-        {/*      <IngredientDetails/>*/}
-        {/*    </Modal>*/}
-        {/*  )}*/}
       </>
     )
   }

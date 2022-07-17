@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Redirect} from 'react-router-dom'
+import {Link, Redirect, useLocation} from 'react-router-dom'
 import {Input, EmailInput, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginPageStyles from './login.module.css';
 import {sendUserRegistrationInfo} from '../utils/api';
@@ -8,6 +8,7 @@ import { resetError } from "../services/actions/user-actions";
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +31,7 @@ export const RegisterPage = () => {
   }
 
   if (authorized) {
-    return <Redirect to='/'/>
+    return <Redirect to={location?.state?.from || '/'}/>
   }
 
   if (registrationFailed) {
@@ -40,7 +41,7 @@ export const RegisterPage = () => {
     return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
   } else {
   return (
-    <div className={LoginPageStyles.login}>
+    <form className={LoginPageStyles.login} onSubmit={userRegistration}>
       <h2 className="text text_type_main-medium">Регистрация</h2>
       <div className={`${LoginPageStyles.login__inputs} mt-6`}>
         <Input 
@@ -59,8 +60,7 @@ export const RegisterPage = () => {
           value={password}/>
       </div>
       <div className='mt-6'>
-        <Button 
-          onClick={userRegistration} 
+        <Button
           type="primary" 
           size="medium">Зарегистрироваться</Button>
       </div>
@@ -70,7 +70,7 @@ export const RegisterPage = () => {
           to={{pathname: '/login'}} 
           className="text text_type_main-default">Войти</Link>
       </div>
-    </div>
+    </form>
   )
   }
 }

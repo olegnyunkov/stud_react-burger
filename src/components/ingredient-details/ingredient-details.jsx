@@ -7,7 +7,6 @@ const IngredientDetails = () => {
   const {id} = useParams();
   const {ingredients} = useSelector(state => state.ingredients);
   const ingredient = ingredients.find((item) => item._id === id);
-  console.log(ingredients)
 
   if(!ingredient) {
     return <p>Загрузка...</p>

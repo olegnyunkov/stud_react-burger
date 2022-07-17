@@ -85,13 +85,14 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             children={
-            <Modal
-              closeModal={() => {closeIngredientsModal('/')}}
-              title='Детали ингредиента'
-              modalOpened={modalOpened}>
-              <IngredientDetails/>
-            </Modal>}/>
-
+              <Modal
+                closeModal={() => {
+                  closeIngredientsModal('/')
+                }}
+                title='Детали ингредиента'
+                modalOpened={modalOpened}>
+                <IngredientDetails/>
+              </Modal>}/>
         )}
       </DndProvider>
     </>
