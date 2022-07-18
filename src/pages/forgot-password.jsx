@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Link, Redirect, useLocation} from 'react-router-dom'
 import {EmailInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import LoginPageStyles from './login.module.css';
+import PagesStyles from './pages.module.css';
 import {sendResetPasswordRequest} from "../utils/api";
 import {useDispatch, useSelector} from "react-redux";
 import { resetError } from "../services/actions/user-actions";
@@ -34,14 +34,14 @@ export const ForgotPasswordPage = () => {
 
   if (forgotPassFailed) {
     setTimeout(resetErrors, 2000)
-    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
+    return <p className={`text text_type_main-large ${PagesStyles.loading__screen}`}>Произошла ошибка при получении данных</p>
   } else if (forgotPassRequest) {
-    return <p className={`text text_type_main-large ${LoginPageStyles.loading__screen}`}>Загрузка...</p>
+    return <p className={`text text_type_main-large ${PagesStyles.loading__screen}`}>Загрузка...</p>
   } else {
     return (
-      <form className={LoginPageStyles.login} onSubmit={resetPassword}>
+      <form className={PagesStyles.login} onSubmit={resetPassword}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+        <div className={`${PagesStyles.login__inputs} mt-6`}>
           <EmailInput
             onChange={onChange}
             value={email}
@@ -52,7 +52,7 @@ export const ForgotPasswordPage = () => {
             type="primary"
             size="medium">Восстановить</Button>
         </div>
-        <div className={`${LoginPageStyles.login__links} mt-20`}>
+        <div className={`${PagesStyles.login__links} mt-20`}>
           <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>
           <Link
             to={{pathname: '/login'}}

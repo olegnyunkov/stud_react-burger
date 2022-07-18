@@ -1,0 +1,23 @@
+.feed__card {
+    width: 584px;
+    background-color: #1C1C21;
+    border-radius: 40px;
+    padding: 24px;
+}
+
+.feed__info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__content {
+    display: flex;
+}
+
+.feed__ingredients {
+    display: flex;
+}
+
+.feed__price {
+    display: flex;
+}

@@ -6,7 +6,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import LoginPageStyles from "./login.module.css";
+import PagesStyles from "./pages.module.css";
 import {refreshUserInfo, sendUserLogoutInfo} from '../utils/api';
 import {useDispatch, useSelector} from "react-redux";
 
@@ -43,47 +43,47 @@ export const ProfilePage = () => {
   }
 
   return (
-    <div className={LoginPageStyles.profile}>
-      <div className={`${LoginPageStyles.profile__nav} mr-15`}>
+    <div className={PagesStyles.profile}>
+      <div className={`${PagesStyles.profile__nav} mr-15`}>
         <NavLink
           exact
           to='/profile'
-          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}
-          activeClassName={LoginPageStyles.profile__links_active}>
+          className={`${PagesStyles.profile__links} text text_type_main-medium text_color_inactive`}
+          activeClassName={PagesStyles.profile__links_active}>
           Профиль
         </NavLink>
         <NavLink
           exact
           to='/profile/orders'
-          className={`${LoginPageStyles.profile__links} text text_type_main-medium text_color_inactive`}
-          activeClassName={LoginPageStyles.profile__links_active}>
+          className={`${PagesStyles.profile__links} text text_type_main-medium text_color_inactive`}
+          activeClassName={PagesStyles.profile__links_active}>
           История заказов
         </NavLink>
           <button
-            className={`${LoginPageStyles.profile__button} text text_type_main-medium text_color_inactive pt-4 pb-4`}
+            className={`${PagesStyles.profile__button} text text_type_main-medium text_color_inactive pt-4 pb-4`}
             onClick={userLogout}>Выход</button>
-        <p className={`${LoginPageStyles.profile__text} text text_type_main-default mt-20`}>
+        <p className={`${PagesStyles.profile__text} text text_type_main-default mt-20`}>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
       <form onSubmit={updateUserInfo}>
-        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+        <div className={`${PagesStyles.login__inputs} mt-6`}>
           <Input
             placeholder="Имя"
             onChange={onChangeName}
             value={name}/>
         </div>
-        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+        <div className={`${PagesStyles.login__inputs} mt-6`}>
           <EmailInput
             onChange={onChangeEmail}
             value={email}/>
         </div>
-        <div className={`${LoginPageStyles.login__inputs} mt-6`}>
+        <div className={`${PagesStyles.login__inputs} mt-6`}>
           <PasswordInput
             onChange={onChangePassword}
             value={password}/>
         </div>
-        <div className={`${LoginPageStyles.profile__buttons} mt-6`}>
+        <div className={`${PagesStyles.profile__buttons} mt-6`}>
           <Button
             type="secondary"
             onClick={resetUserInfo}>Отмена</Button>

@@ -20,6 +20,7 @@ import {NotFoundPage} from "../../pages/not-found";
 import {IngredientDetailsPage} from "../../pages/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {FeedPage} from "../../pages/feed";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ const App = () => {
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
           <Route path='/ingredients/:id' component={IngredientDetailsPage}/>
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
+          <Route exact path='/feed' component={FeedPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         {background && (
