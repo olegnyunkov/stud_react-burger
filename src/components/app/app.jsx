@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
-import {Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import Main from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -29,8 +29,15 @@ const App = () => {
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
-
+  const match = useRouteMatch('/ingredients/:id');
+  
   useEffect(() => {
+    if(match) {
+      setModalOpened(true)
+    }
+  }, [match])
+  
+    useEffect(() => {
     dispatch(getIngredients())
   }, [dispatch]);
 

@@ -8,7 +8,6 @@ import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import {getDetails} from "../../services/actions/ingredient-details-actions";
 
-
 const BurgerIngredients = (props) => {
   const {
     setIngredientsIsOpened,
@@ -20,7 +19,6 @@ const BurgerIngredients = (props) => {
   const [bunsRef, inViewBuns] = useInView({threshold: 0});
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
-
 
   //открытие модалки описания и загрузка описания  
   const openIngredientsModal = (info) => {
