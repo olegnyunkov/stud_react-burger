@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {useHistory} from 'react-router-dom';
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 import {nanoid} from "nanoid";
@@ -13,7 +14,7 @@ import BurgerConstructorEmpty from "./burger-constructor-empty";
 import {
   addConstructorItem,
   resetConstructorItem,
-} from "../../services/actions/actions";
+} from "../../services/actions/constructor-actions";
 import {
   CurrencyIcon,
   Button,
@@ -29,8 +30,9 @@ const BurgerConstructor = (props) => {
     closeModal,
   } = props;
   const dispatch = useDispatch();
+  const history = useHistory();
   const { bun, filling } = useSelector((state) => state.construct);
-  const uId = nanoid()
+  const {authorized} = useSelector(state => state.user);
 
   //хук для перемещения элемента из ингредиентов в конструктор
   const [, dropTarget] = useDrop({
@@ -49,11 +51,21 @@ const BurgerConstructor = (props) => {
 
   //открытие модалки заказа, получение номера заказа, сброс заказа
   const openOrderModal = () => {
+    if(authorized) {
     setOrderIsOpened(true);
     setModalOpened(true);
     if(bun && filling.length) {
       dispatch(getOrder(saveOrder(bun, filling)));
       dispatch(resetConstructorItem());
+    }} else {
+      history.replace({
+        pathname: '/login',
+        state: {
+          from: {
+            pathname: '/',
+          },
+        },
+      });
     }
   };
 
@@ -68,9 +80,13 @@ const BurgerConstructor = (props) => {
     <>
       <section ref={dropTarget} className="pt-25 pl-4">
         {bun ? (
-          <BurgerConstructorBun text={"(верх)"} bun={bun} type={"top"} />
+          <BurgerConstructorBun
+            text={"(верх)"}
+            bun={bun}
+            type={"top"} />
         ) : (
-          <BurgerConstructorEmpty text={"Перетащите булку"} />
+          <BurgerConstructorEmpty
+            text={"Перетащите булку"} />
         )}
 
         <div
@@ -93,14 +109,19 @@ const BurgerConstructor = (props) => {
               );
             })
           ) : (
-            <BurgerConstructorEmpty text={"Перетащите начинку"} />
+            <BurgerConstructorEmpty
+              text={"Перетащите начинку"} />
           )}
         </div>
 
         {bun ? (
-          <BurgerConstructorBun text={"(низ)"} bun={bun} type={"bottom"} />
+          <BurgerConstructorBun
+            text={"(низ)"}
+            bun={bun}
+            type={"bottom"} />
         ) : (
-          <BurgerConstructorEmpty text={"Перетащите булку"} />
+          <BurgerConstructorEmpty
+            text={"Перетащите булку"} />
         )}
 
         <div className={`${Constructor.constructor__total} mr-4`}>
@@ -108,7 +129,10 @@ const BurgerConstructor = (props) => {
             <p className="text text_type_digits-medium mr-2">{totalPrice()}</p>
             <CurrencyIcon />
           </div>
-          <Button type="primary" size="medium" onClick={openOrderModal}>
+          <Button
+            type="primary"
+            size="medium"
+            onClick={openOrderModal}>
             Оформить заказ
           </Button>
         </div>
@@ -116,7 +140,10 @@ const BurgerConstructor = (props) => {
        {
         
         orderIsOpened &&
-        <Modal closeModal={closeModal} title="" modalOpened={modalOpened} >
+        <Modal
+          closeModal={closeModal}
+          title=""
+          modalOpened={modalOpened} >
           <OrderDetails/>
         </Modal>
       }

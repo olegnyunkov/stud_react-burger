@@ -4,13 +4,20 @@
     grid-template-columns: repeat(4, minmax(min-content, max-content));
     margin: 0 auto;
     justify-content: center;
+    align-items: center;
 }
 
 .header__item {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: #8585ad;
 }
 
 .header__logo {
     margin: 24px 287px 24px 112px;
+}
+
+.header__active {
+    color: white;
 }
