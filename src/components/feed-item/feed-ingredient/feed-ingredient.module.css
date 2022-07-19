@@ -1,0 +1,15 @@
+.feed__ingredient {
+    width: 64px;
+    height: 64px;
+    border: 2px #801AB2 solid;
+    border-radius: 100px;  
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feed__image {    
+    width: 112px;
+    height: 56px;
+    max-width: 100%;
+    object-fit: cover;    
+}

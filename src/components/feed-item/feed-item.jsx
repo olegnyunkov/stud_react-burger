@@ -1,6 +1,7 @@
 import React from "react";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedItemStyles from './feed-item.module.css';
+import FeedIngredient from "./feed-ingredient/feed-ingredient";
 
 const FeedItem = () => {
 
@@ -13,7 +14,8 @@ const FeedItem = () => {
       <p className='text text_type_main-medium mt-6'>Death Star Starship Main бургер</p>
       <div className={`${FeedItemStyles.feed__content} mt-6`}>
         <div className={FeedItemStyles.feed__ingredients}>
-
+          <FeedIngredient />
+          <FeedIngredient />
         </div>
         <div className={`${FeedItemStyles.feed__price} ml-6`}>
           <p className='text text_type_digits-default mr-2'>480</p>
