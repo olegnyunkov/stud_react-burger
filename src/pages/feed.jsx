@@ -1,8 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PagesStyles from './pages.module.css';
 import FeedItem from "../components/feed-item/feed-item";
+import {useDispatch} from "react-redux";
+import {wsConnectionStart} from "../services/actions/ws-actions";
 
 export const FeedPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(wsConnectionStart())
+  })
 
   return (
     <div className={PagesStyles.feed__info}>
