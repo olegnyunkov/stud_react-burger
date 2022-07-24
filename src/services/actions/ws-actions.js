@@ -14,19 +14,19 @@ export const wsActions = {
   onMessage: WS_GET_MESSAGE
 };
 
-export const wsConnectionStart = () => {
+export const wsInit = () => {
   return {type: WS_CONNECTION_START}
 }
-export const wsConnectionSuccess = () => {
+export const onOpen = () => {
   return {type: WS_CONNECTION_SUCCESS}
 }
-export const wsConnectionError = () => {
+export const onError = () => {
   return {type: WS_CONNECTION_ERROR}
 }
-export const wsConnectionClosed = () => {
+export const onClose = () => {
   return {type: WS_CONNECTION_CLOSED}
 }
-export const wsGetMessage = () => {
+export const onMessage = () => {
   return {type: WS_GET_MESSAGE}
 }
 export const wsSendMessage = () => {

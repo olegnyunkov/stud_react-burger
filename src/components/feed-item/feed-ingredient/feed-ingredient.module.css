@@ -5,6 +5,12 @@
     border-radius: 100px;  
     box-sizing: border-box;
     overflow: hidden;
+    margin-left: -15px;
+}
+
+.feed__ingredient:first-of-type {
+    margin-left: 0;
+    z-index: 1;
 }
 
 .feed__image {    

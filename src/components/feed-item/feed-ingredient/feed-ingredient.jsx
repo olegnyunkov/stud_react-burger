@@ -1,16 +1,23 @@
 import React from "react";
 import FeedIngredientStyles from './feed-ingredient.module.css';
+import {useSelector} from "react-redux";
 
-const FeedIngredient = () => {
+const FeedIngredient = (props) => {
+  const {id} = props;
+  const {ingredients} = useSelector(state => state.ingredients)
 
-    return (
-        <div className={FeedIngredientStyles.feed__ingredient}>
-            <img 
-            src="https://code.s3.yandex.net/react/code/sauce-04.png" 
-            alt="Ингредиент"
-            className={FeedIngredientStyles.feed__image} />
-        </div>
-    )
+  const ingredient = ingredients.find((item) => {
+    return item._id === id && item
+  });
+
+  return (
+    <div className={FeedIngredientStyles.feed__ingredient}>
+      <img
+        src={ingredient.image}
+        alt={ingredient.name}
+        className={FeedIngredientStyles.feed__image}/>
+    </div>
+  )
 }
 
 export default FeedIngredient;

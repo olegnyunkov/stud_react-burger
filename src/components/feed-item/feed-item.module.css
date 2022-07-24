@@ -4,6 +4,7 @@
     border-radius: 40px;
     padding: 24px;
     margin-right: 8px;
+    box-sizing: border-box;
 }
 
 .feed__info {
@@ -14,6 +15,7 @@
 .feed__content {
     border: 1px green solid;
     display: flex;
+    justify-content: space-between;
 }
 
 .feed__ingredients {

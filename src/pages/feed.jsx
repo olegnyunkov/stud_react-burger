@@ -1,14 +1,18 @@
 import React, {useEffect} from "react";
 import PagesStyles from './pages.module.css';
 import FeedItem from "../components/feed-item/feed-item";
-import {useDispatch} from "react-redux";
-import {wsConnectionStart} from "../services/actions/ws-actions";
+import {useDispatch, useSelector} from "react-redux";
+import {wsInit} from "../services/actions/ws-actions";
+import {wsActions} from "../services/actions/ws-actions";
+import {nanoid} from "nanoid";
 
 export const FeedPage = () => {
   const dispatch = useDispatch();
+  const {wsData, wsGetMessage} = useSelector(state => state.ws);
+
   useEffect(() => {
-    dispatch(wsConnectionStart())
-  })
+    dispatch(wsInit())
+  }, [dispatch])
 
   return (
     <div className={PagesStyles.feed__info}>
@@ -16,10 +20,9 @@ export const FeedPage = () => {
       <div className={`${PagesStyles.feed} mr-15`}>
         <h2 className={`${PagesStyles.feed__title} text text_type_main-large`}>Лента заказов</h2>
         <div className={PagesStyles.feed__container}>
-          <FeedItem/>
-          <FeedItem/>
-          <FeedItem/>
-          <FeedItem/>
+          {wsGetMessage && wsData.orders.map(data => {
+            return <FeedItem key={nanoid()} orders={data}/>
+          })}
         </div>
       </div>
 
@@ -27,8 +30,9 @@ export const FeedPage = () => {
         <div className={PagesStyles.feed__status}>
           <div className={PagesStyles.feed__ready}>
             <p className='text text_type_main-medium mb-6'>Готовы:</p>
-            <p className='text text_type_digits-default mb-2'>034533</p>
-            <p className='text text_type_digits-default'>034533</p>
+            {/*{wsGetMessage && wsData.orders.map(data => {*/}
+            {/*  return <p className='text text_type_digits-default mb-2'>034533</p>*/}
+            {/*})}*/}
           </div>
           <div className={PagesStyles.feed__process}>
             <p className='text text_type_main-medium mb-6'>В работе:</p>

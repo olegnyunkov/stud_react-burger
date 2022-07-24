@@ -8,49 +8,65 @@ import {
 } from "../actions/ws-actions";
 
 const wsInitialState = {
+  wsRequest: false,
   wsConnected: false,
-  wsData: null,
-  error: null
+  wsError: false,
+  wsData: {},
+  wsGetMessage: false
 }
 
 export const wsReducer = (state = wsInitialState, action) => {
   switch (action.type) {
     case WS_CONNECTION_START: {
       return {
+        ...state,
+        wsRequest: true,
         wsConnected: false,
-        wsData: null
+        wsError: false
       }
     }
     case WS_CONNECTION_SUCCESS: {
       return {
-        wsConnected: false,
-        wsData: null
+        ...state,
+        wsRequest: false,
+        wsConnected: true,
+        wsError: false
       }
     }
     case WS_CONNECTION_ERROR: {
       return {
+        ...state,
+        wsRequest: false,
         wsConnected: false,
-        wsData: null
+        wsError: true
       }
     }
     case WS_CONNECTION_CLOSED: {
       return {
+        ...state,
+        wsRequest: false,
         wsConnected: false,
-        wsData: null
+        wsError: false
       }
     }
     case WS_GET_MESSAGE: {
       return {
-        wsConnected: false,
-        wsData: null
+        ...state,
+        wsRequest: false,
+        wsConnected: true,
+        wsError: false,
+        wsGetMessage: true,
+        wsData: action.payload
       }
     }
-    case WS_SEND_MESSAGE: {
-      return {
-        wsConnected: false,
-        wsData: null
-      }
-    }
+    // case WS_SEND_MESSAGE: {
+    //   return {
+    //     ...state,
+    //     wsRequest: false,
+    //     wsConnected: false,
+    //     wsError: false
+    //   }
+    // }
     default: {
       return state
     }
