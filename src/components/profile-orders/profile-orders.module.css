@@ -1,0 +1,23 @@
+.orders__container {
+    width: 844px;
+    height: 75vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    row-gap: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.orders__container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.orders__container::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.orders__container::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 292px;
+}

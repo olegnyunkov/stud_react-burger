@@ -158,10 +158,10 @@ export const sendUserLoginInfo = (email, password) => (dispatch) => {
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
     res.success
-      ? dispatch(addUser(res))
+      ? (setCookie('accessToken', res.accessToken.split('Bearer ')[1])
       && dispatch(loginSuccess())
-      && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-      && localStorage.setItem('refreshToken', res.refreshToken)
+      && dispatch(addUser(res))
+      && localStorage.setItem('refreshToken', res.refreshToken))
       : dispatch(loginFailed())
   }).catch(err => {
     dispatch(loginFailed())
@@ -199,10 +199,11 @@ export const sendRefreshTokenInfo = (token) => (dispatch) => {
   return fetch(baseUrl + '/auth/token', {
     method: 'POST',
     body: JSON.stringify({
-      token
+      "token": token
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
+    console.log(res)
     res.success
       ? dispatch(refreshTokenSuccess())
       && setCookie('accessToken', res.accessToken.split('Bearer ')[1])

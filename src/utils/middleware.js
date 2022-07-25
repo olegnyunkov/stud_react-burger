@@ -11,6 +11,10 @@ export const socketMiddleware = wsUrl => {
         socket = new WebSocket(wsUrl);
       }
 
+      if (type === 'WS_CONNECTION_START_TOKEN') {
+        socket = new WebSocket(payload);
+      }
+
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });

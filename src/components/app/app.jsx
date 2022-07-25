@@ -13,7 +13,7 @@ import {RegisterPage} from '../../pages/register';
 import {ForgotPasswordPage} from '../../pages/forgot-password';
 import {ResetPasswordPage} from '../../pages/reset-password';
 import {ProfilePage} from '../../pages/profile';
-import {getIngredients, getUserInfo} from "../../utils/api";
+import {getIngredients, getUserInfo, sendRefreshTokenInfo} from "../../utils/api";
 import {getCookie} from '../../utils/cookie';
 import {ProtectedRoute} from "../protected-route/protected-route";
 import {NotFoundPage} from "../../pages/not-found";
@@ -21,7 +21,6 @@ import {IngredientDetailsPage} from "../../pages/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {FeedPage} from "../../pages/feed";
-import {OrdersPage} from '../../pages/orders';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,7 +39,10 @@ const App = () => {
   }, [match])
   
     useEffect(() => {
-    dispatch(getIngredients())
+    dispatch(getIngredients());
+      if (getCookie('accessToken')) {
+        dispatch(getUserInfo())
+      }
   }, [dispatch]);
 
   const closeModal = () => {
@@ -52,12 +54,6 @@ const App = () => {
   const closeIngredientsModal = useCallback((url) => {
     history.push(url)
   }, [history])
-
-  useEffect(() => {
-    if (getCookie('accessToken')) {
-      dispatch(getUserInfo())
-    }
-  }, [dispatch])
 
   return (
     <>
@@ -88,7 +84,7 @@ const App = () => {
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
           <Route path='/ingredients/:id' component={IngredientDetailsPage}/>
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
-          <ProtectedRoute path='/profile/orders' children={<ProfilePage/>}/>
+          {/*<ProtectedRoute path='/profile/orders' children={<ProfilePage/>}/>*/}
           <Route exact path='/feed' component={FeedPage}/>
           <Route component={NotFoundPage}/>
         </Switch>

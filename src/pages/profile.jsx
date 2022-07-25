@@ -19,7 +19,7 @@ export const ProfilePage = () => {
   return (
     <div className={PagesStyles.profile}>
       <ProfileMenu />
-      {infoMatch && <ProfileInfo/>}
+      {infoMatch.isExact && <ProfileInfo/>}
       {ordersMatch && <ProfileOrders/>}
     </div>
   );
