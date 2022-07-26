@@ -2,7 +2,7 @@ import ProfileOrdersStyles from "./profile-orders.module.css";
 import FeedItem from "../feed-item/feed-item";
 import React, {useEffect} from "react";
 import {getCookie} from "../../utils/cookie";
-import {wsInitToken} from "../../services/actions/ws-actions";
+import {onClose, wsInitToken} from "../../services/actions/ws-actions";
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 
@@ -15,6 +15,7 @@ const ProfileOrders = () => {
 
   useEffect(() => {
     dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
+    return () => dispatch(onClose())
   }, [dispatch])
 
   return (

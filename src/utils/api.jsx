@@ -68,7 +68,10 @@ export const getOrder = (orderDataId) => (dispatch) => {
     fetch(baseUrl + '/orders', {
       method: 'POST',
       body: JSON.stringify({'ingredients': orderDataId}),
-      headers: {'Content-Type': 'application/json'}
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + getCookie('accessToken')
+      }
     }).then(checkResponse).then(res => {
       res.success
         ? dispatch(getOrderSuccess(res))
@@ -92,12 +95,14 @@ export const sendUserRegistrationInfo = (email, password, name) => (dispatch) =>
       }),
       headers: {'Content-Type': 'application/json'}
     }).then(checkResponse).then(res => {
-      res.success
-        ? dispatch(addUser(res))
-        && dispatch(registrationSuccess())
-        && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-        && localStorage.setItem('refreshToken', res.refreshToken)
-        : dispatch(registrationFailed())
+      if(res.success) {
+        dispatch(addUser(res));
+        dispatch(registrationSuccess());
+        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', res.refreshToken)
+      } else {
+        dispatch(registrationFailed())
+      }
     }).catch(err => {
       dispatch(registrationFailed())
       console.log(err)
@@ -157,12 +162,14 @@ export const sendUserLoginInfo = (email, password) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
-    res.success
-      ? (setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-      && dispatch(loginSuccess())
-      && dispatch(addUser(res))
-      && localStorage.setItem('refreshToken', res.refreshToken))
-      : dispatch(loginFailed())
+    if(res.success) {
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+      dispatch(loginSuccess());
+      dispatch(addUser(res));
+      localStorage.setItem('refreshToken', res.refreshToken)
+    } else {
+      dispatch(loginFailed())
+    }
   }).catch(err => {
     dispatch(loginFailed())
     console.log(err)
@@ -180,11 +187,13 @@ export const sendUserLogoutInfo = (token) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
-    res.success
-      ? dispatch(removeUser())
-      && dispatch(logoutSuccess())
-      && deleteCookie('accessToken')
-      : dispatch(logoutFailed())
+    if(res.success) {
+      dispatch(removeUser());
+      dispatch(logoutSuccess());
+      deleteCookie('accessToken')
+    } else {
+      dispatch(logoutFailed())
+    }    
   })
     .catch(err => {
       dispatch(logoutFailed())
@@ -204,10 +213,12 @@ export const sendRefreshTokenInfo = (token) => (dispatch) => {
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
     console.log(res)
-    res.success
-      ? dispatch(refreshTokenSuccess())
-      && setCookie('accessToken', res.accessToken.split('Bearer ')[1])
-      : dispatch(refreshTokenFailed())
+    if(res.success) {
+      dispatch(refreshTokenSuccess());
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1])
+    } else {
+      dispatch(refreshTokenFailed())
+    }
   }).catch(err => {
     dispatch(refreshTokenFailed())
     console.log(err)
@@ -227,10 +238,12 @@ export const getUserInfo = () => (dispatch) => {
   })
     .then(checkResponse)
     .then(res => {
-      res.success
-        ? dispatch(checkAuthSuccess())
-        && dispatch(addUser(res))
-        : dispatch(checkAuthFailed())
+      if(res.success) {
+        dispatch(checkAuthSuccess());
+        dispatch(addUser(res))
+      } else {
+        dispatch(checkAuthFailed())
+      }
     })
     .catch(err => {
       console.log(err)
@@ -257,10 +270,12 @@ export const refreshUserInfo = (email, name, password) => (dispatch) => {
     }
   }).then(checkResponse)
     .then(res => {
-      res.success
-        ? dispatch(addUser(res))
-        && dispatch(updateUserSuccess())
-        : dispatch(updateUserFailed())
+      if(res.success) {
+        dispatch(addUser(res));
+        dispatch(updateUserSuccess())
+      } else {
+        dispatch(updateUserFailed())
+      }
     })
     .catch(err => {
       dispatch(updateUserFailed())

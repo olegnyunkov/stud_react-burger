@@ -31,19 +31,24 @@ const App = () => {
   const location = useLocation();
   const background = location.state?.background;
   const match = useRouteMatch('/ingredients/:id');
+  const accessToken = getCookie('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
   
   useEffect(() => {
+    dispatch(getIngredients());
+
+    if (accessToken) {
+      dispatch(getUserInfo())
+    } else if (!accessToken && refreshToken) {
+      dispatch(sendRefreshTokenInfo(refreshToken))
+    } else {
+      return
+    };
+    
     if(match) {
       setModalOpened(true)
     }
-  }, [match])
-  
-    useEffect(() => {
-    dispatch(getIngredients());
-      if (getCookie('accessToken')) {
-        dispatch(getUserInfo())
-      }
-  }, [dispatch]);
+  }, [dispatch, match]);
 
   const closeModal = () => {
     setIngredientsIsOpened(false)

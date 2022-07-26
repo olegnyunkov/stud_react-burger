@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import PagesStyles from './pages.module.css';
 import FeedItem from "../components/feed-item/feed-item";
 import {useDispatch, useSelector} from "react-redux";
-import {wsInit} from "../services/actions/ws-actions";
+import {onClose, wsInit} from "../services/actions/ws-actions";
 import {wsActions} from "../services/actions/ws-actions";
 import {nanoid} from "nanoid";
 
@@ -12,6 +12,7 @@ export const FeedPage = () => {
 
   useEffect(() => {
     dispatch(wsInit())
+    return () => dispatch(onClose())
   }, [dispatch])
 
   return (
