@@ -1,3 +1,4 @@
+/*стили для страницы логина*/
 .login {
     max-width: 480px;
     display: flex;
@@ -22,6 +23,7 @@
     display: flex;
 }
 
+/*стили для страницы профиля*/
 .profile {
     display: flex;
     margin: 120px auto auto;
@@ -62,12 +64,14 @@
     color: #8585AD;
 }
 
+/*стили для страницы загрузки*/
 .loading__screen {
     display: flex;
     justify-content: center;
     margin: auto;
 }
 
+/*стили для страницы ингредиента*/
 .ingredient {
     width: 720px;
     background-color: #131316;
@@ -75,6 +79,7 @@
     text-align: center;
 }
 
+/*стили для страницы с лентой заказов*/
 .feed__info {
     display: flex;
     margin: 0 auto;
@@ -140,4 +145,30 @@
 
 .feed__process {
     width: 272px;
+}
+
+/*стили для отдельной страницы заказа из ленты заказов*/
+.feed__page {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    margin: 122px auto auto;
+    border: 1px green solid;
+}
+
+.feed__page_number {
+    text-align: center;
+    border: 1px blue solid;
+}
+
+.feed__page_date {
+    display: flex;
+    justify-content: space-between;
+    border: 1px red solid;
+}
+
+.feed__page_price {
+    display: flex;
+    align-items: center;
+    border: 1px yellow solid;
 }

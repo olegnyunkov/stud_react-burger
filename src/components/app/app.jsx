@@ -21,6 +21,7 @@ import {IngredientDetailsPage} from "../../pages/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {FeedPage} from "../../pages/feed";
+import {FeedDetailsPage} from "../../pages/feed-details";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,8 +36,6 @@ const App = () => {
   const refreshToken = localStorage.getItem('refreshToken');
   
   useEffect(() => {
-    dispatch(getIngredients());
-
     if (accessToken) {
       dispatch(getUserInfo())
     } else if (!accessToken && refreshToken) {
@@ -44,7 +43,7 @@ const App = () => {
     } else {
       return
     };
-    
+
     if(match) {
       setModalOpened(true)
     }
@@ -91,6 +90,7 @@ const App = () => {
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
           {/*<ProtectedRoute path='/profile/orders' children={<ProfilePage/>}/>*/}
           <Route exact path='/feed' component={FeedPage}/>
+          <Route path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         {background && (

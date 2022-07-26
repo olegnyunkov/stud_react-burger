@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-hook-inview';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import {getDetails} from "../../services/actions/ingredient-details-actions";
+import {getIngredients} from "../../utils/api";
 
 const BurgerIngredients = (props) => {
   const {
@@ -19,6 +20,10 @@ const BurgerIngredients = (props) => {
   const [bunsRef, inViewBuns] = useInView({threshold: 0});
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
 
   //открытие модалки описания и загрузка описания  
   const openIngredientsModal = (info) => {
