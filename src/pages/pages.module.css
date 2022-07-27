@@ -167,8 +167,49 @@
     border: 1px red solid;
 }
 
+.feed__page_container {
+    height: 312px;
+    border: 1px yellow solid;
+    box-sizing: border-box;
+}
+
+.feed__page_container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed__page_container::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.feed__page_container::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 292px;
+}
+
 .feed__page_price {
     display: flex;
     align-items: center;
     border: 1px yellow solid;
+    justify-items: end;
+}
+
+.feed__page_ingredient {
+    display: flex;
+    align-items: center;
+}
+
+.feed__page_block {
+    width: 64px;
+    height: 64px;
+    border: 2px #801AB2 solid;
+    border-radius: 100px;  
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feed__page_image {
+    width: 112px;
+    height: 56px;
+    max-width: 100%;
+    object-fit: cover;
 }

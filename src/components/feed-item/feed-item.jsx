@@ -5,6 +5,7 @@ import FeedIngredient from "./feed-ingredient/feed-ingredient";
 import {useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 import {Link} from "react-router-dom";
+import { date } from "../../utils/utils";
 
 const FeedItem = (props) => {
   const {name, number, updatedAt, _id, ingredients} = props.orders;
@@ -14,8 +15,8 @@ const FeedItem = (props) => {
     <Link to={{pathname: `/feed/${_id}`}} className={`${FeedItemStyles.feed__link} text text_type_main-default`}>
       <div className={FeedItemStyles.feed__card}>
         <div className={FeedItemStyles.feed__info}>
-          <p className='text text_type_digits-default'>{number}</p>
-          <p className='text text_type_main-default text_color_inactive'>{updatedAt}</p>
+          <p className='text text_type_digits-default'>#0{number}</p>
+          <p className='text text_type_main-default text_color_inactive'>{date(updatedAt)}</p>
         </div>
         <p className='text text_type_main-medium mt-6'>{name}</p>
         <div className={`${FeedItemStyles.feed__content} mt-6`}>

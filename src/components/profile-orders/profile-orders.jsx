@@ -11,7 +11,6 @@ const ProfileOrders = () => {
   const dispatch = useDispatch();
   const {wsData, wsGetMessage} = useSelector(state => state.ws);
   const accessToken = getCookie('accessToken');
-  console.log(accessToken)
 
   useEffect(() => {
     dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
