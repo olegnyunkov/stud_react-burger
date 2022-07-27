@@ -49,6 +49,10 @@ const App = () => {
     }
   }, [dispatch, match]);
 
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch])
+
   const closeModal = () => {
     setIngredientsIsOpened(false)
     setOrderIsOpened(false)

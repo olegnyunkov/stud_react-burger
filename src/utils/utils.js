@@ -4,6 +4,14 @@ export const totalPrice = (ingrId, allIngr) => {
 
 };
 
+export const ingredientsId = (ids, allIng) => {
+    const data = ids.map((id) => {
+          return allIng.find((ing) => ing._id === id);
+      }
+    );
+    return data
+}
+
 export const date = (data) => {
     const orderDate = Number(
         data

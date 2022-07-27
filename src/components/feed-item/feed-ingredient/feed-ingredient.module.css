@@ -6,6 +6,7 @@
     box-sizing: border-box;
     overflow: hidden;
     margin-left: -15px;
+    background-color: #1c1c21;
 }
 
 .feed__ingredient:first-of-type {

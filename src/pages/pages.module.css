@@ -85,17 +85,14 @@
     margin: 0 auto;
     justify-content: space-between;
     max-width: 1248px;
-    border: 1px green solid;
 }
 
 .feed {
-    border: 1px red solid;
     margin: 40px 0;
     width: 608px;
 }
 
 .feed__title {
-    border: 1px green solid;
     margin: 0 0 20px;
 }
 
@@ -107,7 +104,6 @@
     overflow-y: scroll;
     overflow-x: hidden;
     max-height: 75vh;
-    border: 1px blue solid;
 }
 
 .feed__container::-webkit-scrollbar {
@@ -147,30 +143,36 @@
     width: 272px;
 }
 
+.feed__total {
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
 /*стили для отдельной страницы заказа из ленты заказов*/
 .feed__page {
     max-width: 640px;
     display: flex;
     flex-direction: column;
     margin: 122px auto auto;
-    border: 1px green solid;
 }
 
 .feed__page_number {
     text-align: center;
-    border: 1px blue solid;
 }
 
 .feed__page_date {
     display: flex;
     justify-content: space-between;
-    border: 1px red solid;
+}
+
+.feed__page_status {
+    color: #00CCCC;
 }
 
 .feed__page_container {
     height: 312px;
-    border: 1px yellow solid;
     box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .feed__page_container::-webkit-scrollbar {
@@ -183,14 +185,14 @@
 
 .feed__page_container::-webkit-scrollbar-thumb {
     background-color: #8585AD;
-    height: 292px;
+    height: 194px;
 }
 
 .feed__page_price {
     display: flex;
     align-items: center;
-    border: 1px yellow solid;
-    justify-items: end;
+    margin-right: 0;
+    margin-left: auto;
 }
 
 .feed__page_ingredient {

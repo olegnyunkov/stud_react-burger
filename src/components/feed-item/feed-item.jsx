@@ -21,8 +21,8 @@ const FeedItem = (props) => {
         <p className='text text_type_main-medium mt-6'>{name}</p>
         <div className={`${FeedItemStyles.feed__content} mt-6`}>
           <div className={FeedItemStyles.feed__ingredients}>
-            {wsGetMessage && ingredients.slice(0, 5).map(data => {
-              return <FeedIngredient key={nanoid()} id={data}/>
+            {wsGetMessage && ingredients.slice(0, 5).map((data, index) => {
+              return <FeedIngredient key={nanoid()} id={data} index={index} length={ingredients}/>
             })}
           </div>
           <div className={`${FeedItemStyles.feed__price} ml-6`}>

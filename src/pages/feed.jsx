@@ -3,7 +3,6 @@ import PagesStyles from './pages.module.css';
 import FeedItem from "../components/feed-item/feed-item";
 import {useDispatch, useSelector} from "react-redux";
 import {onClose, wsInit} from "../services/actions/ws-actions";
-import {wsActions} from "../services/actions/ws-actions";
 import {nanoid} from "nanoid";
 
 export const FeedPage = () => {
@@ -43,11 +42,11 @@ export const FeedPage = () => {
         </div>
         <div>
           <p className='text text_type_main-medium'>Выполнено за все время:</p>
-          <p className="text text_type_digits-large">28 752</p>
+          <p className={`${PagesStyles.feed__total} text text_type_digits-large`}>{wsData.total}</p>
         </div>
         <div>
           <p className='text text_type_main-medium'>Выполнено за сегодня:</p>
-          <p className="text text_type_digits-large">138</p>
+          <p className={`${PagesStyles.feed__total} text text_type_digits-large`}>{wsData.totalToday}</p>
         </div>
       </div>
 

@@ -21,9 +21,9 @@ const BurgerIngredients = (props) => {
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(getIngredients());
+  // }, [dispatch])
 
   //открытие модалки описания и загрузка описания  
   const openIngredientsModal = (info) => {

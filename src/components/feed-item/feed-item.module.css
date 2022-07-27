@@ -13,18 +13,15 @@
 }
 
 .feed__content {
-    border: 1px green solid;
     display: flex;
     justify-content: space-between;
 }
 
 .feed__ingredients {
-    border: 1px green solid;
     display: flex;
 }
 
 .feed__price {
-    border: 1px green solid;
     display: flex;
     align-items: center;
 }
