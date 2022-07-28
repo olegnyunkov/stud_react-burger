@@ -3,22 +3,30 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import PagesStyles from './pages.module.css';
-import {onClose, wsInit} from "../services/actions/ws-actions";
+import {onClose, wsInit, wsInitToken} from "../services/actions/ws-actions";
 import {date, ingredientsId} from "../utils/utils";
 import {nanoid} from "nanoid";
+import { getCookie } from "../utils/cookie";
 
-export const FeedDetailsPage = () => {
+export const FeedDetailsPage = (props) => {
+  const {forAuth} = props;
   const dispatch = useDispatch();
   const {id} = useParams();
   const {wsData, wsGetMessage} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
   const ingredient = wsData.orders.find((item) => item._id === id);
-  const ingredientList = ingredientsId(ingredient.ingredients, ingredients)
+  const ingredientList = ingredientsId(ingredient.ingredients, ingredients);
+  const accessToken = getCookie('accessToken');
+  console.log(ingredients)
 
   useEffect(() => {
-      dispatch(wsInit())
-      return () => dispatch(onClose())
-  }, [dispatch])
+    forAuth
+      ? dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
+      : dispatch(wsInit());
+    return () => {
+      dispatch(onClose());
+    };
+  }, [dispatch, accessToken]);
 
   const status = () => {
     if (ingredient.status === 'done') {
@@ -37,7 +45,7 @@ export const FeedDetailsPage = () => {
           <p className='text text_type_main-medium mb-6'>Состав:</p>
           <div className={`${PagesStyles.feed__page_container} pr-6`}>
 
-            {ingredientList.map(item => {
+            {ingredients && ingredientList.map(item => {
               return (
                 <div className={`${PagesStyles.feed__page_ingredient} mb-4`} key={nanoid()}>
                   <div className={`${PagesStyles.feed__page_block} mr-4`}>

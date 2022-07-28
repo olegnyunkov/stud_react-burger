@@ -247,7 +247,8 @@ export const getUserInfo = () => (dispatch) => {
     })
     .catch(err => {
       console.log(err)
-      if(err.message === 'jwt expired') {
+      dispatch(checkAuthFailed())
+      if(err) {
         dispatch(sendRefreshTokenInfo(localStorage.getItem('refreshToken')))
       }
     })

@@ -25,7 +25,6 @@ import {FeedDetailsPage} from "../../pages/feed-details";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [ingredientsIsOpened, setIngredientsIsOpened] = useState(false);
   const [orderIsOpened, setOrderIsOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const history = useHistory();
@@ -43,18 +42,19 @@ const App = () => {
     } else {
       return
     };
-
-    if(match) {
-      setModalOpened(true)
-    }
-  }, [dispatch, match]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch])
 
+  useEffect(() => {
+    if(match) {
+      setModalOpened(true)
+    }
+  }, [match])
+
   const closeModal = () => {
-    setIngredientsIsOpened(false)
     setOrderIsOpened(false)
     dispatch(removeDetails())
   }
@@ -70,13 +70,7 @@ const App = () => {
         <Switch location={background || location}>
           <Route exact path='/'>
             <div className={Main.main}>
-              <BurgerIngredients
-                setIngredientsIsOpened={setIngredientsIsOpened}
-                ingredientsIsOpened={ingredientsIsOpened}
-                closeModal={closeModal}
-                modalOpened={modalOpened}
-                setModalOpened={setModalOpened}
-              />
+              <BurgerIngredients/>
               <BurgerConstructor
                 orderIsOpened={orderIsOpened}
                 setOrderIsOpened={setOrderIsOpened}
@@ -92,7 +86,7 @@ const App = () => {
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
           <Route path='/ingredients/:id' component={IngredientDetailsPage}/>
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
-          {/*<ProtectedRoute path='/profile/orders' children={<ProfilePage/>}/>*/}
+          <ProtectedRoute path='/profile/:id' children={<FeedDetailsPage forAuth />}/>
           <Route exact path='/feed' component={FeedPage}/>
           <Route path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
@@ -105,9 +99,20 @@ const App = () => {
                 closeModal={() => {
                   closeIngredientsModal('/')
                 }}
-                title='Детали ингредиента'
-                modalOpened={modalOpened}>
+                title='Детали ингредиента'>
                 <IngredientDetails/>
+              </Modal>}/>
+        )}
+        {background && (
+          <Route
+            path='/profile/:id'
+            children={
+              <Modal
+                closeModal={() => {
+                  closeIngredientsModal('/profile/orders')
+                }}
+                title=''>
+                <FeedDetailsPage/>
               </Modal>}/>
         )}
       </DndProvider>

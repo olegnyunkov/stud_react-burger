@@ -4,11 +4,13 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import ModalStyles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
 const modalRoot = document.getElementById('modals');
 
 const Modal = (props) => {
-  const {modalOpened, closeModal, title, children} = props;
+  const {closeModal, title, children} = props;
+  const {modalOpened} = useSelector(state => state.modal)
 
   useEffect(() => {
     const closeEscBtn = (evt) => {

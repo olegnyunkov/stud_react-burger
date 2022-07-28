@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {onClose, wsInit} from "../services/actions/ws-actions";
 import {nanoid} from "nanoid";
 
-export const FeedPage = () => {
+export const FeedPage = (props) => {
+  const {setModalOpened} = props;
   const dispatch = useDispatch();
   const {wsData, wsGetMessage} = useSelector(state => state.ws);
 
@@ -21,7 +22,7 @@ export const FeedPage = () => {
         <h2 className={`${PagesStyles.feed__title} text text_type_main-large`}>Лента заказов</h2>
         <div className={PagesStyles.feed__container}>
           {wsGetMessage && wsData.orders.map(data => {
-            return <FeedItem key={nanoid()} orders={data}/>
+            return <FeedItem key={nanoid()} orders={data} setModalOpened={setModalOpened}/>
           })}
         </div>
       </div>
