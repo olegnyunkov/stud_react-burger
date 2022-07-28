@@ -11,38 +11,56 @@ import { openModal } from "../../services/actions/modal-actions";
 const FeedItem = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const {name, number, updatedAt, _id, ingredients} = props.orders;
+  const {orders} = props;
   const {wsGetMessage} = useSelector(state => state.ws);
-  const {url} = useRouteMatch()
-  console.log(url)
+  const {ingredients} = useSelector(state => state.ingredients)
+  const {url} = useRouteMatch();
 
-  return (
-    <Link 
-    to={{
-      pathname: `${url}/${_id}`,
-      state: { background: location}
-      }} 
-    className={`${FeedItemStyles.feed__link} text text_type_main-default`}>
-      <div className={FeedItemStyles.feed__card} onClick={() => dispatch(openModal())}>
-        <div className={FeedItemStyles.feed__info}>
-          <p className='text text_type_digits-default'>#0{number}</p>
-          <p className='text text_type_main-default text_color_inactive'>{date(updatedAt)}</p>
-        </div>
-        <p className='text text_type_main-medium mt-6'>{name}</p>
-        <div className={`${FeedItemStyles.feed__content} mt-6`}>
-          <div className={FeedItemStyles.feed__ingredients}>
-            {wsGetMessage && ingredients.slice(0, 5).map((data, index) => {
-              return <FeedIngredient key={nanoid()} id={data} index={index} length={ingredients}/>
-            })}
+  const getIngredients = (id) => {
+    return ingredients.find((item) => item._id === id)
+  }
+
+  const ingredientsList = orders.ingredients.map((id) => {
+    return getIngredients(id)
+  })
+
+  const totalPrice = (arr, sum = 0) => {
+    for (let { price } of arr)
+      sum += price
+    return sum
+  }
+
+  if (!wsGetMessage) {
+    return <p>Загрузка...</p>
+  } else {
+    return (
+      <Link
+        to={{
+          pathname: `${url}/${orders._id}`,
+          state: {background: location}
+        }}
+        className={`${FeedItemStyles.feed__link} text text_type_main-default`}>
+        <div className={FeedItemStyles.feed__card} onClick={() => dispatch(openModal())}>
+          <div className={FeedItemStyles.feed__info}>
+            <p className='text text_type_digits-default'>#0{orders.number}</p>
+            <p className='text text_type_main-default text_color_inactive'>{date(orders.updatedAt)}</p>
           </div>
-          <div className={`${FeedItemStyles.feed__price} ml-6`}>
-            <p className='text text_type_digits-default mr-2'>480</p>
-            <CurrencyIcon/>
+          <p className='text text_type_main-medium mt-6'>{orders.name}</p>
+          <div className={`${FeedItemStyles.feed__content} mt-6`}>
+            <div className={FeedItemStyles.feed__ingredients}>
+              {orders.ingredients.slice(0, 6).map((data) => {
+                return <FeedIngredient key={nanoid()} id={data} />
+              })}
+            </div>
+            <div className={`${FeedItemStyles.feed__price} ml-6`}>
+              <p className='text text_type_digits-default mr-2'>{totalPrice(ingredientsList)}</p>
+              <CurrencyIcon/>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
-  )
+      </Link>
+    )
+  }
 }
 
 export default FeedItem;

@@ -212,7 +212,6 @@ export const sendRefreshTokenInfo = (token) => (dispatch) => {
     }),
     headers: {'Content-Type': 'application/json'}
   }).then(checkResponse).then(res => {
-    console.log(res)
     if(res.success) {
       dispatch(refreshTokenSuccess());
       setCookie('accessToken', res.accessToken.split('Bearer ')[1])

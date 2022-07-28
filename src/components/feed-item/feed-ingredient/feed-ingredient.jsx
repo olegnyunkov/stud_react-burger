@@ -3,7 +3,7 @@ import FeedIngredientStyles from './feed-ingredient.module.css';
 import {useSelector} from "react-redux";
 
 const FeedIngredient = (props) => {
-  const {id, index, length} = props;
+  const {id} = props;
   const {ingredients} = useSelector(state => state.ingredients)
 
   const ingredient = ingredients.find((item) => {
@@ -11,7 +11,7 @@ const FeedIngredient = (props) => {
   });
 
   return (
-    <div className={FeedIngredientStyles.feed__ingredient} style={{ zIndex: `${length.length - index}` }}>
+    <div className={FeedIngredientStyles.feed__ingredient}>
       {ingredient &&
         <img
           src={ingredient.image}

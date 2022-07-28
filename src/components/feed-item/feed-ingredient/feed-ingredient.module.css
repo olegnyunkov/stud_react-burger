@@ -11,6 +11,22 @@
 
 .feed__ingredient:first-of-type {
     margin-left: 0;
+    z-index: 6;
+}
+
+.feed__ingredient:nth-child(2) {
+    z-index: 5;
+}
+.feed__ingredient:nth-child(3) {
+    z-index: 4;
+}
+.feed__ingredient:nth-child(4) {
+    z-index: 3;
+}
+.feed__ingredient:nth-child(5) {
+    z-index: 2;
+}
+.feed__ingredient:nth-child(6) {
     z-index: 1;
 }
 

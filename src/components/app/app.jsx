@@ -21,7 +21,8 @@ import {IngredientDetailsPage} from "../../pages/ingredient";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {FeedPage} from "../../pages/feed";
-import {FeedDetailsPage} from "../../pages/feed-details";
+import {FeedDetailsPage} from "../../pages/feed-details-page";
+import FeedDetails from "../feed-details/feed-details";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ const App = () => {
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
-  const match = useRouteMatch('/ingredients/:id');
+  const ingredientsMatch = useRouteMatch('/ingredients/:id');
+  const profileOrderMatch = useRouteMatch('/profile/:id')
   const accessToken = getCookie('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
   
@@ -39,9 +41,7 @@ const App = () => {
       dispatch(getUserInfo())
     } else if (!accessToken && refreshToken) {
       dispatch(sendRefreshTokenInfo(refreshToken))
-    } else {
-      return
-    };
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -49,10 +49,12 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if(match) {
+    if(ingredientsMatch) {
+      setModalOpened(true)
+    } else if(profileOrderMatch) {
       setModalOpened(true)
     }
-  }, [match])
+  }, [ingredientsMatch])
 
   const closeModal = () => {
     setOrderIsOpened(false)
@@ -88,7 +90,7 @@ const App = () => {
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
           <ProtectedRoute path='/profile/:id' children={<FeedDetailsPage forAuth />}/>
           <Route exact path='/feed' component={FeedPage}/>
-          <Route path='/feed/:id' component={FeedDetailsPage}/>
+          <Route exact path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         {background && (
@@ -112,13 +114,24 @@ const App = () => {
                   closeIngredientsModal('/profile/orders')
                 }}
                 title=''>
-                <FeedDetailsPage/>
+                <FeedDetails/>
+              </Modal>}/>
+        )}
+        {background && (
+          <Route
+            path='/feed/:id'
+            children={
+              <Modal
+                closeModal={() => {
+                  closeIngredientsModal('/feed')
+                }}
+                title=''>
+                <FeedDetails/>
               </Modal>}/>
         )}
       </DndProvider>
     </>
-  )
-    ;
+  );
 }
 
 export default App;

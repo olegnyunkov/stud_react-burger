@@ -25,12 +25,12 @@
 
 /*стили для страницы профиля*/
 .profile {
+    width: 1240px;
     display: flex;
     margin: 120px auto auto;
 }
 
 .profile__nav {
-    margin-left: 380px;
     display: flex;
     flex-direction: column;
 }
@@ -120,7 +120,6 @@
 }
 
 .feed__stats {
-    border: 1px green solid;
     width: 580px;
     display: grid;
     grid-template-columns: 1fr;
@@ -130,13 +129,18 @@
 }
 
 .feed__status {
-    border: 1px green solid;
     display: flex;
     justify-content: space-between;
 }
 
 .feed__ready {
     width: 272px;
+}
+
+.feed__ready_list {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .feed__process {

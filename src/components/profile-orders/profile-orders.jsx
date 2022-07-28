@@ -6,7 +6,6 @@ import {onClose, wsInitToken} from "../../services/actions/ws-actions";
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 
-
 const ProfileOrders = () => {
   const dispatch = useDispatch();
   const {wsData, wsGetMessage} = useSelector(state => state.ws);
@@ -17,13 +16,17 @@ const ProfileOrders = () => {
     return () => dispatch(onClose())
   }, [dispatch])
 
-  return (
-    <div className={ProfileOrdersStyles.orders__container}>
-      {wsGetMessage && wsData.orders.map(data => {
-        return <FeedItem key={nanoid()} orders={data}/>
-      })}
-    </div>
-  )
+  if (!wsGetMessage) {
+    return <p>Загрузка...</p>
+  } else {
+    return (
+      <div className={ProfileOrdersStyles.orders__container}>
+        {wsData.orders.map(data => {
+          return <FeedItem key={nanoid()} orders={data}/>
+        })}
+      </div>
+    )
+  }
 }
 
 export default ProfileOrders;
