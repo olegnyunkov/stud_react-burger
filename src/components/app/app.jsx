@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
@@ -23,6 +23,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {FeedPage} from "../../pages/feed";
 import {FeedDetailsPage} from "../../pages/feed-details-page";
 import FeedDetails from "../feed-details/feed-details";
+import {openModal} from "../../services/actions/modal-actions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,11 @@ const App = () => {
   const location = useLocation();
   const background = location.state?.background;
   const ingredientsMatch = useRouteMatch('/ingredients/:id');
-  const profileOrderMatch = useRouteMatch('/profile/:id')
+  const profileOrderMatch = useRouteMatch('/profile/orders/:id');
+  const feedOrderMatch = useRouteMatch('/feed/:id')
   const accessToken = getCookie('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
+  const {wsData} = useSelector(state => state.ws);
   
   useEffect(() => {
     if (accessToken) {
@@ -49,10 +52,8 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if(ingredientsMatch) {
-      setModalOpened(true)
-    } else if(profileOrderMatch) {
-      setModalOpened(true)
+    if(ingredientsMatch || profileOrderMatch || feedOrderMatch) {
+      dispatch(openModal())
     }
   }, [ingredientsMatch])
 
@@ -86,11 +87,11 @@ const App = () => {
           <Route exact path='/register' component={RegisterPage}/>
           <Route exact path='/forgot-password' component={ForgotPasswordPage}/>
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
-          <Route path='/ingredients/:id' component={IngredientDetailsPage}/>
+          <Route exact path='/ingredients/:id' component={IngredientDetailsPage}/>
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
-          <ProtectedRoute path='/profile/:id' children={<FeedDetailsPage />}/>
+          <ProtectedRoute path='/profile/orders/:id' children={<FeedDetailsPage />}/>
           <Route exact path='/feed' component={FeedPage}/>
-          <Route path='/feed/:id' component={FeedDetailsPage}/>
+          <Route exact path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         {background && (
@@ -106,15 +107,15 @@ const App = () => {
               </Modal>}/>
         )}
         {background && (
-          <Route
-            path='/profile/:id'
+          <ProtectedRoute
+            path='/profile/orders/:id'
             children={
               <Modal
                 closeModal={() => {
                   closeIngredientsModal('/profile/orders')
                 }}
                 title=''>
-                <FeedDetails/>
+                {wsData && <FeedDetails/>}
               </Modal>}/>
         )}
         {background && (
@@ -126,7 +127,7 @@ const App = () => {
                   closeIngredientsModal('/feed')
                 }}
                 title=''>
-                <FeedDetails/>
+                {wsData && <FeedDetails/>}
               </Modal>}/>
         )}
       </DndProvider>

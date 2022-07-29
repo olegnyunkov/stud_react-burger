@@ -143,6 +143,10 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+.feed__ready_text {
+    color: #00CCCC;
+}
+
 .feed__process {
     width: 272px;
 }

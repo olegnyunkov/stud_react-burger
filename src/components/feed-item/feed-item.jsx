@@ -11,10 +11,9 @@ import { openModal } from "../../services/actions/modal-actions";
 const FeedItem = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const {orders} = props;
-  const {wsGetMessage} = useSelector(state => state.ws);
+  const {orders, url} = props;
+  const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
-  const {url} = useRouteMatch();  
 
   const getIngredients = (id) => {
     return ingredients.find((item) => item._id === id)
@@ -30,7 +29,12 @@ const FeedItem = (props) => {
     return sum
   }
 
-  if (!wsGetMessage) {
+  const elementCounter = (arr) => {
+    if (arr.length - 5 > 0)
+      return `+${arr.length - 5}`
+  }
+
+  if (!wsData) {
     return <p>Загрузка...</p>
   } else {
     return (
@@ -51,9 +55,10 @@ const FeedItem = (props) => {
               {orders.ingredients.slice(0, 6).map((data) => {
                 return <FeedIngredient key={nanoid()} id={data} />
               })}
+              <p className={`${FeedItemStyles.feed__counter} text text_type_digits-default`}>{elementCounter(ingredientsList)}</p>
             </div>
             <div className={`${FeedItemStyles.feed__price} ml-6`}>
-              <p className='text text_type_digits-default mr-2'>{'2'} x {totalPrice(ingredientsList)}</p>
+              <p className='text text_type_digits-default mr-2'>{totalPrice(ingredientsList)}</p>
               <CurrencyIcon/>
             </div>
           </div>

@@ -11,20 +11,24 @@ import {onClose, wsInit, wsInitToken} from "../../services/actions/ws-actions";
 const FeedDetails = () => {
   const dispatch = useDispatch();
   const {id} = useParams();
-  const {wsData, wsGetMessage} = useSelector(state => state.ws);
+  const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
-  const ingredient = wsData.orders.find((item) => item._id === id);
-  const ingredientList = ingredientsId(ingredient.ingredients, ingredients);
-  const accessToken = getCookie('accessToken');
+  const {authorized} = useSelector(state => state.user)
 
   useEffect(() => {
-    if(!wsData) {
-        dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
+    if (!wsData) {
+      authorized
+        ? dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
+        : dispatch(wsInit())
     }
     return () => {
       dispatch(onClose());
     };
-  }, [dispatch, accessToken]);
+  }, [dispatch]);
+
+  const ingredient = wsData.orders?.find((item) => item._id === id);
+  const ingredientList = ingredientsId(ingredient.ingredients, ingredients);
+  const accessToken = getCookie('accessToken');
 
   const status = () => {
     if (ingredient.status === 'done') {
@@ -36,14 +40,28 @@ const FeedDetails = () => {
     return ingredients.find((item) => item._id === id)
   }
 
-  const ingredientsLists = ingredient.ingredients.map((id) => {
+  const ingredientsLists = ingredient?.ingredients.map((id) => {
     return getIngredients(id)
   })
 
   const totalPrice = (arr, sum = 0) => {
-    for (let { price } of arr)
+    for (let {price} of arr)
       sum += price
     return sum
+  }
+
+  const uniqIngr = (arr,  obj = {}) => {
+    arr.forEach((el) => {
+      const name = el.name
+      if (name in obj) {
+        obj[name].count++
+      } else {
+        obj[name] = el
+        obj[name].count = 1
+      }
+    })
+
+    return Object.values(obj)
   }
 
   if (!ingredientList) {
@@ -57,7 +75,7 @@ const FeedDetails = () => {
         <p className='text text_type_main-medium mb-6'>Состав:</p>
         <div className={`${PagesStyles.feed__page_container} pr-6`}>
 
-          {ingredientList.map(item => {
+          {uniqIngr(ingredientList).map(item => {
             return (
               <div className={`${PagesStyles.feed__page_ingredient} mb-4`} key={nanoid()}>
                 <div className={`${PagesStyles.feed__page_block} mr-4`}>
@@ -66,7 +84,7 @@ const FeedDetails = () => {
                 </div>
                 <p className="text text_type_main-default">{item.name}</p>
                 <div className={`${PagesStyles.feed__page_price} ml-4`}>
-                  <p className='text text_type_digits-default mr-2'>{item.price}</p>
+                  <p className='text text_type_digits-default mr-2'>{item.count} x {item.price}</p>
                   <CurrencyIcon/>
                 </div>
               </div>

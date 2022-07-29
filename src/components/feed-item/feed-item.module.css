@@ -18,6 +18,7 @@
 
 .feed__ingredients {
     display: flex;
+    position: relative;
 }
 
 .feed__price {
@@ -28,4 +29,11 @@
 .feed__link {
     text-decoration: none;
     color: white;
+}
+
+.feed__counter {
+    position: absolute;
+    top: 18px;
+    left: 260px;
+    z-index: 2;
 }

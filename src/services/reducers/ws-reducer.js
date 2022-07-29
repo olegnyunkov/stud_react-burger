@@ -4,14 +4,14 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
-  WS_SEND_MESSAGE
+  WS_GET_RESET
 } from "../actions/ws-actions";
 
 const wsInitialState = {
   wsRequest: false,
   wsConnected: false,
   wsError: false,
-  wsData: {},
+  wsData: null,
   wsGetMessage: false
 }
 
@@ -59,14 +59,16 @@ export const wsReducer = (state = wsInitialState, action) => {
         wsData: action.payload
       }
     }
-    // case WS_SEND_MESSAGE: {
-    //   return {
-    //     ...state,
-    //     wsRequest: false,
-    //     wsConnected: false,
-    //     wsError: false
-    //   }
-    // }
+    case WS_GET_RESET: {
+      return {
+        ...state,
+        wsRequest: false,
+        wsConnected: false,
+        wsError: false,
+        wsGetMessage: false,
+        wsData: null
+      }
+    }
     default: {
       return state
     }
