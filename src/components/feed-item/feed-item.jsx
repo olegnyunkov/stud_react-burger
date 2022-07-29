@@ -14,7 +14,7 @@ const FeedItem = (props) => {
   const {orders} = props;
   const {wsGetMessage} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
-  const {url} = useRouteMatch();
+  const {url} = useRouteMatch();  
 
   const getIngredients = (id) => {
     return ingredients.find((item) => item._id === id)
@@ -53,7 +53,7 @@ const FeedItem = (props) => {
               })}
             </div>
             <div className={`${FeedItemStyles.feed__price} ml-6`}>
-              <p className='text text_type_digits-default mr-2'>{totalPrice(ingredientsList)}</p>
+              <p className='text text_type_digits-default mr-2'>{'2'} x {totalPrice(ingredientsList)}</p>
               <CurrencyIcon/>
             </div>
           </div>

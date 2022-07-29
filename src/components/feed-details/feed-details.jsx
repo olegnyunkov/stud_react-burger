@@ -8,8 +8,7 @@ import {useParams} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import {onClose, wsInit, wsInitToken} from "../../services/actions/ws-actions";
 
-const FeedDetails = (props) => {
-  const {forAuth} = props;
+const FeedDetails = () => {
   const dispatch = useDispatch();
   const {id} = useParams();
   const {wsData, wsGetMessage} = useSelector(state => state.ws);
@@ -20,9 +19,7 @@ const FeedDetails = (props) => {
 
   useEffect(() => {
     if(!wsData) {
-      forAuth
-        ? dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
-        : dispatch(wsInit());
+        dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
     }
     return () => {
       dispatch(onClose());
@@ -35,7 +32,21 @@ const FeedDetails = (props) => {
     }
   }
 
-  if (!wsGetMessage && !ingredientList) {
+  const getIngredients = (id) => {
+    return ingredients.find((item) => item._id === id)
+  }
+
+  const ingredientsLists = ingredient.ingredients.map((id) => {
+    return getIngredients(id)
+  })
+
+  const totalPrice = (arr, sum = 0) => {
+    for (let { price } of arr)
+      sum += price
+    return sum
+  }
+
+  if (!ingredientList) {
     return <p>Загрузка...</p>
   } else {
     return (
@@ -66,7 +77,7 @@ const FeedDetails = (props) => {
         <div className={`${PagesStyles.feed__page_date} mt-10`}>
           <p className='text text_type_main-default text_color_inactive'>{date(ingredient.createdAt)}</p>
           <div className={PagesStyles.feed__page_price}>
-            <p className="text text_type_digits-default mr-2">510</p>
+            <p className="text text_type_digits-default mr-2">{totalPrice(ingredientsLists)}</p>
             <CurrencyIcon/>
           </div>
         </div>

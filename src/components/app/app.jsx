@@ -88,9 +88,9 @@ const App = () => {
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
           <Route path='/ingredients/:id' component={IngredientDetailsPage}/>
           <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
-          <ProtectedRoute path='/profile/:id' children={<FeedDetailsPage forAuth />}/>
+          <ProtectedRoute path='/profile/:id' children={<FeedDetailsPage />}/>
           <Route exact path='/feed' component={FeedPage}/>
-          <Route exact path='/feed/:id' component={FeedDetailsPage}/>
+          <Route path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         {background && (

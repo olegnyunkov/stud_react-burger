@@ -42,7 +42,7 @@ import {
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
 const checkResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(new Error(res.status))
+  return res.ok ? res.json() : Promise.reject({res})
 }
 
 //запрос ингрединтов на сервер
