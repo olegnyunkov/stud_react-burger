@@ -1,3 +1,4 @@
+import {wsActions} from "../services/actions/ws-actions";
 
 export const socketMiddleware = wsUrl => {
   return store => {
@@ -6,35 +7,36 @@ export const socketMiddleware = wsUrl => {
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
+      const {wsInit, wsInitToken, wsSendMessage, onOpen, onClose, onError, onMessage} = wsActions;
 
-      if (type === 'WS_CONNECTION_START') {
+      if (type === wsInit) {
         socket = new WebSocket(wsUrl);
       }
 
-      if (type === 'WS_CONNECTION_START_TOKEN') {
+      if (type === wsInitToken) {
         socket = new WebSocket(payload);
       }
 
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: 'WS_CONNECTION_SUCCESS', payload: event });
+          dispatch({ type: onOpen, payload: event });
         };
 
         socket.onerror = event => {
-          dispatch({ type: 'WS_CONNECTION_ERROR', payload: event });
+          dispatch({ type: onError, payload: event });
         };
 
         socket.onmessage = event => {
           const { data } = event;
           const parsedData = JSON.parse(data)
-          dispatch({ type: 'WS_GET_MESSAGE', payload: parsedData });
+          dispatch({ type: onMessage, payload: parsedData });
         };
 
         socket.onclose = event => {
-          dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
+          dispatch({ type: onClose, payload: event });
         };
 
-        if (type === 'WS_SEND_MESSAGE') {
+        if (type === wsSendMessage) {
           const message = payload;
           socket.send(JSON.stringify(message));
         }

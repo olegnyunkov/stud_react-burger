@@ -10,15 +10,17 @@ const FeedIngredient = (props) => {
     return item._id === id && item
   });
 
-  return (
-    <div className={FeedIngredientStyles.feed__ingredient}>
-      {ingredient &&
-        <img
-          src={ingredient.image}
-          alt={ingredient.name}
-          className={FeedIngredientStyles.feed__image}/>}
-    </div>
-  )
+  if(ingredient) {
+    return (
+      <div className={FeedIngredientStyles.feed__ingredient}>
+        {ingredient &&
+          <img
+            src={ingredient.image}
+            alt={ingredient.name}
+            className={FeedIngredientStyles.feed__image}/>}
+      </div>
+    )
+  }
 }
 
 export default FeedIngredient;
