@@ -1,6 +1,4 @@
-import {wsActions} from "../services/actions/ws-actions";
-
-export const socketMiddleware = wsUrl => {
+export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
 

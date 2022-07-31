@@ -24,6 +24,7 @@ import {FeedPage} from "../../pages/feed";
 import {FeedDetailsPage} from "../../pages/feed-details-page";
 import FeedDetails from "../feed-details/feed-details";
 import {openModal} from "../../services/actions/modal-actions";
+import {checkAuth} from "../../utils/utils";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,13 +39,10 @@ const App = () => {
   const accessToken = getCookie('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
   const {wsData} = useSelector(state => state.ws);
+  const {authorized} = useSelector(state => state.user);
   
   useEffect(() => {
-    if (accessToken) {
-      dispatch(getUserInfo())
-    } else if (!accessToken && refreshToken) {
-      dispatch(sendRefreshTokenInfo(refreshToken))
-    }
+    dispatch(checkAuth(accessToken, refreshToken))
   }, [dispatch]);
 
   useEffect(() => {
@@ -88,8 +86,9 @@ const App = () => {
           <Route exact path='/forgot-password' component={ForgotPasswordPage}/>
           <Route exact path='/reset-password' component={ResetPasswordPage}/>
           <Route exact path='/ingredients/:id' component={IngredientDetailsPage}/>
-          <ProtectedRoute path='/profile' children={<ProfilePage/>}/>
-          <ProtectedRoute path='/profile/orders/:id' children={<FeedDetailsPage />}/>
+          <ProtectedRoute exact path='/profile' children={<ProfilePage/>}/>
+          <ProtectedRoute exact path='/profile/orders' children={<ProfilePage/>}/>
+          <ProtectedRoute exact path='/profile/orders/:id' children={<FeedDetailsPage/>}/>
           <Route exact path='/feed' component={FeedPage}/>
           <Route exact path='/feed/:id' component={FeedDetailsPage}/>
           <Route component={NotFoundPage}/>
