@@ -1,31 +1,20 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useInView} from 'react-hook-inview';
-import PropTypes from 'prop-types';
 import Ingredients from './burger-ingredients.module.css';
 import BurgerItem from '../burger-item/burger-item';
 import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import {getDetails} from "../../services/actions/ingredient-details-actions";
+import { openModal } from '../../services/actions/modal-actions';
 
-const BurgerIngredients = (props) => {
-  const {
-    setIngredientsIsOpened,
-    setModalOpened,
-  } = props;
+const BurgerIngredients = () => {
 
   const dispatch = useDispatch();
   const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
   const [bunsRef, inViewBuns] = useInView({threshold: 0});
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
-
-  //открытие модалки описания и загрузка описания  
-  const openIngredientsModal = (info) => {
-    setIngredientsIsOpened(true);
-    setModalOpened(true);
-    dispatch(getDetails(info))
-  }
 
   if (errorLoading) {
     return <p>Произошла ошибка при получении данных</p>
@@ -56,7 +45,10 @@ const BurgerIngredients = (props) => {
                       src={item.image} 
                       name={item.name} 
                       price={item.price}
-                      openIngredientsModal={() => openIngredientsModal(item)}/>
+                      openIngredientsModal={() => {
+                        dispatch(getDetails(item))
+                        dispatch(openModal())
+                      }}/>
                   )
                 }
               })}
@@ -74,7 +66,10 @@ const BurgerIngredients = (props) => {
                       src={item.image} 
                       name={item.name} 
                       price={item.price}
-                      openIngredientsModal={() => openIngredientsModal(item)}/>
+                      openIngredientsModal={() => {
+                        dispatch(getDetails(item))
+                        dispatch(openModal())
+                      }}/>
                   )
                 }
               })}
@@ -92,7 +87,10 @@ const BurgerIngredients = (props) => {
                       src={item.image} 
                       name={item.name} 
                       price={item.price}
-                      openIngredientsModal={() => openIngredientsModal(item)}/>
+                      openIngredientsModal={() => {
+                        dispatch(getDetails(item))
+                        dispatch(openModal())
+                      }}/>
                   )
                 }
               })}
@@ -102,14 +100,6 @@ const BurgerIngredients = (props) => {
       </>
     )
   }
-}
-
-BurgerIngredients.propTypes = {
-  ingredientsIsOpened: PropTypes.bool.isRequired,
-  setIngredientsIsOpened: PropTypes.func.isRequired,
-  modalOpened: PropTypes.bool.isRequired,
-  setModalOpened: PropTypes.func.isRequired,
-  closeModal: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

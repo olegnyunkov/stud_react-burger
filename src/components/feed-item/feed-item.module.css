@@ -1,0 +1,39 @@
+.feed__card {
+    background-color: #1C1C21;
+    border-radius: 40px;
+    padding: 24px;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+
+.feed__info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__ingredients {
+    display: flex;
+    position: relative;
+}
+
+.feed__price {
+    display: flex;
+    align-items: center;
+}
+
+.feed__link {
+    text-decoration: none;
+    color: white;
+}
+
+.feed__counter {
+    position: absolute;
+    top: 18px;
+    left: 260px;
+    z-index: 2;
+}

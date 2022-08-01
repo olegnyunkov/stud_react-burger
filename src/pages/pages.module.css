@@ -1,0 +1,225 @@
+/*стили для страницы логина*/
+.login {
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 180px auto;
+}
+
+.login__inputs {
+    width: 480px;
+}
+
+.login__inputs div div {
+    width: 480px;
+}
+
+.login__inputs div div div {
+    width: 24px;
+}
+
+.login__links {
+    display: flex;
+}
+
+/*стили для страницы профиля*/
+.profile {
+    width: 1240px;
+    display: flex;
+    margin: 120px auto auto;
+}
+
+.profile__nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__links {
+    text-decoration: none;
+    width: 320px;
+    margin: 40px 0 0;
+    
+}
+
+.profile__links_active {
+    color: white;
+}
+
+.profile__buttons {
+    display: flex;
+    justify-content: right;
+}
+
+.profile__button {
+    border: none;
+    margin: 24px 0 0;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+}
+
+.profile__text {
+    width: 320px;
+    color: #8585AD;
+}
+
+/*стили для страницы загрузки*/
+.loading__screen {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+/*стили для страницы ингредиента*/
+.ingredient {
+    width: 720px;
+    background-color: #131316;
+    margin: 120px auto;
+    text-align: center;
+}
+
+/*стили для страницы с лентой заказов*/
+.feed__info {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    max-width: 1248px;
+}
+
+.feed {
+    margin: 40px 0;
+    width: 608px;
+}
+
+.feed__title {
+    margin: 0 0 20px;
+}
+
+.feed__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    row-gap: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 75vh;
+}
+
+.feed__container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed__container::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.feed__container::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 292px;
+}
+
+.feed__stats {
+    width: 580px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 206px min-content min-content;
+    row-gap: 60px;
+    margin-top: 100px;
+}
+
+.feed__status {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__ready {
+    width: 272px;
+}
+
+.feed__ready_list {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.feed__ready_text {
+    color: #00CCCC;
+}
+
+.feed__process {
+    width: 272px;
+}
+
+.feed__total {
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+/*стили для отдельной страницы заказа из ленты заказов*/
+.feed__page {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    margin: 122px auto auto;
+}
+
+.feed__page_number {
+    text-align: center;
+}
+
+.feed__page_date {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed__page_status {
+    color: #00CCCC;
+}
+
+.feed__page_container {
+    height: 312px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.feed__page_container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed__page_container::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.feed__page_container::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    height: 194px;
+}
+
+.feed__page_price {
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.feed__page_ingredient {
+    display: flex;
+    align-items: center;
+}
+
+.feed__page_block {
+    width: 64px;
+    height: 64px;
+    border: 2px #801AB2 solid;
+    border-radius: 100px;  
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feed__page_image {
+    width: 112px;
+    height: 56px;
+    max-width: 100%;
+    object-fit: cover;
+}

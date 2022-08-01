@@ -9,7 +9,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
-  
+
   return (
     <header className={HeaderStyles.header}>
       <NavLink
@@ -28,9 +28,11 @@ const AppHeader = () => {
         <ListIcon type="secondary"/>
         <p className={`text text_type_main-default ml-2`}>Лента заказов</p>
       </NavLink>
-      <div className={HeaderStyles.header__logo}>
-        <Logo/>
-      </div>
+      <Link to='/'>
+        <div className={HeaderStyles.header__logo}>
+          <Logo/>
+        </div>
+      </Link>
       <NavLink
         to='/profile'
         className={`mt-4 mb-4 pt-4 pb-4 pr-5 pl-5 ${HeaderStyles.header__item}`}
