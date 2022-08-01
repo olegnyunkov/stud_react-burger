@@ -40,6 +40,7 @@ const App = () => {
   const refreshToken = localStorage.getItem('refreshToken');
   const {wsData} = useSelector(state => state.ws);
   const {authorized} = useSelector(state => state.user);
+
   
   useEffect(() => {
     dispatch(checkAuth(accessToken, refreshToken))
