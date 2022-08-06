@@ -6,6 +6,7 @@ import {
   WS_GET_MESSAGE,
   WS_GET_RESET
 } from "../actions/ws-actions";
+import {TWebSocketActions, TWsState} from "../../utils/types";
 
 const wsInitialState = {
   wsRequest: false,
@@ -15,7 +16,7 @@ const wsInitialState = {
   wsGetMessage: false
 }
 
-export const wsReducer = (state = wsInitialState, action) => {
+export const wsReducer = (state = wsInitialState, action: TWebSocketActions): TWsState => {
   switch (action.type) {
     case WS_CONNECTION_START: {
       return {

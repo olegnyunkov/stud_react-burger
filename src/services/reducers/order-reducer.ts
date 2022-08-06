@@ -1,4 +1,5 @@
 import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS} from "../actions/order-actions";
+import {TOrderActions, TOrderState} from "../../utils/types";
 
 const orderInitialState = {
   order: {
@@ -12,7 +13,7 @@ const orderInitialState = {
   errorLoading: false
 };
 
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (state = orderInitialState, action: TOrderActions): TOrderState => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {

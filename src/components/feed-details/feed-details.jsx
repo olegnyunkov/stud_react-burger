@@ -14,6 +14,7 @@ const FeedDetails = () => {
   const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
   const {authorized} = useSelector(state => state.user)
+  console.log(ingredients)
 
   useEffect(() => {
     if (!wsData) {

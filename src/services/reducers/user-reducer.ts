@@ -27,6 +27,7 @@ import {
   REFRESH_TOKEN_FAILED,
   REFRESH_TOKEN_SUCCESS
 } from '../actions/user-actions';
+import {TUserActions, TUserState} from "../../utils/types";
 
 const userInitialState = {
   name: '',
@@ -53,7 +54,7 @@ const userInitialState = {
   refreshTokenSuccess: false
 };
 
-export const userReducer = (state = userInitialState, action) => {
+export const userReducer = (state = userInitialState, action: TUserActions): TUserState => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return {

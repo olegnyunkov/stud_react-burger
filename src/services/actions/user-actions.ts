@@ -1,3 +1,22 @@
+import {
+    IAddUser, ICheckAuthFailed, ICheckAuthRequest, ICheckAuthSuccess,
+    IForgotPassFailed,
+    IForgotPassRequest,
+    IForgotPassSuccess,
+    ILoginFailed,
+    ILoginRequest,
+    ILoginSuccess,
+    ILogoutFailed,
+    ILogoutRequest,
+    ILogoutSuccess, INewPassFailed,
+    INewPassRequest, INewPassSuccess, IRefreshTokenFailed, IRefreshTokenRequest, IRefreshTokenSuccess,
+    IRegistrationFailed,
+    IRegistrationRequest,
+    IRegistrationSuccess,
+    IRemoveUser, IResetError, IUpdateUserFailed, IUpdateUserRequest, IUpdateUserSuccess,
+    TUserRegistration
+} from "../../utils/types";
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -26,110 +45,110 @@ export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 
-export const loginRequest = () => {
+export const loginRequest = (): ILoginRequest => {
     return {type: LOGIN_REQUEST}
 }
 
-export const loginFailed = () => {
+export const loginFailed = (): ILoginFailed => {
     return {type: LOGIN_FAILED}
 }
 
-export const loginSuccess = () => {
+export const loginSuccess = (): ILoginSuccess => {
     return {type: LOGIN_SUCCESS}
 }
 
-export const logoutRequest = () => {
+export const logoutRequest = (): ILogoutRequest => {
     return {type: LOGOUT_REQUEST}
 }
 
-export const logoutFailed = () => {
+export const logoutFailed = (): ILogoutFailed => {
     return {type: LOGOUT_FAILED}
 }
 
-export const logoutSuccess = () => {
+export const logoutSuccess = (): ILogoutSuccess => {
     return {type: LOGOUT_SUCCESS}
 }
 
-export const registrationRequest = () => {
+export const registrationRequest = (): IRegistrationRequest => {
     return {type: REGISTRATION_REQUEST}
 }
 
-export const registrationFailed = () => {
+export const registrationFailed = (): IRegistrationFailed => {
     return {type: REGISTRATION_FAILED}
 }
 
-export const registrationSuccess = () => {
+export const registrationSuccess = (): IRegistrationSuccess => {
     return {type: REGISTRATION_SUCCESS}
 }
 
-export const addUser = (data) => {
+export const addUser = (data: TUserRegistration): IAddUser => {
     return {type: ADD_USER, payload: data}
 }
 
-export const removeUser = () => {
+export const removeUser = (): IRemoveUser => {
     return {type: REMOVE_USER}
 }
 
-export const forgotPassRequest = () => {
+export const forgotPassRequest = (): IForgotPassRequest => {
     return {type: FORGOT_PASS_REQUEST}
 }
 
-export const forgotPassFailed = () => {
+export const forgotPassFailed = (): IForgotPassFailed => {
     return {type: FORGOT_PASS_FAILED}
 }
 
-export const forgotPassSuccess = () => {
+export const forgotPassSuccess = (): IForgotPassSuccess => {
     return {type: FORGOT_PASS_SUCCESS}
 }
 
-export const newPassRequest = () => {
+export const newPassRequest = (): INewPassRequest => {
     return {type: NEW_PASS_REQUEST}
 }
 
-export const newPassFailed = () => {
+export const newPassFailed = (): INewPassFailed => {
     return {type: NEW_PASS_FAILED}
 }
 
-export const newPassSuccess = () => {
+export const newPassSuccess = (): INewPassSuccess => {
     return {type: NEW_PASS_SUCCESS}
 }
 
-export const checkAuthRequest = () => {
+export const checkAuthRequest = (): ICheckAuthRequest => {
     return {type: CHECK_AUTH_REQUEST}
 }
 
-export const checkAuthSuccess = () => {
+export const checkAuthSuccess = (): ICheckAuthSuccess => {
     return {type: CHECK_AUTH_SUCCESS}
 }
 
-export const checkAuthFailed = () => {
+export const checkAuthFailed = (): ICheckAuthFailed => {
     return {type: CHECK_AUTH_FAILED}
 }
 
-export const updateUserRequest = () => {
+export const updateUserRequest = (): IUpdateUserRequest => {
     return {type: UPDATE_USER_REQUEST}
 }
 
-export const updateUserFailed = () => {
+export const updateUserFailed = (): IUpdateUserFailed => {
     return {type: UPDATE_USER_FAILED}
 }
 
-export const updateUserSuccess = () => {
+export const updateUserSuccess = (): IUpdateUserSuccess => {
     return {type: UPDATE_USER_SUCCESS}
 }
 
-export const resetError = () => {
+export const resetError = (): IResetError => {
     return {type: RESET_ERROR}
 }
 
-export const refreshTokenRequest = () => {
+export const refreshTokenRequest = (): IRefreshTokenRequest => {
     return {type: REFRESH_TOKEN_REQUEST}
 }
 
-export const refreshTokenFailed = () => {
+export const refreshTokenFailed = (): IRefreshTokenFailed => {
     return {type: REFRESH_TOKEN_FAILED}
 }
 
-export const refreshTokenSuccess = () => {
+export const refreshTokenSuccess = (): IRefreshTokenSuccess => {
     return {type: REFRESH_TOKEN_SUCCESS}
 }

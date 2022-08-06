@@ -39,6 +39,7 @@ const BurgerConstructor = (props) => {
     accept: "ingredient",
     drop(item) {
       const uId = nanoid()
+      console.log(uId)
       dispatch(addConstructorItem(item, uId));
     },
   });
