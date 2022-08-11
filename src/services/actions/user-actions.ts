@@ -1,21 +1,4 @@
-import {
-    IAddUser, ICheckAuthFailed, ICheckAuthRequest, ICheckAuthSuccess,
-    IForgotPassFailed,
-    IForgotPassRequest,
-    IForgotPassSuccess,
-    ILoginFailed,
-    ILoginRequest,
-    ILoginSuccess,
-    ILogoutFailed,
-    ILogoutRequest,
-    ILogoutSuccess, INewPassFailed,
-    INewPassRequest, INewPassSuccess, IRefreshTokenFailed, IRefreshTokenRequest, IRefreshTokenSuccess,
-    IRegistrationFailed,
-    IRegistrationRequest,
-    IRegistrationSuccess,
-    IRemoveUser, IResetError, IUpdateUserFailed, IUpdateUserRequest, IUpdateUserSuccess,
-    TUserRegistration
-} from "../../utils/types";
+import {TUserRegistration} from "../../utils/types";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -152,3 +135,116 @@ export const refreshTokenFailed = (): IRefreshTokenFailed => {
 export const refreshTokenSuccess = (): IRefreshTokenSuccess => {
     return {type: REFRESH_TOKEN_SUCCESS}
 }
+
+//types
+export interface ILoginRequest {
+    readonly type: typeof LOGIN_REQUEST;
+}
+export interface ILoginFailed {
+    readonly type: typeof LOGIN_FAILED;
+}
+export interface ILoginSuccess {
+    readonly type: typeof LOGIN_SUCCESS;
+}
+export interface ILogoutRequest {
+    readonly type: typeof LOGOUT_REQUEST;
+}
+export interface ILogoutFailed {
+    readonly type: typeof LOGOUT_FAILED;
+}
+export interface ILogoutSuccess {
+    readonly type: typeof LOGOUT_SUCCESS;
+}
+export interface IRegistrationRequest {
+    readonly type: typeof REGISTRATION_REQUEST;
+}
+export interface IRegistrationFailed {
+    readonly type: typeof REGISTRATION_FAILED;
+}
+export interface IRegistrationSuccess {
+    readonly type: typeof REGISTRATION_SUCCESS;
+}
+export interface IAddUser {
+    readonly type: typeof ADD_USER;
+    payload: TUserRegistration;
+}
+export interface IRemoveUser {
+    readonly type: typeof REMOVE_USER;
+}
+export interface IForgotPassRequest {
+    readonly type: typeof FORGOT_PASS_REQUEST;
+}
+export interface IForgotPassFailed {
+    readonly type: typeof FORGOT_PASS_FAILED;
+}
+export interface IForgotPassSuccess {
+    readonly type: typeof FORGOT_PASS_SUCCESS;
+}
+export interface INewPassRequest {
+    readonly type: typeof NEW_PASS_REQUEST;
+}
+export interface INewPassFailed {
+    readonly type: typeof NEW_PASS_FAILED;
+}
+export interface INewPassSuccess {
+    readonly type: typeof NEW_PASS_SUCCESS;
+}
+export interface ICheckAuthRequest {
+    readonly type: typeof CHECK_AUTH_REQUEST;
+}
+export interface ICheckAuthSuccess {
+    readonly type: typeof CHECK_AUTH_SUCCESS;
+}
+export interface ICheckAuthFailed {
+    readonly type: typeof CHECK_AUTH_FAILED;
+}
+export interface IUpdateUserRequest {
+    readonly type: typeof UPDATE_USER_REQUEST;
+}
+export interface IUpdateUserFailed {
+    readonly type: typeof UPDATE_USER_FAILED;
+}
+export interface IUpdateUserSuccess {
+    readonly type: typeof UPDATE_USER_SUCCESS;
+}
+export interface IResetError {
+    readonly type: typeof RESET_ERROR;
+}
+export interface IRefreshTokenRequest {
+    readonly type: typeof REFRESH_TOKEN_REQUEST;
+}
+export interface IRefreshTokenFailed {
+    readonly type: typeof REFRESH_TOKEN_FAILED;
+}
+export interface IRefreshTokenSuccess {
+    readonly type: typeof REFRESH_TOKEN_SUCCESS;
+}
+
+export type TUserActions =
+    ILoginRequest
+    | ILoginFailed
+    | ILoginSuccess
+    | ILogoutRequest
+    | ILogoutFailed
+    | ILogoutSuccess
+    | IRegistrationRequest
+    | IRegistrationFailed
+    | IRegistrationSuccess
+    | IAddUser
+    | IRemoveUser
+    | IForgotPassRequest
+    | IForgotPassFailed
+    | IForgotPassSuccess
+    | INewPassRequest
+    | INewPassFailed
+    | INewPassSuccess
+    | ICheckAuthRequest
+    | ICheckAuthSuccess
+    | ICheckAuthFailed
+    | IUpdateUserRequest
+    | IUpdateUserFailed
+    | IUpdateUserSuccess
+    | IResetError
+    | IRefreshTokenRequest
+    | IRefreshTokenFailed
+    | IRefreshTokenSuccess;

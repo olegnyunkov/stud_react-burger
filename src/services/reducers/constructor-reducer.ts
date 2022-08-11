@@ -2,36 +2,38 @@ import {
   ADD_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
   MOVE_CONSTRUCTOR_ITEM,
-  RESET_CONSTRUCTOR_ITEM
+  RESET_CONSTRUCTOR_ITEM, TConstructorActions
 } from "../actions/constructor-actions";
 import update from "immutability-helper";
-import {TConstructorActions, TConstructorState} from "../../utils/types";
+import {TIngredients} from "../../utils/types";
 
 const constructorInitialState = {
   bun: null,
   filling: []
 };
 
-export const constructorReducer = (state = constructorInitialState, action: TConstructorActions): TConstructorState => {
+export const constructorReducer =
+    (state = constructorInitialState, action: TConstructorActions)
+    : TConstructorState => {
   switch (action.type) {
     case ADD_CONSTRUCTOR_ITEM: {
-      const fillingItem = action.payload.item
-      const uId = action.uId
+      const fillingItem: TIngredients = action.payload
+      const uId: string = action.uId
       return {
         ...state,
-        bun: action.payload.item.type === 'bun' ? action.payload.item : state.bun,
-        filling: action.payload.item.type !== 'bun' ? [...state.filling, {...fillingItem, uId}] : [...state.filling]
+        bun: action.payload.type === 'bun' ? action.payload : state.bun,
+        filling: action.payload.type !== 'bun' ? [...state.filling, {...fillingItem, uId}] : [...state.filling]
       }
     }
     case DELETE_CONSTRUCTOR_ITEM: {
-      // const deleteItem = () => {
-      //   state.filling.splice(action.payload, 1)
-      //   return state.filling
-      // }
+      const deleteItem = (data: number): TIngredients[] => {
+        state.filling.splice(data, 1)
+        return state.filling
+      }
       return {
         ...state,
         bun: state.bun,
-        // filling: deleteItem()
+        filling: deleteItem(action.payload)
       }
     }
     case RESET_CONSTRUCTOR_ITEM: {
@@ -55,3 +57,9 @@ export const constructorReducer = (state = constructorInitialState, action: TCon
     }
   }
 };
+
+//types
+export type TConstructorState = {
+  bun: TIngredients | null;
+  filling: TIngredients[];
+}

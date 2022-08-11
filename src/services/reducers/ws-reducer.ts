@@ -1,4 +1,5 @@
 import {
+  TWebSocketActions,
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_START,
@@ -6,7 +7,7 @@ import {
   WS_GET_MESSAGE,
   WS_GET_RESET
 } from "../actions/ws-actions";
-import {TWebSocketActions, TWsState} from "../../utils/types";
+import {TWsData} from "../../utils/types";
 
 const wsInitialState = {
   wsRequest: false,
@@ -74,4 +75,13 @@ export const wsReducer = (state = wsInitialState, action: TWebSocketActions): TW
       return state
     }
   }
+}
+
+//types
+export type TWsState = {
+  wsRequest: boolean;
+  wsConnected: boolean;
+  wsError: boolean;
+  wsData: TWsData | null;
+  wsGetMessage: boolean;
 }

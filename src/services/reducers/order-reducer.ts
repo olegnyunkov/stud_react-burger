@@ -1,5 +1,5 @@
-import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS} from "../actions/order-actions";
-import {TOrderActions, TOrderState} from "../../utils/types";
+import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, TOrderActions} from "../actions/order-actions";
+import {TOrder} from "../../utils/types";
 
 const orderInitialState = {
   order: {
@@ -42,3 +42,10 @@ export const orderReducer = (state = orderInitialState, action: TOrderActions): 
     }
   }
 };
+
+//types
+export type TOrderState = {
+  order: TOrder;
+  isLoading: boolean;
+  errorLoading: boolean;
+}

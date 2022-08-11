@@ -1,11 +1,13 @@
-import {GET_DETAILS, REMOVE_DETAILS} from "../actions/ingredient-details-actions";
-import {TIngredientDetailsActions, TIngredientDetailsState} from "../../utils/types";
+import {GET_DETAILS, REMOVE_DETAILS, TIngredientDetailsActions} from "../actions/ingredient-details-actions";
+import {TIngredients} from "../../utils/types";
 
 const ingredientDetailsInitialState = {
   ingredient: {}
 };
 
-export const ingredientDetailsReducer = (state = ingredientDetailsInitialState, action: TIngredientDetailsActions): TIngredientDetailsState => {
+export const ingredientDetailsReducer =
+    (state = ingredientDetailsInitialState, action: TIngredientDetailsActions)
+        : TIngredientDetailsState => {
   switch (action.type) {
     case GET_DETAILS: {
       return {
@@ -24,3 +26,8 @@ export const ingredientDetailsReducer = (state = ingredientDetailsInitialState, 
     }
   }
 };
+
+//types
+export type TIngredientDetailsState = {
+  ingredient: TIngredients | object;
+}

@@ -1,13 +1,4 @@
-import {
-  IOnClose,
-  IOnError,
-  IOnMessage,
-  IOnOpen,
-  IWsInit,
-  IWsInitToken,
-  IWsReset,
-  IWsSendMessage, TWsActions, TWsData
-} from "../../utils/types";
+import {TWsActions, TWsData} from "../../utils/types";
 
 export const WS_CONNECTION_START = 'WS_CONNECTION_START';
 export const WS_CONNECTION_START_TOKEN = 'WS_CONNECTION_START_TOKEN';
@@ -52,3 +43,41 @@ export const wsSendMessage = (): IWsSendMessage => {
 export const wsReset = (): IWsReset => {
   return {type: WS_GET_RESET}
 }
+
+//types
+export interface IWsInit {
+  readonly type: typeof WS_CONNECTION_START;
+}
+export interface IWsInitToken {
+  readonly type: typeof WS_CONNECTION_START_TOKEN;
+  payload: string;
+}
+export interface IOnOpen {
+  readonly type: typeof WS_CONNECTION_SUCCESS;
+}
+export interface IOnError {
+  readonly type: typeof WS_CONNECTION_ERROR;
+}
+export interface IOnClose {
+  readonly type: typeof WS_CONNECTION_CLOSED;
+}
+export interface IOnMessage {
+  readonly type: typeof WS_GET_MESSAGE;
+  payload: TWsData;
+}
+export interface IWsSendMessage {
+  readonly type: typeof WS_SEND_MESSAGE;
+}
+export interface IWsReset {
+  readonly type: typeof WS_GET_RESET;
+}
+
+export type TWebSocketActions =
+    IWsInit
+    | IWsInitToken
+    | IOnOpen
+    | IOnError
+    | IOnClose
+    | IOnMessage
+    | IWsSendMessage
+    | IWsReset;

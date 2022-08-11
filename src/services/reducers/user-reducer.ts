@@ -25,9 +25,8 @@ import {
   RESET_ERROR,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_FAILED,
-  REFRESH_TOKEN_SUCCESS
+  REFRESH_TOKEN_SUCCESS, TUserActions
 } from '../actions/user-actions';
-import {TUserActions, TUserState} from "../../utils/types";
 
 const userInitialState = {
   name: '',
@@ -280,3 +279,29 @@ export const userReducer = (state = userInitialState, action: TUserActions): TUs
     }
   }
 };
+
+//types
+export type TUserState = {
+  name: string;
+  email: string;
+  password: string;
+  loginRequest: boolean;
+  loginError: boolean;
+  logoutRequest: boolean;
+  logoutError: boolean;
+  registrationRequest: boolean;
+  registrationFailed: boolean;
+  forgotPassRequest: boolean;
+  forgotPassFailed: boolean;
+  forgotPassSuccess: boolean;
+  newPassRequest: boolean;
+  newPassFailed: boolean;
+  newPassSuccess: boolean;
+  authorized: boolean;
+  updateUserRequest: boolean;
+  updateUserFailed: boolean;
+  updateUserSuccess: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+  refreshTokenSuccess: boolean;
+}
