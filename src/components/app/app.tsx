@@ -1,5 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
@@ -25,13 +24,14 @@ import {FeedDetailsPage} from "../../pages/feed-details-page";
 import FeedDetails from "../feed-details/feed-details";
 import {openModal} from "../../services/actions/modal-actions";
 import {checkAuth} from "../../utils/utils";
+import {ILocationState, useDispatch, useSelector} from "../../utils/types";
 
-const App = () => {
+const App: FC = () => {
   const dispatch = useDispatch();
   const [orderIsOpened, setOrderIsOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<ILocationState>();
   const background = location.state?.background;
   const ingredientsMatch = useRouteMatch('/ingredients/:id');
   const profileOrderMatch = useRouteMatch('/profile/orders/:id');
@@ -39,14 +39,13 @@ const App = () => {
   const accessToken = getCookie('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
   const {wsData} = useSelector(state => state.ws);
-
   
   useEffect(() => {
     dispatch(checkAuth(accessToken, refreshToken))
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(getIngredients())
   }, [dispatch])
 
   useEffect(() => {
@@ -55,12 +54,12 @@ const App = () => {
     }
   }, [ingredientsMatch])
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setOrderIsOpened(false)
     dispatch(removeDetails())
   }
 
-  const closeIngredientsModal = useCallback((url) => {
+  const closeIngredientsModal = useCallback<(url: string)=>void>((url: string) => {
     history.push(url)
   }, [history])
 

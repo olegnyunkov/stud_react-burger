@@ -53,12 +53,14 @@ export const ResetPasswordPage = () => {
         <div className={`${PagesStyles.login__inputs} mt-6`}>
           <Input
             onChange={onChangeToken}
+            value={tokenValue}
             placeholder='Введите код из письма'/>
         </div>
         <div className='mt-6'>
           <Button
             type="primary"
-            size="medium">Сохранить</Button>
+            name='Сохранить'
+            size="medium"/>
         </div>
         <div className={`${PagesStyles.login__links} mt-20`}>
           <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>

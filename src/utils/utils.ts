@@ -1,26 +1,26 @@
 import {getUserInfo, sendRefreshTokenInfo} from "./api";
-import {AppDispatch, TIngredients} from "./types";
+import {TIngredientsData} from "./types";
+import {AppDispatch} from "../services/store";
 
-export const ingredientsId = (ids: string[], allIng: TIngredients[]) => {
-  const data = ids.map((id) => {
-      return allIng.find((ing) => ing._id === id);
+export const ingredientsId = (ids: string[], allIng: TIngredientsData[]) => {
+  return ids.map((id: string): TIngredientsData | undefined => {
+      return allIng.find((ing): boolean => ing._id === id);
     }
-  );
-  return data
+  )
 }
 
-export const date = (info: string) => {
+export const date = (info: string): string => {
   return new Date(info).toLocaleString();
 }
 
-export const checkAuth = (accessToken: string, refreshToken: string) => (dispatch: AppDispatch) => {
+export const checkAuth = (accessToken: string | undefined, refreshToken: string | null) => (dispatch: AppDispatch) => {
   if (accessToken === undefined) {
       return
     }
   try {
     dispatch(getUserInfo())
   } catch (err: any) {
-    if (err.message = 'jwt expired') {
+    if (err.message === 'jwt expired') {
       dispatch(sendRefreshTokenInfo(refreshToken))
       dispatch(getUserInfo())
     }

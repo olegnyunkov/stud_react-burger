@@ -1,9 +1,9 @@
 import PagesStyles from "./pages.module.css";
-import React from "react";
+import React, {FC} from "react";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 
 
-export const IngredientDetailsPage = () => {
+export const IngredientDetailsPage: FC = () => {
 
   return (
     <div className={`${PagesStyles.ingredient} pt-10 pl-10 pr-10 pb-15`}>

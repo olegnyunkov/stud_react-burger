@@ -5,14 +5,12 @@ import Title from '../title/title';
 import Tabs from '../tabs/tabs';
 import {getDetails} from "../../services/actions/ingredient-details-actions";
 import { openModal } from '../../services/actions/modal-actions';
-import {TIngredients, useDispatch, useSelector} from "../../utils/types";
+import {TIngredientsData, useDispatch, useSelector} from "../../utils/types";
 import {useInView} from "react-intersection-observer";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const {ingredients, isLoading, errorLoading}:
-      {ingredients: TIngredients[], isLoading: boolean, errorLoading: boolean} =
-      useSelector(state => state.ingredients);
+  const {ingredients, isLoading, errorLoading} = useSelector(state => state.ingredients);
   const [bunsRef, inViewBuns] = useInView({threshold: 0});
   const [saucesRef, inViewSauces] = useInView({threshold: 0});
   const [fillingRef, inViewFilling] = useInView({threshold: 0});
@@ -37,7 +35,7 @@ const BurgerIngredients = () => {
               styles={'mt-10 text text_type_main-medium'} 
               title='Булки'/>
             <div ref={bunsRef} id='buns' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
-              {ingredients.map((item) => {
+              {ingredients.map((item: TIngredientsData) => {
                 if (item.type === 'bun') {
                   return (
                     <BurgerItem 
@@ -58,7 +56,7 @@ const BurgerIngredients = () => {
               styles={'mb-6 text text_type_main-medium'} 
               title='Соусы'/>
             <div ref={saucesRef} id='sauces' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
-              {ingredients.map((item) => {
+              {ingredients.map((item: TIngredientsData) => {
                 if (item.type === 'sauce') {
                   return (
                     <BurgerItem 
@@ -79,7 +77,7 @@ const BurgerIngredients = () => {
               styles={'mb-6 text text_type_main-medium'} 
               title='Начинки'/>
             <div ref={fillingRef} id='mains' className={`${Ingredients.buns} pt-6 pl-4 pb-10 pr-4`}>
-              {ingredients.map((item) => {
+              {ingredients.map((item: TIngredientsData) => {
                 if (item.type === 'main') {
                   return (
                     <BurgerItem 

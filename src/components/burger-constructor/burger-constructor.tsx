@@ -17,14 +17,14 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {TIngredients, useDispatch, useSelector} from "../../utils/types";
+import {TIngredientsData, useDispatch, useSelector} from "../../utils/types";
 
 interface IBurgerConstructor {
   orderIsOpened: boolean;
   modalOpened: boolean;
   setOrderIsOpened: any;
   setModalOpened: any;
-  closeModal: boolean;
+  closeModal: () => void;
 }
 
 const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
@@ -43,20 +43,20 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
   //хук для перемещения элемента из ингредиентов в конструктор
   const [, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
-      const uId = nanoid()
+    drop(item: {item: TIngredientsData}) {
+      const uId: string = nanoid()
       dispatch(addConstructorItem(item.item, uId));
     },
   });
 
   //получение массива id для формирования номера заказа
-  const saveOrder = (bread: TIngredients, meat: TIngredients[]) => {
-    const fillingId = meat.map((item) => item._id);
+  const saveOrder = (bread: TIngredientsData, meat: TIngredientsData[]): string[] => {
+    const fillingId = meat.map((item: TIngredientsData): string => item._id);
     return [bread._id, ...fillingId];
   };
 
   //открытие модалки заказа, получение номера заказа, сброс заказа
-  const openOrderModal = () => {
+  const openOrderModal = (): void => {
     if(authorized) {
     setOrderIsOpened(true);
     setModalOpened(true);
@@ -76,9 +76,9 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
   };
 
   //общая стоимость заказа
-  const totalPrice = () => {
-    const bunCost = bun ? bun.price * 2 : 0;
-    const fillCost = filling.reduce((s, v) => s + v.price, 0);
+  const totalPrice = (): number => {
+    const bunCost: number = bun ? bun.price * 2 : 0;
+    const fillCost: number = filling.reduce((s: number, v: TIngredientsData) => s + v.price, 0);
     return fillCost + bunCost;
   };
 
@@ -103,7 +103,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
           }
         >
           {filling.length ? (
-            filling.map((fill, index) => {
+            filling.map((fill: TIngredientsData, index: number) => {
               return (
                 <BurgerConstructorFilling
                   key={fill.uId}
@@ -133,23 +133,19 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
         <div className={`${Constructor.constructor__total} mr-4`}>
           <div className={`${Constructor.constructor__price} mr-10`}>
             <p className="text text_type_digits-medium mr-2">{totalPrice()}</p>
-            <CurrencyIcon />
+            <CurrencyIcon type={"primary"}/>
           </div>
           <Button
             type="primary"
             size="medium"
-            onClick={openOrderModal}>
-            Оформить заказ
-          </Button>
+            name='Оформить заказ'
+            onClick={openOrderModal}/>
         </div>
       </section>
-       {
-        
-        orderIsOpened &&
+       {orderIsOpened &&
         <Modal
           closeModal={closeModal}
-          title=""
-          modalOpened={modalOpened} >
+          title="">
           <OrderDetails/>
         </Modal>
       }

@@ -4,9 +4,9 @@ import {
   GET_INGREDIENTS_SUCCESS,
   TIngredientsActions
 } from "../actions/ingredients-actions";
-import {TIngredients} from "../../utils/types";
+import {TIngredientsData} from "../../utils/types";
 
-const ingredientsInitialState = {
+const ingredientsInitialState: TIngredientsState = {
   ingredients: [],
   isLoading: false,
   errorLoading: false
@@ -46,7 +46,7 @@ export const ingredientsReducer =
 
 //types
 export type TIngredientsState = {
-  ingredients: TIngredients[] | [];
+  ingredients: TIngredientsData[];
   isLoading: boolean;
   errorLoading: boolean;
 }

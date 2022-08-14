@@ -1,7 +1,7 @@
 import {GET_DETAILS, REMOVE_DETAILS, TIngredientDetailsActions} from "../actions/ingredient-details-actions";
-import {TIngredients} from "../../utils/types";
+import {TIngredientsData} from "../../utils/types";
 
-const ingredientDetailsInitialState = {
+const ingredientDetailsInitialState: TIngredientDetailsState = {
   ingredient: {}
 };
 
@@ -29,5 +29,5 @@ export const ingredientDetailsReducer =
 
 //types
 export type TIngredientDetailsState = {
-  ingredient: TIngredients | object;
+  ingredient: TIngredientsData | {};
 }

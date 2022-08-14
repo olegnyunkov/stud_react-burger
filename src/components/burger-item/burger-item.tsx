@@ -1,25 +1,24 @@
 import React, {FC} from 'react';
 import {useDrag} from "react-dnd";
-import {Location} from "history";
 import BurgerImage from '../burger-image/burger-image';
 import BurgerPrice from '../burger-price/burger-price';
 import BurgerItemStyles from './burger-item.module.css';
 import {Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useLocation, Link} from "react-router-dom";
-import {TIngredients, useSelector} from "../../utils/types";
+import {ILocationState, TIngredientsData, useSelector} from "../../utils/types";
 
 interface IBurgerItem {
   openIngredientsModal: () => void;
   src: string;
   name: string;
   price: number;
-  item: TIngredients;
+  item: TIngredientsData;
 }
 
 const BurgerItem: FC<IBurgerItem> = (props) => {
   const {openIngredientsModal, src, name, price, item} = props;
-  const location = useLocation<Location>();
-  const {bun, filling}: {bun: TIngredients, filling: TIngredients[]} = useSelector(state => state.construct);
+  const location = useLocation<ILocationState>();
+  const {bun, filling} = useSelector(state => state.construct);
 
   //хук для перемещения элемента в конструктор
   const [, dragRef] = useDrag({
@@ -28,11 +27,11 @@ const BurgerItem: FC<IBurgerItem> = (props) => {
   });
 
   //счетчик количества ингредиентов в конструкторе
-  const counter = () => {
-    const fillId = filling.map((fill: TIngredients) => {
+  const counter = (): number => {
+    const fillId = filling.map((fill: TIngredientsData) => {
       return fill._id
     })
-    let count = 0;
+    let count: number = 0;
     for (let elem of fillId) {
       if (elem === item._id) {
         count++

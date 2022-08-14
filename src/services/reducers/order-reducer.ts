@@ -1,7 +1,7 @@
 import {GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, TOrderActions} from "../actions/order-actions";
 import {TOrder} from "../../utils/types";
 
-const orderInitialState = {
+const orderInitialState: TOrderState = {
   order: {
     "name": "",
     "order": {

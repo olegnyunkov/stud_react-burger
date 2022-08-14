@@ -1,6 +1,6 @@
 import {OPEN_MODAL, CLOSE_MODAL, TModalActions} from '../actions/modal-actions'
 
-const modalInitialState = {
+const modalInitialState: TModalState = {
   modalOpened: false,
   modalClosed: false
 };

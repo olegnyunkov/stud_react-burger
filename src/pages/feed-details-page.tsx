@@ -10,7 +10,7 @@ export const FeedDetailsPage = () => {
   const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
   const {authorized} = useSelector(state => state.user)
-  const accessToken = getCookie('accessToken');
+  const accessToken: string | undefined = getCookie('accessToken');
 
   useEffect(() => {
     if (!wsData) {

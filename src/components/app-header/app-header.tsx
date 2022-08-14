@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import HeaderStyles from './app-header.module.css';
 import {
@@ -8,7 +8,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
   return (
     <header className={HeaderStyles.header}>

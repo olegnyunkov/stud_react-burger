@@ -43,10 +43,9 @@ const Modal: FC<IModal> = (props) => {
         <ModalOverlay closeModal={closeModal}/>
       </div>
     </>,
-    modalRoot
+    modalRoot!
   )
 };
-
 
 export default Modal;
 

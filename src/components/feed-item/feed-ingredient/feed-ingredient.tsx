@@ -1,16 +1,17 @@
 import React, {FC} from "react";
 import FeedIngredientStyles from './feed-ingredient.module.css';
-import {useSelector} from "../../../utils/types";
+import {TIngredientsData, useSelector} from "../../../utils/types";
 
 interface IFeedIngredient {
   id: string;
 }
 
+// @ts-ignore
 const FeedIngredient: FC<IFeedIngredient> = (props) => {
   const {id} = props;
   const {ingredients} = useSelector(state => state.ingredients)
 
-  const ingredient = ingredients.find((item) => {
+  const ingredient = ingredients.find((item: TIngredientsData) => {
     return item._id === id && item
   });
 

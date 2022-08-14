@@ -6,36 +6,37 @@ import {nanoid} from "nanoid";
 import {Link, useLocation} from "react-router-dom";
 import { date } from "../../utils/utils";
 import { openModal } from "../../services/actions/modal-actions";
-import {TWsData, useDispatch, useSelector} from "../../utils/types";
-import {Location} from "history";
+import {ILocationState, TIngredientsData, TWsData, TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
 
 interface IFeedItem {
-  orders: TWsData;
+  orders: TWsDataOrders;
   url: string;
 }
 
 const FeedItem: FC<IFeedItem> = (props) => {
-  const location = useLocation<Location>();
+  const location = useLocation<ILocationState>();
   const dispatch = useDispatch();
   const {orders, url} = props;
   const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
 
-  const getIngredients = (id: string) => {
-    return ingredients.find((item) => item._id === id)
+  const getIngredients = (id: string): TIngredientsData | undefined => {
+    return ingredients.find((item: TIngredientsData): boolean => item._id === id)
   }
 
-  const ingredientsList = orders.ingredients.map((id) => {
+  const ingredientsList = orders.ingredients.map((id: string): TIngredientsData | undefined => {
     return getIngredients(id)
   })
 
-  const totalPrice = (arr, sum = 0) => {
-    for (let { price } of arr)
-      sum += price
-    return sum
+  const totalPrice = (arr: (TIngredientsData | undefined)[], sum: number = 0): number => {
+
+    for (let {price} of arr)
+        sum += price
+      return sum
+
   }
 
-  const elementCounter = (arr) => {
+  const elementCounter = (arr: (TIngredientsData | undefined)[]) => {
     if (arr.length - 5 > 0)
       return `+${arr.length - 5}`
   }
@@ -58,14 +59,14 @@ const FeedItem: FC<IFeedItem> = (props) => {
           <p className='text text_type_main-medium mt-6'>{orders.name}</p>
           <div className={`${FeedItemStyles.feed__content} mt-6`}>
             <div className={FeedItemStyles.feed__ingredients}>
-              {orders.ingredients.slice(0, 6).map((data) => {
+              {orders && orders.ingredients.slice(0, 6).map((data: string) => {
                 return <FeedIngredient key={nanoid()} id={data} />
               })}
               <p className={`${FeedItemStyles.feed__counter} text text_type_digits-default`}>{elementCounter(ingredientsList)}</p>
             </div>
             <div className={`${FeedItemStyles.feed__price} ml-6`}>
               <p className='text text_type_digits-default mr-2'>{totalPrice(ingredientsList)}</p>
-              <CurrencyIcon/>
+              <CurrencyIcon type={"primary"}/>
             </div>
           </div>
         </div>

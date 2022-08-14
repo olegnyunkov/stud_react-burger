@@ -1,13 +1,13 @@
 import PagesStyles from "../../pages/pages.module.css";
-import React from "react";
+import React, {FC} from "react";
 import {nanoid} from "nanoid";
-import {useSelector} from "../../utils/types";
+import {TWsDataOrders, useSelector} from "../../utils/types";
 
 
-const FeedInfo = () => {
+const FeedInfo: FC = () => {
   const {wsData} = useSelector(state => state.ws);
-  const ordersIsDone = wsData.orders.filter((order) => order.status === "done").slice(0, 10);
-  const orderIsPending = wsData.orders.filter(order => order.status === "pending").slice(0, 10);
+  const ordersIsDone = wsData && wsData.orders.filter((order: TWsDataOrders) => order.status === "done").slice(0, 10);
+  const orderIsPending = wsData && wsData.orders.filter((order: TWsDataOrders) => order.status === "pending").slice(0, 10);
 
   if (!wsData) {
     return <p>Загрузка...</p>
@@ -18,7 +18,7 @@ const FeedInfo = () => {
           <div className={PagesStyles.feed__ready}>
             <p className='text text_type_main-medium mb-6'>Готовы:</p>
             <div className={PagesStyles.feed__ready_list}>
-              {ordersIsDone.map(data => {
+              {ordersIsDone && ordersIsDone.map((data: TWsDataOrders) => {
                   return <p className={`${PagesStyles.feed__ready_text} text text_type_digits-default mb-2`} key={nanoid()}>{data.number}</p>
               })}
             </div>
@@ -26,7 +26,7 @@ const FeedInfo = () => {
           <div className={PagesStyles.feed__process}>
             <p className='text text_type_main-medium mb-6'>В работе:</p>
             <div className={PagesStyles.feed__ready_list}>
-              {orderIsPending.map(data => {
+              {orderIsPending && orderIsPending.map((data: TWsDataOrders) => {
                 return <p className='text text_type_digits-default mb-2' key={nanoid()}>{data.number}</p>
               })}
             </div>

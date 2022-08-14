@@ -1,6 +1,5 @@
 import React, {FC, useRef} from "react";
 import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
 import ConstructorFillingStyles from "./burger-constructor-filling.module.css";
 import {  
   deleteConstructorItem,
@@ -10,19 +9,20 @@ import {
   ConstructorElement,  
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {TIngredients, useDispatch} from "../../utils/types";
+import {TIngredientsData, useDispatch} from "../../utils/types";
 
 interface IBurgerConstructorFilling {
-  fill: TIngredients[];
+  fill: TIngredientsData;
   index: number;
-  id: string;
+  id: string | undefined;
+  filling: TIngredientsData[]
 }
 
 const BurgerConstructorFilling: FC<IBurgerConstructorFilling> = (props) => {
   const { fill, index, id } = props;
 
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
 
   //хук для сортировки элекентов внутри конструктора
   const [{handlerId}, dropRef] = useDrop({
@@ -32,24 +32,26 @@ const BurgerConstructorFilling: FC<IBurgerConstructorFilling> = (props) => {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: TIngredients, monitor) {
+    hover(item: TIngredientsData, monitor) {
       if (!ref.current) {
         return
       }
       const dragIndex = item.index
       const hoverIndex = index
-      console.log(index)
+
       if (dragIndex === hoverIndex) {
         return
       }
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect()
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       const clientOffset = monitor.getClientOffset()
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      const hoverClientY = clientOffset && clientOffset.y - hoverBoundingRect.top
+      if (dragIndex && dragIndex < hoverIndex && hoverClientY && hoverClientY < hoverMiddleY) {
         return
       }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+
+      if (dragIndex && dragIndex > hoverIndex && hoverClientY && hoverClientY > hoverMiddleY) {
         return
       }
 
@@ -89,12 +91,6 @@ const BurgerConstructorFilling: FC<IBurgerConstructorFilling> = (props) => {
     </div>
     
   );
-};
-
-BurgerConstructorFilling.propTypes = {
-  fill: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired
 };
 
 export default BurgerConstructorFilling;

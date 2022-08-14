@@ -6,7 +6,7 @@ import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import {onClose, wsInit, wsInitToken} from "../../services/actions/ws-actions";
-import {useDispatch, useSelector} from "../../utils/types";
+import {TIngredientsData, TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
 
 const FeedDetails = () => {
   const dispatch = useDispatch();
@@ -26,33 +26,33 @@ const FeedDetails = () => {
     };
   }, [dispatch]);
 
-  const ingredient = wsData.orders?.find((item) => item._id === id);
-  const ingredientList = ingredientsId(ingredient.ingredients, ingredients);
+  const ingredient = wsData && wsData.orders?.find((item: TWsDataOrders) => item._id === id);
+  const ingredientList = ingredient && ingredientsId(ingredient.ingredients, ingredients);
   const accessToken = getCookie('accessToken');
 
-  const status = () => {
-    if (ingredient.status === 'done') {
+  const status = (): string | undefined => {
+    if (ingredient && ingredient.status === 'done') {
       return 'Выполнен'
     }
   }
 
-  const getIngredients = (id) => {
-    return ingredients.find((item) => item._id === id)
+  const getIngredients = (id: string): TIngredientsData | undefined => {
+    return ingredients.find((item: TIngredientsData) => item._id === id)
   }
 
-  const ingredientsLists = ingredient?.ingredients.map((id) => {
+  const ingredientsLists = ingredient?.ingredients.map((id: string): TIngredientsData | undefined => {
     return getIngredients(id)
   })
 
-  const totalPrice = (arr, sum = 0) => {
+  const totalPrice = (arr: (TIngredientsData | undefined)[], sum: number = 0) => {
     for (let {price} of arr)
       sum += price
     return sum
   }
 
-  const uniqIngr = (arr,  obj = {}) => {
-    arr.forEach((el) => {
-      const name = el.name
+  const uniqIngr = (arr: (TIngredientsData | undefined)[], obj: {} = {}) => {
+    arr.forEach((el: TIngredientsData | undefined) => {
+      const name: string = el.name
       if (name in obj) {
         obj[name].count++
       } else {
@@ -75,7 +75,7 @@ const FeedDetails = () => {
         <p className='text text_type_main-medium mb-6'>Состав:</p>
         <div className={`${PagesStyles.feed__page_container} pr-6`}>
 
-          {uniqIngr(ingredientList).map(item => {
+          {uniqIngr(ingredientList).map((item: any) => {
             return (
               <div className={`${PagesStyles.feed__page_ingredient} mb-4`} key={nanoid()}>
                 <div className={`${PagesStyles.feed__page_block} mr-4`}>
@@ -85,7 +85,7 @@ const FeedDetails = () => {
                 <p className="text text_type_main-default">{item.name}</p>
                 <div className={`${PagesStyles.feed__page_price} ml-4`}>
                   <p className='text text_type_digits-default mr-2'>{item.count} x {item.price}</p>
-                  <CurrencyIcon/>
+                  <CurrencyIcon type={"primary"}/>
                 </div>
               </div>
             )
@@ -96,7 +96,7 @@ const FeedDetails = () => {
           <p className='text text_type_main-default text_color_inactive'>{date(ingredient.createdAt)}</p>
           <div className={PagesStyles.feed__page_price}>
             <p className="text text_type_digits-default mr-2">{totalPrice(ingredientsLists)}</p>
-            <CurrencyIcon/>
+            <CurrencyIcon type={"primary"}/>
           </div>
         </div>
       </>

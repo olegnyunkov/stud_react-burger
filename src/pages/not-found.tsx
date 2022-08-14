@@ -1,8 +1,8 @@
 import PagesStyles from "./pages.module.css";
-import React from "react";
+import React, {FC} from "react";
 import {Link} from "react-router-dom";
 
-export const NotFoundPage = () => {
+export const NotFoundPage: FC = () => {
 
   return (
     <div className={PagesStyles.login}>

@@ -5,9 +5,9 @@ import {
   RESET_CONSTRUCTOR_ITEM, TConstructorActions
 } from "../actions/constructor-actions";
 import update from "immutability-helper";
-import {TIngredients} from "../../utils/types";
+import {TIngredientsData} from "../../utils/types";
 
-const constructorInitialState = {
+const constructorInitialState: TConstructorState = {
   bun: null,
   filling: []
 };
@@ -17,7 +17,7 @@ export const constructorReducer =
     : TConstructorState => {
   switch (action.type) {
     case ADD_CONSTRUCTOR_ITEM: {
-      const fillingItem: TIngredients = action.payload
+      const fillingItem: TIngredientsData = action.payload
       const uId: string = action.uId
       return {
         ...state,
@@ -26,7 +26,7 @@ export const constructorReducer =
       }
     }
     case DELETE_CONSTRUCTOR_ITEM: {
-      const deleteItem = (data: number): TIngredients[] => {
+      const deleteItem = (data: number): TIngredientsData[] => {
         state.filling.splice(data, 1)
         return state.filling
       }
@@ -60,6 +60,6 @@ export const constructorReducer =
 
 //types
 export type TConstructorState = {
-  bun: TIngredients | null;
-  filling: TIngredients[];
+  bun: TIngredientsData | null;
+  filling: TIngredientsData[];
 }

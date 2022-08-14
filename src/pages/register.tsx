@@ -63,8 +63,9 @@ export const RegisterPage = () => {
       </div>
       <div className='mt-6'>
         <Button
-          type="primary" 
-          size="medium">Зарегистрироваться</Button>
+          type="primary"
+          name='Зарегистрироваться'
+          size="medium"/>
       </div>
       <div className={`${PagesStyles.login__links} mt-20`}>
         <p className='text text_type_main-default mr-2'>Уже зарегистрированы?</p>

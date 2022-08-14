@@ -1,11 +1,11 @@
 import PagesStyles from "../../pages/pages.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {refreshUserInfo} from "../../utils/api";
 import {useDispatch} from "../../utils/types";
 
 
-const ProfileInfo = () => {
+const ProfileInfo: FC = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -52,12 +52,12 @@ const ProfileInfo = () => {
       <div className={`${PagesStyles.profile__buttons} mt-6`}>
         <Button
           type="secondary"
-          onClick={resetUserInfo}>Отмена</Button>
+          name='Отмена'
+          onClick={resetUserInfo}/>
         <Button
           type="primary"
-          size="medium">
-          Сохранить
-        </Button>
+          name='Сохранить'
+          size="medium"/>
       </div>
     </form>
   )

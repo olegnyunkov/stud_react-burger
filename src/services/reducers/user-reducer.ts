@@ -28,7 +28,7 @@ import {
   REFRESH_TOKEN_SUCCESS, TUserActions
 } from '../actions/user-actions';
 
-const userInitialState = {
+const userInitialState: TUserState = {
   name: '',
   email: '',
   password: '',

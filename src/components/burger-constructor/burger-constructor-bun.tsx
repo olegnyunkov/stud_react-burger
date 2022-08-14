@@ -1,14 +1,13 @@
 import React, {FC} from 'react';
-import PropTypes from "prop-types";
 import {
   ConstructorElement
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {TIngredients} from "../../utils/types";
+import {TIngredientsData} from "../../utils/types";
 
 interface IBurgerConstructorBun {
     text: string;
-    bun: TIngredients;
-    type: string;
+    bun: TIngredientsData;
+    type: "top" | "bottom" | undefined;
 }
 
 const BurgerConstructorBun: FC<IBurgerConstructorBun> = (props) => {

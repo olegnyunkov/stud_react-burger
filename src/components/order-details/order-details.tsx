@@ -4,7 +4,7 @@ import doneIcon from '../../images/done.png'
 import {useSelector} from "../../utils/types";
 
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
   const {order, isLoading, errorLoading} = useSelector(state => state.order)
 
   if (isLoading) {

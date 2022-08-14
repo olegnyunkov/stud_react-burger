@@ -20,7 +20,7 @@ export const useSelector: TypedUseSelectorHook<RootState> = useSelectorHook;
 export const useDispatch: () => AppDispatch = useDispatchHook
 
 //ingredients с сервера
-export type TIngredients = {
+export type TIngredientsData = {
   calories: number;
   carbohydrates: number;
   fat: number;
@@ -31,9 +31,15 @@ export type TIngredients = {
   price: number;
   proteins: number;
   type: string;
-  __v: number;
+  __v?: number;
   _id: string;
   uId?: string;
+  index?: number;
+}
+
+export type TIngredients = {
+  success: boolean;
+  data: TIngredientsData[]
 };
 
 //order с сервера
@@ -56,16 +62,19 @@ export type TUserRegistration = {
   refreshToken: string;
 }
 
+export type TWsDataOrders = {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name?: string;
+}
+
 export type TWsData = {
   success: boolean;
-  orders: Array<{
-    ingredients: string[];
-    _id: string;
-    status: string;
-    number: number;
-    createdAt: string;
-    updatedAt: string;
-  }>;
+  orders: TWsDataOrders[];
   total: number;
   totalToday: number;
 }
@@ -93,6 +102,13 @@ export type TApplicationActions =
 
 //хук useLocation
 export interface ILocationState {
+  background: {
+    hash: string;
+    key: string;
+    pathname: string;
+    search: string;
+    state: string | undefined;
+  };
   from: {
     pathname: string;
   };

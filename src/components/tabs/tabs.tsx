@@ -16,7 +16,7 @@ const Tabs: FC<ITabs> = (props) => {
 
   const onTabClick = (tab: string): void => {
     setCurrent(tab);
-    const element = document.getElementById(tab);
+    const element: HTMLElement | null = document.getElementById(tab);
     if (element) element.scrollIntoView({behavior: "smooth"});
   };
 
@@ -33,23 +33,17 @@ const Tabs: FC<ITabs> = (props) => {
   return (
     <div className={TabsStyles.ingredients__tabs}>
       <Tab 
-        value="buns" 
+        value="buns"
         active={current === 'buns'} 
-        onClick={(val) => onTabClick(val)}>
-        Булки
-      </Tab>
+        onClick={onTabClick}/>
       <Tab 
         value="sauces" 
         active={current === 'sauces'} 
-        onClick={onTabClick}>
-        Соусы
-      </Tab>
+        onClick={onTabClick}/>
       <Tab 
         value="mains" 
         active={current === 'mains'} 
-        onClick={onTabClick}>
-        Начинки
-      </Tab>
+        onClick={onTabClick}/>
     </div>
   )
 }

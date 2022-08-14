@@ -1,16 +1,16 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import PagesStyles from './pages.module.css';
 import FeedItem from "../components/feed-item/feed-item";
 import {onClose, wsInit, wsReset} from "../services/actions/ws-actions";
 import {nanoid} from "nanoid";
 import FeedInfo from "../components/feed-info/feed-info";
-import {useDispatch, useSelector} from "../utils/types";
+import {TWsDataOrders, useDispatch, useSelector} from "../utils/types";
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
   const dispatch = useDispatch();
   const {wsData} = useSelector(state => state.ws);
 
-  useEffect(() => {
+  useEffect((): ()=>void => {
     dispatch(wsInit())
     return () => dispatch(onClose())
   }, [dispatch])
@@ -24,11 +24,10 @@ export const FeedPage = () => {
   } else {
     return (
       <div className={PagesStyles.feed__info}>
-
         <div className={`${PagesStyles.feed} mr-15`}>
           <h2 className={`${PagesStyles.feed__title} text text_type_main-large`}>Лента заказов</h2>
           <div className={PagesStyles.feed__container}>
-            {wsData.orders.map(data => {
+            {wsData.orders.map((data: TWsDataOrders) => {
               return <FeedItem key={nanoid()} orders={data} url='/feed'/>
             })}
           </div>

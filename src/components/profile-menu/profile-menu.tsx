@@ -1,10 +1,10 @@
 import PagesStyles from "../../pages/pages.module.css";
 import {NavLink} from "react-router-dom";
-import React from "react";
+import React, {FC} from "react";
 import {sendUserLogoutInfo} from "../../utils/api";
 import {useDispatch} from "../../utils/types";
 
-const ProfileMenu = () => {
+const ProfileMenu: FC = () => {
   const dispatch = useDispatch();
   const userLogout = (): void => {
     dispatch(sendUserLogoutInfo(localStorage.getItem('refreshToken')))

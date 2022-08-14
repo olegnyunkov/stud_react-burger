@@ -9,7 +9,7 @@ import {
 } from "../actions/ws-actions";
 import {TWsData} from "../../utils/types";
 
-const wsInitialState = {
+const wsInitialState: TWsState = {
   wsRequest: false,
   wsConnected: false,
   wsError: false,
