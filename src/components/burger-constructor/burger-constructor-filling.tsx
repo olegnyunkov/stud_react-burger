@@ -9,7 +9,7 @@ import {
   ConstructorElement,  
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {TIngredientsData, useDispatch} from "../../utils/types";
+import {TIngredientsData, TIngredientsDataExtended, useDispatch} from "../../utils/types";
 
 interface IBurgerConstructorFilling {
   fill: TIngredientsData;
@@ -32,7 +32,7 @@ const BurgerConstructorFilling: FC<IBurgerConstructorFilling> = (props) => {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: TIngredientsData, monitor) {
+    hover(item: TIngredientsDataExtended, monitor) {
       if (!ref.current) {
         return
       }

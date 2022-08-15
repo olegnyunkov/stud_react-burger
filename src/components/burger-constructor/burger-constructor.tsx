@@ -139,6 +139,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
             type="primary"
             size="medium"
             name='Оформить заказ'
+            children='Оформить заказ'
             onClick={openOrderModal}/>
         </div>
       </section>

@@ -65,6 +65,7 @@ export const RegisterPage = () => {
         <Button
           type="primary"
           name='Зарегистрироваться'
+          children='Зарегистрироваться'
           size="medium"/>
       </div>
       <div className={`${PagesStyles.login__links} mt-20`}>

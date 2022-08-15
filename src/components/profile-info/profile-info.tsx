@@ -53,10 +53,12 @@ const ProfileInfo: FC = () => {
         <Button
           type="secondary"
           name='Отмена'
+          children='Отмена'
           onClick={resetUserInfo}/>
         <Button
           type="primary"
           name='Сохранить'
+          children='Сохранить'
           size="medium"/>
       </div>
     </form>

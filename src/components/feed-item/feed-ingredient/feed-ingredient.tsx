@@ -6,7 +6,6 @@ interface IFeedIngredient {
   id: string;
 }
 
-// @ts-ignore
 const FeedIngredient: FC<IFeedIngredient> = (props) => {
   const {id} = props;
   const {ingredients} = useSelector(state => state.ingredients)

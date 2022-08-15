@@ -6,7 +6,7 @@ import {nanoid} from "nanoid";
 import {Link, useLocation} from "react-router-dom";
 import { date } from "../../utils/utils";
 import { openModal } from "../../services/actions/modal-actions";
-import {ILocationState, TIngredientsData, TWsData, TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
+import {ILocationState, TIngredientsData, TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
 
 interface IFeedItem {
   orders: TWsDataOrders;
@@ -20,23 +20,25 @@ const FeedItem: FC<IFeedItem> = (props) => {
   const {wsData} = useSelector(state => state.ws);
   const {ingredients} = useSelector(state => state.ingredients)
 
-  const getIngredients = (id: string): TIngredientsData | undefined => {
-    return ingredients.find((item: TIngredientsData): boolean => item._id === id)
+  const getIngredients = (id: string): TIngredientsData => {
+    const lookup = ingredients.find((item: TIngredientsData): boolean => item._id === id)
+    if (lookup === undefined) {
+      throw new TypeError('Не может такого быть');
+    }
+    return lookup
   }
 
-  const ingredientsList = orders.ingredients.map((id: string): TIngredientsData | undefined => {
-    return getIngredients(id)
+  const ingredientsList = orders.ingredients.map((id: string): TIngredientsData => {
+      return getIngredients(id)
   })
 
-  const totalPrice = (arr: (TIngredientsData | undefined)[], sum: number = 0): number => {
-
-    for (let {price} of arr)
+  const totalPrice = (arr: TIngredientsData[] , sum: number = 0): number => {
+      for (let {price} of arr)
         sum += price
       return sum
-
   }
 
-  const elementCounter = (arr: (TIngredientsData | undefined)[]) => {
+  const elementCounter = (arr: TIngredientsData[]) => {
     if (arr.length - 5 > 0)
       return `+${arr.length - 5}`
   }

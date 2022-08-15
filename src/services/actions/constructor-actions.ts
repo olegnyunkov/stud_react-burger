@@ -17,7 +17,7 @@ export const resetConstructorItem = (): IResetConstructorItem => {
   return { type: RESET_CONSTRUCTOR_ITEM }
 };
 
-export const moveConstructorItem = (drag: number | undefined, hover: number): IMoveConstructorItem => {
+export const moveConstructorItem = (drag: number, hover: number): IMoveConstructorItem => {
   return { type: MOVE_CONSTRUCTOR_ITEM, dragIndex: drag, hoverIndex: hover }
 };
 
@@ -36,7 +36,7 @@ export interface IResetConstructorItem {
 }
 export interface IMoveConstructorItem {
   readonly type: typeof MOVE_CONSTRUCTOR_ITEM;
-  dragIndex: number | undefined;
+  dragIndex: number;
   hoverIndex: number;
 }
 

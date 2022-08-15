@@ -55,6 +55,7 @@ export const LoginPage = () => {
           <Button
             type="primary"
             name='Войти'
+            children='Войти'
             size="medium"/>
         </div>
         <div className={`${PagesStyles.login__links} mt-20`}>

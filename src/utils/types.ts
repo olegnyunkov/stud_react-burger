@@ -34,7 +34,10 @@ export type TIngredientsData = {
   __v?: number;
   _id: string;
   uId?: string;
-  index?: number;
+}
+
+export type TIngredientsDataExtended = TIngredientsData & {
+  index: number;
 }
 
 export type TIngredients = {

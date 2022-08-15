@@ -58,6 +58,7 @@ export const ForgotPasswordPage: FC = () => {
           <Button
             type="primary"
             name='Восстановить'
+            children='Восстановить'
             size="medium"></Button>
         </div>
         <div className={`${PagesStyles.login__links} mt-20`}>

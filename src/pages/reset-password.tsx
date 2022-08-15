@@ -60,6 +60,7 @@ export const ResetPasswordPage = () => {
           <Button
             type="primary"
             name='Сохранить'
+            children='Сохранить'
             size="medium"/>
         </div>
         <div className={`${PagesStyles.login__links} mt-20`}>
