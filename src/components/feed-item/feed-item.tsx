@@ -23,7 +23,7 @@ const FeedItem: FC<IFeedItem> = (props) => {
   const getIngredients = (id: string): TIngredientsData => {
     const lookup = ingredients.find((item: TIngredientsData): boolean => item._id === id)
     if (lookup === undefined) {
-      throw new TypeError('Не может такого быть');
+      throw new TypeError('find всегда найдет совпадение');
     }
     return lookup
   }

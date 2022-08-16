@@ -2,13 +2,13 @@ import PagesStyles from "../../pages/pages.module.css";
 import {nanoid} from "nanoid";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {date, ingredientsId} from "../../utils/utils";
-import React, {useEffect} from "react";
+import React, {useEffect, FC} from "react";
 import {useParams} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import {onClose, wsInit, wsInitToken} from "../../services/actions/ws-actions";
 import {TIngredientsData, TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
 
-const FeedDetails = () => {
+const FeedDetails: FC = () => {
   const dispatch = useDispatch();
   const {id} = useParams<{id: string}>();
   const {wsData} = useSelector(state => state.ws);
@@ -26,7 +26,12 @@ const FeedDetails = () => {
     };
   }, [dispatch]);
 
-  const ingredient = wsData && wsData.orders?.find((item: TWsDataOrders) => item._id === id);
+  const ingredient = wsData && wsData.orders.find((item: TWsDataOrders) => item._id === id);
+  if(ingredient === undefined) {
+    throw new TypeError('find всегда найдет совпадение');
+  } else if(ingredient === null) {
+    throw new TypeError('wsData не должно быть null');
+  }
   const ingredientList = ingredient && ingredientsId(ingredient.ingredients, ingredients);
   const accessToken = getCookie('accessToken');
 
@@ -36,22 +41,26 @@ const FeedDetails = () => {
     }
   }
 
-  const getIngredients = (id: string): TIngredientsData | undefined => {
-    return ingredients.find((item: TIngredientsData) => item._id === id)
+  const getIngredients = (id: string): TIngredientsData => {
+    const lookup = ingredients.find((item: TIngredientsData): boolean => item._id === id)
+    if (lookup === undefined) {
+      throw new TypeError('find всегда найдет совпадение');
+    }
+    return lookup
   }
 
-  const ingredientsLists = ingredient?.ingredients.map((id: string): TIngredientsData | undefined => {
+  const ingredientsLists = ingredient.ingredients.map((id: string): TIngredientsData => {
     return getIngredients(id)
   })
 
-  const totalPrice = (arr: (TIngredientsData | undefined)[], sum: number = 0) => {
+  const totalPrice = (arr: TIngredientsData[], sum: number = 0) => {
     for (let {price} of arr)
       sum += price
     return sum
   }
 
-  const uniqIngr = (arr: (TIngredientsData | undefined)[], obj: {} = {}) => {
-    arr.forEach((el: TIngredientsData | undefined) => {
+  const uniqIngr = (arr: TIngredientsData[], obj: {} = {}): void => {
+    arr.forEach((el: TIngredientsData) => {
       const name: string = el.name
       if (name in obj) {
         obj[name].count++
