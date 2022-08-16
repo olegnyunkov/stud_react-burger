@@ -61,7 +61,7 @@ const FeedItem: FC<IFeedItem> = (props) => {
           <p className='text text_type_main-medium mt-6'>{orders.name}</p>
           <div className={`${FeedItemStyles.feed__content} mt-6`}>
             <div className={FeedItemStyles.feed__ingredients}>
-              {orders && orders.ingredients.slice(0, 6).map((data: string) => {
+              {orders && orders.ingredients.slice(0, 6).map((data) => {
                 return <FeedIngredient key={nanoid()} id={data} />
               })}
               <p className={`${FeedItemStyles.feed__counter} text text_type_digits-default`}>{elementCounter(ingredientsList)}</p>

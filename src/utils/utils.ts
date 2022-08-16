@@ -3,11 +3,16 @@ import {TIngredientsData} from "./types";
 import {AppDispatch} from "../services/store";
 
 export const ingredientsId = (ids: string[], allIng: TIngredientsData[]) => {
-  return ids.map((id: string): TIngredientsData | undefined => {
-      return allIng.find((ing): boolean => ing._id === id);
+  return ids.map((id: string): TIngredientsData => {
+      const lookup = allIng.find((ing): boolean => ing._id === id);
+      if(lookup === undefined) {
+        throw new TypeError('совпадение будет найдено')
+      }
+      return lookup;
     }
   )
 }
+
 
 export const date = (info: string): string => {
   return new Date(info).toLocaleString();

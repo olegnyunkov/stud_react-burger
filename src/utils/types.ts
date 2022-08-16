@@ -34,6 +34,7 @@ export type TIngredientsData = {
   __v?: number;
   _id: string;
   uId?: string;
+  count?:number;
 }
 
 export type TIngredientsDataExtended = TIngredientsData & {

@@ -1,16 +1,17 @@
 import React, {FC} from "react";
 import FeedIngredientStyles from './feed-ingredient.module.css';
-import {TIngredientsData, useSelector} from "../../../utils/types";
+import {useSelector} from "../../../utils/types";
 
-interface IFeedIngredient {
+type IFeedIngredient = {
   id: string;
 }
 
-const FeedIngredient: FC<IFeedIngredient> = (props) => {
-  const {id} = props;
+// @ts-ignore
+//не смог разобраться почему TS выдает на сам компонент ошибку, когда типизируешь пропсы.
+const FeedIngredient: FC<IFeedIngredient> = ({id}) => {
   const {ingredients} = useSelector(state => state.ingredients)
 
-  const ingredient = ingredients.find((item: TIngredientsData) => {
+  const ingredient = ingredients.find((item) => {
     return item._id === id && item
   });
 

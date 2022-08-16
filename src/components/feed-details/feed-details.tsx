@@ -32,7 +32,7 @@ const FeedDetails: FC = () => {
   } else if(ingredient === null) {
     throw new TypeError('wsData не должно быть null');
   }
-  const ingredientList = ingredient && ingredientsId(ingredient.ingredients, ingredients);
+  const ingredientList = ingredientsId(ingredient.ingredients, ingredients);
   const accessToken = getCookie('accessToken');
 
   const status = (): string | undefined => {
@@ -59,9 +59,10 @@ const FeedDetails: FC = () => {
     return sum
   }
 
-  const uniqIngr = (arr: TIngredientsData[], obj: {} = {}): void => {
-    arr.forEach((el: TIngredientsData) => {
-      const name: string = el.name
+
+  const uniqIngr = (arr: TIngredientsData[], obj: any = {}): TIngredientsData[] => {
+    arr.forEach((el) => {
+      const name = el.name
       if (name in obj) {
         obj[name].count++
       } else {
@@ -84,7 +85,7 @@ const FeedDetails: FC = () => {
         <p className='text text_type_main-medium mb-6'>Состав:</p>
         <div className={`${PagesStyles.feed__page_container} pr-6`}>
 
-          {uniqIngr(ingredientList).map((item: any) => {
+          {uniqIngr(ingredientList).map((item) => {
             return (
               <div className={`${PagesStyles.feed__page_ingredient} mb-4`} key={nanoid()}>
                 <div className={`${PagesStyles.feed__page_block} mr-4`}>
