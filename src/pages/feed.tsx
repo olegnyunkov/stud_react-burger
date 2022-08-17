@@ -27,7 +27,7 @@ export const FeedPage: FC = () => {
         <div className={`${PagesStyles.feed} mr-15`}>
           <h2 className={`${PagesStyles.feed__title} text text_type_main-large`}>Лента заказов</h2>
           <div className={PagesStyles.feed__container}>
-            {wsData.orders.map((data: TWsDataOrders) => {
+            {wsData.orders.map((data) => {
               return <FeedItem key={nanoid()} orders={data} url='/feed'/>
             })}
           </div>

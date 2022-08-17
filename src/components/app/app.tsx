@@ -28,8 +28,8 @@ import {ILocationState, useDispatch, useSelector} from "../../utils/types";
 
 const App: FC = () => {
   const dispatch = useDispatch();
-  const [orderIsOpened, setOrderIsOpened] = useState(false);
-  const [modalOpened, setModalOpened] = useState(false);
+  const [orderIsOpened, setOrderIsOpened] = useState<boolean>(false);
+  const [modalOpened, setModalOpened] = useState<boolean>(false);
   const history = useHistory();
   const location = useLocation<ILocationState>();
   const background = location.state?.background;

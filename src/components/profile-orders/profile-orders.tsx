@@ -9,7 +9,7 @@ import {TWsDataOrders, useDispatch, useSelector} from "../../utils/types";
 const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
   const {wsData} = useSelector(state => state.ws);
-  const accessToken: string | undefined = getCookie('accessToken');
+  const accessToken = getCookie('accessToken');
 
   useEffect((): ()=>void => {
     dispatch(wsInitToken(`wss://norma.nomoreparties.space/orders?token=${accessToken}`))
@@ -25,7 +25,7 @@ const ProfileOrders: FC = () => {
   } else {
     return (
       <div className={ProfileOrdersStyles.orders__container}>
-        {wsData.orders?.reverse().map((data: TWsDataOrders) => {
+        {wsData.orders?.reverse().map((data) => {
           return <FeedItem key={nanoid()} orders={data} url='/profile/orders'/>
         })}
       </div>

@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {Dispatch, FC, SetStateAction} from "react";
 import {useHistory} from 'react-router-dom';
 import { useDrop } from "react-dnd";
 import {nanoid} from "nanoid";
@@ -22,8 +22,8 @@ import {TIngredientsData, useDispatch, useSelector} from "../../utils/types";
 interface IBurgerConstructor {
   orderIsOpened: boolean;
   modalOpened: boolean;
-  setOrderIsOpened: any;
-  setModalOpened: any;
+  setOrderIsOpened: Dispatch<SetStateAction<boolean>>;
+  setModalOpened: Dispatch<SetStateAction<boolean>>;
   closeModal: () => void;
 }
 
@@ -51,7 +51,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
 
   //получение массива id для формирования номера заказа
   const saveOrder = (bread: TIngredientsData, meat: TIngredientsData[]): string[] => {
-    const fillingId = meat.map((item: TIngredientsData): string => item._id);
+    const fillingId = meat.map((item): string => item._id);
     return [bread._id, ...fillingId];
   };
 
@@ -78,7 +78,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
   //общая стоимость заказа
   const totalPrice = (): number => {
     const bunCost: number = bun ? bun.price * 2 : 0;
-    const fillCost: number = filling.reduce((s: number, v: TIngredientsData) => s + v.price, 0);
+    const fillCost: number = filling.reduce((s, v) => s + v.price, 0);
     return fillCost + bunCost;
   };
 
@@ -103,7 +103,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
           }
         >
           {filling.length ? (
-            filling.map((fill: TIngredientsData, index: number) => {
+            filling.map((fill, index) => {
               return (
                 <BurgerConstructorFilling
                   key={fill.uId}

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import {Link, Redirect, useLocation} from 'react-router-dom';
 import {PasswordInput, Input, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PagesStyles from './pages.module.css';
@@ -6,7 +6,7 @@ import {setNewPassword} from '../utils/api';
 import { resetError } from "../services/actions/user-actions";
 import {ILocationState, useDispatch, useSelector} from "../utils/types";
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<ILocationState>();
   const [value, setValue] = useState<string>('');

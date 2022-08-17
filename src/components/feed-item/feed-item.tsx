@@ -21,14 +21,14 @@ const FeedItem: FC<IFeedItem> = (props) => {
   const {ingredients} = useSelector(state => state.ingredients)
 
   const getIngredients = (id: string): TIngredientsData => {
-    const lookup = ingredients.find((item: TIngredientsData): boolean => item._id === id)
+    const lookup = ingredients.find((item): boolean => item._id === id)
     if (lookup === undefined) {
       throw new TypeError('find всегда найдет совпадение');
     }
     return lookup
   }
 
-  const ingredientsList = orders.ingredients.map((id: string): TIngredientsData => {
+  const ingredientsList = orders.ingredients.map((id): TIngredientsData => {
       return getIngredients(id)
   })
 

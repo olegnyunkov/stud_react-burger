@@ -1,12 +1,12 @@
 import React from 'react';
 import IngredientDetailsStyles from './ingredient-details.module.css';
 import {useParams} from "react-router-dom";
-import {TIngredientsData, useSelector} from "../../utils/types";
+import {useSelector} from "../../utils/types";
 
 const IngredientDetails = () => {
   const {id} = useParams<{id: string}>();
   const {ingredients} = useSelector(state => state.ingredients);
-  const ingredient = ingredients.find((item: TIngredientsData) => item._id === id);
+  const ingredient = ingredients.find((item) => item._id === id);
 
   if(!ingredient) {
     return <p>Загрузка...</p>

@@ -10,6 +10,10 @@ interface IModal {
   title: string;
   children: ReactNode;
 }
+//появилась ошибка что key это undefined, при нажатии на любую клавишу, расширил интерфейс
+interface IEscButton extends KeyboardEvent {
+  key: string
+}
 
 const modalRoot = document.getElementById('modals');
 
@@ -18,17 +22,17 @@ const Modal: FC<IModal> = (props) => {
   const {modalOpened} = useSelector(state => state.modal)
 
   useEffect(() => {
-    const closeEscBtn = (evt: React.KeyboardEvent<HTMLDivElement>): void => {
+    const closeEscBtn = (evt: IEscButton): void => {
       evt.key === 'Escape' && closeModal()
     }
 
     if (modalOpened) {
-      document.addEventListener('keydown', () => closeEscBtn)
+      document.addEventListener('keydown', closeEscBtn)
     }
     return () => {
-      document.removeEventListener('keydown', () => closeEscBtn)
+      document.removeEventListener('keydown', closeEscBtn)
     }
-  })
+  }, [modalOpened])
 
   return ReactDOM.createPortal(
     <>

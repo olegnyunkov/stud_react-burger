@@ -12,7 +12,6 @@ interface IMatchParams {
 export const ProfilePage: FC = () => {
   const infoMatch = useRouteMatch<IMatchParams>('/profile')
   const ordersMatch = useRouteMatch<IMatchParams>('/profile/orders')
-  console.log(infoMatch)
 
   return (
     <div className={PagesStyles.profile}>

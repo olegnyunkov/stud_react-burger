@@ -6,7 +6,7 @@ import {sendUserRegistrationInfo} from '../utils/api';
 import { resetError } from "../services/actions/user-actions";
 import {ILocationState, useDispatch, useSelector} from "../utils/types";
 
-export const RegisterPage = () => {
+export const RegisterPage: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<ILocationState>();
   const [name, setName] = useState<string>('');

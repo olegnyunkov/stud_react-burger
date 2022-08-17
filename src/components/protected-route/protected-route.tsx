@@ -1,14 +1,8 @@
-import React, {FC, ReactNode} from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import React, {FC} from 'react';
+import {Redirect, Route, RouteProps} from 'react-router-dom';
 import {useSelector} from "../../utils/types";
 
-interface IProtectedRoute {
-  children: ReactNode;
-  exact?: boolean;
-  path: string;
-}
-
-export const ProtectedRoute: FC<IProtectedRoute> = ({children, ...rest}) => {
+export const ProtectedRoute: FC<RouteProps> = ({children, ...rest}) => {
   const {authorized} = useSelector(store => store.user);
 
   return (

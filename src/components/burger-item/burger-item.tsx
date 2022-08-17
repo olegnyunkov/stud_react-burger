@@ -28,7 +28,7 @@ const BurgerItem: FC<IBurgerItem> = (props) => {
 
   //счетчик количества ингредиентов в конструкторе
   const counter = (): number => {
-    const fillId = filling.map((fill: TIngredientsData) => {
+    const fillId = filling.map((fill) => {
       return fill._id
     })
     let count: number = 0;

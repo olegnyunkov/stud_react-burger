@@ -26,7 +26,7 @@ const FeedDetails: FC = () => {
     };
   }, [dispatch]);
 
-  const ingredient = wsData && wsData.orders.find((item: TWsDataOrders) => item._id === id);
+  const ingredient = wsData && wsData.orders.find((item) => item._id === id);
   if(ingredient === undefined) {
     throw new TypeError('find всегда найдет совпадение');
   } else if(ingredient === null) {
@@ -42,14 +42,14 @@ const FeedDetails: FC = () => {
   }
 
   const getIngredients = (id: string): TIngredientsData => {
-    const lookup = ingredients.find((item: TIngredientsData): boolean => item._id === id)
+    const lookup = ingredients.find((item): boolean => item._id === id)
     if (lookup === undefined) {
       throw new TypeError('find всегда найдет совпадение');
     }
     return lookup
   }
 
-  const ingredientsLists = ingredient.ingredients.map((id: string): TIngredientsData => {
+  const ingredientsLists = ingredient.ingredients.map((id): TIngredientsData => {
     return getIngredients(id)
   })
 

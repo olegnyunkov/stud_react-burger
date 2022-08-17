@@ -6,13 +6,6 @@ import {sendResetPasswordRequest} from "../utils/api";
 import { resetError } from "../services/actions/user-actions";
 import {ILocationState, useDispatch, useSelector} from "../utils/types";
 
-type TButton = {
-  type: string;
-  name: string;
-  size: string;
-  children: string;
-}
-
 export const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<ILocationState>();
@@ -59,7 +52,7 @@ export const ForgotPasswordPage: FC = () => {
             type="primary"
             name='Восстановить'
             children='Восстановить'
-            size="medium"></Button>
+            size="medium"/>
         </div>
         <div className={`${PagesStyles.login__links} mt-20`}>
           <p className='text text_type_main-default mr-2'>Вспомнили пароль?</p>

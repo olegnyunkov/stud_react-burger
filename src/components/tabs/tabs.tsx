@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import TabsStyles from './tabs.module.css';
 import {
   Tab,
@@ -35,14 +35,17 @@ const Tabs: FC<ITabs> = (props) => {
       <Tab 
         value="buns"
         active={current === 'buns'} 
+        children='Булки'
         onClick={onTabClick}/>
       <Tab 
         value="sauces" 
         active={current === 'sauces'} 
+        children='Соусы'
         onClick={onTabClick}/>
       <Tab 
         value="mains" 
         active={current === 'mains'} 
+        children='Начинки'
         onClick={onTabClick}/>
     </div>
   )
